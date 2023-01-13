@@ -1,0 +1,12 @@
+@import "./../../constants/colors.scss";
+
+.container {
+  width: calc(100vw - 104px);
+  min-height: 100vh;
+  display: flex;
+}
+.left_container {
+  width: 70%;
+  min-height: 100vh;
+}
+

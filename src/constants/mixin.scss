@@ -1,0 +1,11 @@
+@mixin flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flex_position($jc, $al, $fd: row) {
+  display: flex;
+  flex-direction: $fd;
+  justify-content: $jc;
+  align-items: $al;
+}

@@ -1,0 +1,96 @@
+@import "./../../constants/colors.scss";
+@import "./../../constants/mixin.scss";
+
+.container {
+  height: calc(100vh - 48px);
+  width: 104px;
+  background-color: $base-color;
+  border-radius: 0 16px 16px 0;
+  @include flex_position(space-between, center, column);
+  padding: 24px 0;
+}
+.logo {
+  @include flex_center;
+  height: 56px;
+  width: 56px;
+  background-color: rgb($logo-bg-color, 0.26);
+  border-radius: 10px;
+}
+.menu_button {
+  height: 60%;
+  @include flex_position(space-between, center, column);
+}
+.link_container {
+  @include flex_center;
+  width: 56px;
+  height: 56px;
+  pointer-events: auto;
+  border-radius: 8px;
+}
+.hover_container {
+  position: relative;
+  @include flex_center;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px 0 0 8px;
+  pointer-events: none;
+}
+
+.link_container:hover {
+  background-color: $primary-color;
+  .icon {
+    color: white;
+  }
+  ~ .hover_right_block {
+    background-color: $secondary-color;
+  }
+}
+.hover_container:hover{
+  background-color: $secondary-color;
+}
+
+.hover_right_block {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 12px;
+  height: 104px;
+}
+
+.hover_right_block::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  background-color: $base-color;
+}
+.hover_right_block::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  bottom: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  background-color: $base-color;
+}
+
+.exit_button {
+  @include flex_center;
+  height: 56px;
+  width: 56px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.icon {
+  color: $primary-color;
+}
+.exit_button:hover {
+  background-color: $primary-color;
+  .icon {
+    color: white;
+  }
+}
