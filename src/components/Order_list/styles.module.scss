@@ -1,7 +1,52 @@
 @import "./../../constants/colors.scss";
 
-.container {
-  width: 30%;
-  height: 100vh;
-  background-color: $base-color;
+
+.item_container {
+  height: 100%;
+  margin-top: 24px;
+  border-top: 1px solid $third-color;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+.item_container::-webkit-scrollbar {
+  display: none;
+}
+.down_container {
+  border-top: 1px solid $third-color;
+  padding-top: 24px;
+}
+
+.summary_block {
+  display: grid;
+  gap: 16px 0;
+  grid-template-columns: auto 1fr 1fr 1fr 1fr auto;
+  grid-template-rows: 23px 23px;
+  grid-template-areas:
+    "discaunt . . . . discaunt_price"
+    "sub_total . . . . sub_total_price";
+  margin-bottom: 42px;
+}
+.discount {
+  grid-area: discaunt;
+  color: $secont-text-color;
+  font-family: "Barlow-400";
+  font-size: 14px;
+}
+.discount_price {
+  grid-area: discaunt_price;
+  text-align: end;
+  color: $white-color;
+  font-size: 16px;
+}
+.sub_total {
+  grid-area: sub_total;
+  color: $secont-text-color;
+  font-family: "Barlow-400";
+  font-size: 14px;
+}
+.sub_total_price {
+  grid-area: sub_total_price;
+  text-align: end;
+  color: $white-color;
+  font-size: 16px;
 }

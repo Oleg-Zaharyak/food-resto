@@ -1,0 +1,90 @@
+@import "./../../constants/colors.scss";
+@import "./../../assets/Fonts/fonts.scss";
+@import "./../../constants/mixin.scss";
+
+.container {
+  width: 410px;
+  height: 100vh;
+  padding: 25px;
+  background-color: $base-color;
+  @include flex_position(space-between, normal, column);
+}
+.up_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+.top_container {
+  color: $white-color;
+  font-size: 20px;
+  font-family: "Barlow-600";
+  line-height: 28px;
+}
+.delivery_button {
+  height: 34px;
+  background-color: inherit;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+  margin-right: 8px;
+  color: $primary-color;
+  font-size: 14px;
+  font-family: "Barlow-600";
+  padding: 7px 12px;
+  line-height: 19.6px;
+  cursor: pointer;
+}
+input[type="radio"] {
+  display: none;
+}
+input:checked + .delivery_button {
+  background-color: $primary-color;
+  color: $white-color;
+  border: 1px solid $primary-color;
+}
+
+.delivery_button:hover {
+  background-color: $primary-color;
+  color: $white-color;
+  border: 1px solid $primary-color;
+}
+.bottom_container {
+  height: 20px;
+  color: $white-color;
+  font-size: 16px;
+  font-family: "Barlow-600";
+  line-height: 22.4px;
+  display: grid;
+  gap: 0 16px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 48px 48px;
+  grid-template-rows: 1fr;
+  grid-template-areas: "item . . . qty price";
+}
+
+.item {
+  grid-area: item;
+}
+.qty {
+  grid-area: qty;
+  margin: 0 auto;
+}
+.price {
+  grid-area: price;
+  margin: 0 auto;
+}
+
+.payment_button {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 8px;
+  border: 1px solid $primary-color;
+  background-color: inherit;
+  font-family: "Barlow-600";
+  font-size: 14px;
+  color: $primary-color;
+  cursor: pointer;
+}
+
+.payment_button:hover {
+  color: $white-color;
+  background-color: $primary-color;
+}

@@ -1,16 +1,19 @@
 import React from "react";
 import style from "./styles.module.scss";
-import img from "./../../assets/images/image4.png";
 
-export const ItemCard = () => {
+export const ItemCard = (props) => {
   return (
     <div className={style.container}>
       <div className={style.second_container}>
-        <img src={img} alt="img" className={style.image} />
+        <img
+          src={require(`./../../assets/images/${props.src}.png`)}
+          alt="img"
+          className={style.image}
+        />
         <div className={style.text_block}>
-          <span className={style.top_text}>Spicy seasoned seafood noodles</span>
-          <span className={style.middle_text}>$ 2.29</span>
-          <span className={style.bottom_text}>20 Bowls available</span>
+          <span className={style.top_text}>{props.name}</span>
+          <span className={style.middle_text}>{props.price}</span>
+          <span className={style.bottom_text}>{props.bowl}</span>
         </div>
       </div>
     </div>

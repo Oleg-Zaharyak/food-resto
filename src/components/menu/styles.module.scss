@@ -2,7 +2,7 @@
 @import "./../../constants/mixin.scss";
 
 .container {
-  height: calc(100vh - 48px);
+  height: 100vh;
   width: 104px;
   background-color: $base-color;
   border-radius: 0 16px 16px 0;
@@ -38,6 +38,7 @@
 
 .link_container:hover {
   background-color: $primary-color;
+  box-shadow: 0px 0px 0 12px $secondary-color, 18px 0px 0 12px $secondary-color;
   .icon {
     color: white;
   }
@@ -45,8 +46,20 @@
     background-color: $secondary-color;
   }
 }
-.hover_container:hover{
-  background-color: $secondary-color;
+.active {
+  @include flex_center;
+  width: 56px;
+  height: 56px;
+  background-color: $primary-color;
+  pointer-events: auto;
+  border-radius: 8px;
+  box-shadow: 0px 0px 0 12px $secondary-color, 18px 0px 0 12px $secondary-color;
+  .icon {
+    color: white;
+  }
+  ~ .hover_right_block {
+    background-color: $secondary-color;
+  }
 }
 
 .hover_right_block {
