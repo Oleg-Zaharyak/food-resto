@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { OrderList } from "../Order_list";
+import { TypeDelivery } from "../Type_delivery";
 import style from "./styles.module.scss";
 
 export const Payment = () => {
@@ -23,11 +24,15 @@ export const Payment = () => {
     return parts.length > 1 ? parts.join(" ") : value;
   }
 
+  const onClick = () => {
+    document.getElementById("payment").style.display = "none";
+  };
+
   return (
     <div className={style.container}>
       <div className={style.left_container}>
         <div className={style.left_up_container}>
-          <button className={style.back_arrow}>
+          <button onClick={onClick} className={style.back_arrow}>
             <svg
               className={style.arrow_icon}
               width="24"
@@ -222,7 +227,10 @@ export const Payment = () => {
             ></input>
           </div>
           <div className={style.horiz_line}></div>
-          <div className={style.selector}></div>
+          <div className={style.selector}>
+            <div className={style.selector_text}>Order Type</div>
+            <TypeDelivery />
+          </div>
           <div className={style.table_no}>
             <label for="table_no" className={style.label}>
               Table no.
@@ -231,12 +239,15 @@ export const Payment = () => {
               type="text"
               name="table_no"
               id="table_no"
+              placeholder="Enter value"
               className={style.input}
             ></input>
           </div>
         </form>
         <div className={style.buttons}>
-          <button className={style.cancel_button}>Cancel</button>
+          <button onClick={onClick} className={style.cancel_button}>
+            Cancel
+          </button>
           <button className={style.confirm_button}>Confirm Payment</button>
         </div>
       </div>

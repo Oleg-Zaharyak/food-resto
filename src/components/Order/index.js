@@ -3,6 +3,9 @@ import { OrderList } from "../Order_list";
 import style from "./styles.module.scss";
 
 export const Order = () => {
+  const onClick = () => {
+    document.getElementById("payment").style.display = "block";
+  };
   return (
     <form className={style.container}>
       <div className={style.up_container}>
@@ -28,7 +31,9 @@ export const Order = () => {
         </div>
       </div>
       <OrderList />
-      <button className={style.payment_button}>Continue to Payment</button>
+      <button onClick={onClick} className={style.payment_button}>
+        Continue to Payment
+      </button>
     </form>
   );
 };

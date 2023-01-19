@@ -84,7 +84,7 @@
     "card_name card_name"
     "expiration_date cvv"
     "horiz_line horiz_line"
-    " . table_no";
+    " selector table_no";
 }
 .payment_text {
   grid-area: peyment_text;
@@ -234,6 +234,15 @@ input:checked + .paypal_button {
   height: 1px;
   background-color: $third-color;
 }
+.selector {
+  grid-area: selector;
+  height: 74px;
+}
+.selector_text {
+  color: $white-color;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
 
 .table_no {
   grid-area: table_no;
@@ -242,9 +251,9 @@ input:checked + .paypal_button {
   height: 48px;
   display: flex;
 }
+.confirm_button,
 .cancel_button {
   width: 100%;
-  margin-right: 8px;
   color: $primary-color;
   background-color: inherit;
   border: 1px solid $primary-color;
@@ -253,13 +262,11 @@ input:checked + .paypal_button {
   font-size: 14px;
   cursor: pointer;
 }
-.confirm_button {
-  width: 100%;
-  border-radius: 8px;
+.cancel_button {
+  margin-right: 8px;
+}
+.confirm_button:hover,
+.cancel_button:hover {
   background-color: $primary-color;
-  color: white;
-  font-family: "Barlow-600";
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
+  color: $white-color;
 }
