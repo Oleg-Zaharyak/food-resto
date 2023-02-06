@@ -7,7 +7,7 @@ export const Order = () => {
     document.getElementById("payment").style.display = "block";
   };
   return (
-    <form className={style.container}>
+    <div className={style.container}>
       <div className={style.up_container}>
         <div className={style.top_container}>Order #324234</div>
         <div className={style.middle_container}>
@@ -34,6 +34,6 @@ export const Order = () => {
       <button onClick={onClick} className={style.payment_button}>
         Continue to Payment
       </button>
-    </form>
+    </div>
   );
 };

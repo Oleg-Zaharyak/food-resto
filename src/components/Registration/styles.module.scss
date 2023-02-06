@@ -1,0 +1,155 @@
+@import "./../../constants/colors.scss";
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: $secondary-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signUp_container {
+  padding: 24px;
+  width: 50vw;
+  background-color: $base-color;
+  border-radius: 8px;
+  display: grid;
+  gap: 24px 16px;
+  grid-template-columns: 1fr 1fr 1px 1fr 1fr;
+  grid-template-rows: max-content 1px 1fr 1fr 1fr 1fr 1fr 48px;
+  grid-template-areas:
+    "signUp_text          signUp_text         .           exit               exit"
+    "horz_line            horz_line           horz_line   horz_line          horz_line"
+    "first_name           first_name          vert_line   logIn_other_way    logIn_other_way"
+    "last_name_container  last_name_container vert_line   logIn_other_way    logIn_other_way"
+    "number_container     number_container    vert_line   logIn_other_way    logIn_other_way"
+    "email_input          email_input         vert_line   logIn_other_way    logIn_other_way "
+    "password_input       password_input      vert_line   logIn_other_way    logIn_other_way "
+    "signUp_button        signUp_button       vert_line   logIn_buttons      logIn_buttons  ";
+}
+.signUp_text {
+  grid-area: signUp_text;
+  font-family: "Barlow-600";
+  font-size: 28px;
+  color: $white-color;
+  text-align: start;
+}
+.exit {
+  grid-area: exit;
+  text-decoration: none;
+  color: $white-color;
+  text-align: end;
+}
+.horz_line {
+  grid-area: horz_line;
+  height: 100%;
+  background-color: $third-color;
+}
+.vert_line {
+  grid-area: vert_line;
+  height: 100%;
+  background-color: $third-color;
+}
+input {
+  height: 48px;
+  width: 100%;
+  background-color: $fourth-color;
+  color: $white-color;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+  padding: 0 8px;
+  text-align: center;
+}
+input:focus-visible {
+  outline: none;
+}
+.email_lable,
+.password_lable,
+.number_lable,
+.last_name_lable,
+.first_name_lable {
+  margin-bottom: 8px;
+}
+.email_container,
+.password_container,
+.number_container,
+.last_name_container,
+.first_name_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  color: $white-color;
+}
+.first_name_container {
+  grid-area: first_name;
+}
+.last_name_container {
+  grid-area: last_name_container;
+}
+.number_container {
+  grid-area: number_container;
+}
+.email_container {
+  grid-area: email_input;
+}
+.password_container {
+  grid-area: password_input;
+}
+.logIn_buttons,
+.signUp_buttons {
+  color: $primary-color;
+  border: 1px solid $primary-color;
+  height: 48px;
+  font-family: "Barlow-600";
+  border-radius: 8px;
+  background-color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logIn_buttons:hover,
+.signUp_buttons:hover {
+  background-color: $primary-color;
+  color: $white-color;
+}
+
+.logIn_buttons {
+  grid-area: logIn_buttons;
+}
+.signUp_buttons {
+  grid-area: signUp_button;
+}
+.logIn_other_way {
+  grid-area: logIn_other_way;
+  display: flex;
+  flex-direction: column;
+}
+.logIn_other_way_text {
+  font-family: "Barlow-600";
+  color: $white-color;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.google,
+.facebook {
+  height: 48px;
+  background-color: $fourth-color;
+  margin-bottom: 24px;
+  text-align: center;
+  color: $white-color;
+  border: 1px solid $primary-color;
+  font-family: "Barlow-600";
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.google:hover,
+.facebook:hover {
+  background-color: $white-color;
+  color: $fourth-color;
+}

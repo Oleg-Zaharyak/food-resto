@@ -73,7 +73,6 @@
   display: grid;
   gap: 16px 13px;
   grid-template-columns: 1fr 1fr;
-  // grid-template-rows: 1fr 64px 1fr 1fr 1fr 1px 1fr 48px;
   grid-template-areas:
     "peyment_text peyment_text"
     "aval_metod_text aval_metod_text"

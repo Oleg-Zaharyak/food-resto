@@ -1,0 +1,35 @@
+@import "./../../constants/colors.scss";
+
+.container {
+  width: 100%;
+  background-color: $base-color;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.upper_container {
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  background-color: $secondary-color;
+  padding: 7px;
+  border-radius: 8px;
+}
+.procend {
+  font-size: 12px;
+  margin-left: 12px;
+  margin-right: 6px;
+}
+.main_text {
+  color: $white-color;
+  font-family: "Barlow-600";
+  font-size: 28px;
+}
+.second_text {
+  color: $secont-text-color;
+  font-size: 14px;
+}

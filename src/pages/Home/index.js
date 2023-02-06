@@ -56,6 +56,24 @@ export const Home = () => {
       price: "$" + 7.0,
       bowl: "30 Bowls available",
     },
+    {
+      src: "Image7",
+      name: "Healthy noodle with spinach leaf",
+      price: "$" + 4.99,
+      bowl: "22 Bowls available",
+    },
+    {
+      src: "Image8",
+      name: "Hot spicy fried rice with omelet",
+      price: "$" + 3.49,
+      bowl: "27 Bowls available",
+    },
+    {
+      src: "Image9",
+      name: "Spicy instant noodle with special omelette",
+      price: "$" + 7.0,
+      bowl: "30 Bowls available",
+    },
   ];
   return (
     <div className={style.container}>
