@@ -17,13 +17,10 @@
   display: grid;
   gap: 24px 16px;
   grid-template-columns: 1fr 1fr 1px 1fr 1fr;
-  grid-template-rows: max-content 1px 1fr 1fr 1fr 1fr 1fr 48px;
+  grid-template-rows: max-content 1px 1fr 1fr 48px;
   grid-template-areas:
     "signUp_text          signUp_text         .           exit               exit"
     "horz_line            horz_line           horz_line   horz_line          horz_line"
-    "first_name           first_name          vert_line   logIn_other_way    logIn_other_way"
-    "last_name_container  last_name_container vert_line   logIn_other_way    logIn_other_way"
-    "number_container     number_container    vert_line   logIn_other_way    logIn_other_way"
     "email_input          email_input         vert_line   logIn_other_way    logIn_other_way "
     "password_input       password_input      vert_line   logIn_other_way    logIn_other_way "
     "signUp_button        signUp_button       vert_line   logIn_buttons      logIn_buttons  ";
@@ -65,31 +62,16 @@ input:focus-visible {
   outline: none;
 }
 .email_lable,
-.password_lable,
-.number_lable,
-.last_name_lable,
-.first_name_lable {
+.password_lable {
   margin-bottom: 8px;
 }
 .email_container,
-.password_container,
-.number_container,
-.last_name_container,
-.first_name_container {
+.password_container {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 20px;
   color: $white-color;
-}
-.first_name_container {
-  grid-area: first_name;
-}
-.last_name_container {
-  grid-area: last_name_container;
-}
-.number_container {
-  grid-area: number_container;
 }
 .email_container {
   grid-area: email_input;

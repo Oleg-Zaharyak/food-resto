@@ -5,7 +5,7 @@ import { TypeDelivery } from "../../components/Type_delivery";
 import { CircleGraph } from "../../components/Statistics_graph";
 import { OrderTableItem } from "../../components/Oreder_table";
 
-export const Information = () => {
+export const Statistic = () => {
   const data = [
     {
       src: "Dolar",
@@ -92,6 +92,7 @@ export const Information = () => {
             name={el.name}
             proc={el.proc}
             arrow={el.arrow}
+            key={index}
           />
         ))}
       </div>
@@ -125,6 +126,7 @@ export const Information = () => {
               menu={el.menu}
               payment={el.payment}
               status={el.status}
+              key={index}
             />
           ))}
         </div>
@@ -135,8 +137,8 @@ export const Information = () => {
           <TypeDelivery />
         </div>
         <div className={style.most_order_item_container}>
-          {data_item.map((el) => (
-            <div className={style.most_order_item}>
+          {data_item.map((el,index) => (
+            <div className={style.most_order_item} key={index}>
               <img
                 className={style.most_order_image}
                 src={require(`./../../assets/images/${el.src}.png`)}

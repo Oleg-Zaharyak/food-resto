@@ -1,0 +1,46 @@
+@import "./../../constants/colors.scss";
+
+.wrap {
+  width: calc(100vw - 104px);
+  max-height: 100vh;
+  padding: 24px;
+}
+.container {
+  width: 100%;
+  border-radius: 8px;
+  background-color: $third-color;
+  position: relative;
+  padding: 24px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $fourth-color;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+.user_name {
+  color: $white-color;
+  font-family: "Barlow-600";
+  font-size: 28px;
+}
+.icon {
+  color: $primary-color;
+}
+.log_out_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid $primary-color;
+  width: 56px;
+  height: 56px;
+}
+.log_out_button:hover {
+  background-color: $primary-color;
+  .icon {
+    color: $white-color;
+  }
+}

@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/userSlice";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import style from "./styles.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export const RegistrationPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  const handlerRegistration = (email, pass) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then(({ user }) => {
+        //saveUserInfo(user.id)
+        dispatch(setUser(user));
+        navigate("/");
+      })
+      .catch(console.error);
+  };
+
   return (
     <div className={style.container}>
       <div className={style.signUp_container}>
@@ -23,55 +44,28 @@ export const RegistrationPage = () => {
           </svg>
         </NavLink>
         <div className={style.horz_line}></div>
-
-        <div className={style.first_name_container}>
-          <label for="signUp_name" className={style.first_name_lable}>
-            First Name
-          </label>
-          <input
-            placeholder="Enter your first name"
-            id="signUp_name"
-            type="text"
-          ></input>
-        </div>
-        <div className={style.last_name_container}>
-          <label for="signUp_last_name" className={style.last_name_lable}>
-            Last Name
-          </label>
-          <input
-            placeholder="Enter your last name"
-            id="signUp_last_name"
-            type="text"
-          ></input>
-        </div>
-        <div className={style.number_container}>
-          <label for="signUp_number" className={style.number_lable}>
-            Number
-          </label>
-          <input
-            placeholder="Enter your number"
-            id="signUp_number"
-            type="text"
-          ></input>
-        </div>
         <div className={style.email_container}>
-          <label for="signUp_email" className={style.email_lable}>
+          <label htmlFor="signUp_email" className={style.email_lable}>
             Email
           </label>
           <input
             placeholder="Enter your email"
             id="signUp_email"
             type="email"
+            value={email}
+            onChange={(el) => setEmail(el.target.value)}
           ></input>
         </div>
         <div className={style.password_container}>
-          <label for="signUp_password" className={style.password_lable}>
+          <label htmlFor="signUp_password" className={style.password_lable}>
             Password
           </label>
           <input
             placeholder="Enter your password"
             id="signUp_password"
             type="password"
+            value={pass}
+            onChange={(el) => setPass(el.target.value)}
           ></input>
         </div>
         <div className={style.vert_line}></div>
@@ -83,7 +77,7 @@ export const RegistrationPage = () => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-google"
+              className="bi bi-google"
               viewBox="0 0 16 16"
               style={{ marginRight: 10 }}
             >
@@ -98,7 +92,7 @@ export const RegistrationPage = () => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-facebook"
+              className="bi bi-facebook"
               viewBox="0 0 16 16"
               id="IconChangeColor"
               style={{ marginRight: 10 }}
@@ -112,9 +106,12 @@ export const RegistrationPage = () => {
             Facebook
           </button>
         </div>
-        <NavLink to={"/"} className={style.signUp_buttons}>
+        <button
+          onClick={() => handlerRegistration(email, pass)}
+          className={style.signUp_buttons}
+        >
           Sign Up
-        </NavLink>
+        </button>
         <NavLink to={"/login"} className={style.logIn_buttons}>
           Return to Log In
         </NavLink>

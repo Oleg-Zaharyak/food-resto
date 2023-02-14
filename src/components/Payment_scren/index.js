@@ -177,7 +177,7 @@ export const Payment = () => {
             </label>
           </div>
           <div className={style.payment_name}>
-            <label for="name" className={style.label}>
+            <label htmlFor="name" className={style.label}>
               Cardholder Name
             </label>
             <input
@@ -189,7 +189,7 @@ export const Payment = () => {
             ></input>
           </div>
           <div className={style.card_number}>
-            <label for="card_number" className={style.label}>
+            <label htmlFor="card_number" className={style.label}>
               Card Number
             </label>
             <input
@@ -203,7 +203,7 @@ export const Payment = () => {
             ></input>
           </div>
           <div className={style.expiration_date}>
-            <label for="expiration_date" className={style.label}>
+            <label htmlFor="expiration_date" className={style.label}>
               Expiration Date
             </label>
             <input
@@ -214,7 +214,7 @@ export const Payment = () => {
             ></input>
           </div>
           <div className={style.cvv}>
-            <label for="cvv" className={style.label}>
+            <label htmlFor="cvv" className={style.label}>
               CVV
             </label>
             <input
@@ -232,7 +232,7 @@ export const Payment = () => {
             <TypeDelivery />
           </div>
           <div className={style.table_no}>
-            <label for="table_no" className={style.label}>
+            <label htmlFor="table_no" className={style.label}>
               Table no.
             </label>
             <input

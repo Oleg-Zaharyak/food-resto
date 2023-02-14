@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/userSlice";
 import { NavLink } from "react-router-dom";
 import style from "./styles.module.scss";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  const handlerLogin = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.accessToken,
+          })
+        );
+        navigate("/");
+      })
+      .catch(console.error);
+  };
+
   return (
     <div className={style.container}>
       <div className={style.logIn_container}>
@@ -24,23 +50,27 @@ export const LoginPage = () => {
         </NavLink>
         <div className={style.horz_line}></div>
         <div className={style.email_container}>
-          <label for="login_email" className={style.email_lable}>
+          <label htmlFor="login_email" className={style.email_lable}>
             Email
           </label>
           <input
             placeholder="Enter your email"
             id="login_email"
             type="email"
+            value={email}
+            onChange={(el) => setEmail(el.target.value)}
           ></input>
         </div>
         <div className={style.password_container}>
-          <label for="login_password" className={style.password_lable}>
+          <label htmlFor="login_password" className={style.password_lable}>
             Password
           </label>
           <input
             placeholder="Enter your password"
             id="login_password"
             type="password"
+            value={pass}
+            onChange={(el) => setPass(el.target.value)}
           ></input>
         </div>
         <div className={style.vert_line}></div>
@@ -52,7 +82,7 @@ export const LoginPage = () => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-google"
+              className="bi bi-google"
               viewBox="0 0 16 16"
               style={{ marginRight: 10 }}
             >
@@ -67,7 +97,7 @@ export const LoginPage = () => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-facebook"
+              className="bi bi-facebook"
               viewBox="0 0 16 16"
               id="IconChangeColor"
               style={{ marginRight: 10 }}
@@ -81,9 +111,12 @@ export const LoginPage = () => {
             Facebook
           </button>
         </div>
-        <NavLink to={"/"} className={style.logIn_buttons}>
+        <button
+          onClick={() => handlerLogin(email, pass)}
+          className={style.logIn_buttons}
+        >
           Log In
-        </NavLink>
+        </button>
         <NavLink to={"/registration"} className={style.signUp_button}>
           Sign Up
         </NavLink>

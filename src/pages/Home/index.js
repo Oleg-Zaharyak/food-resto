@@ -116,6 +116,7 @@ export const Home = () => {
                   name={item}
                   id={index + 100 + "button"}
                   selected={selected}
+                  key={index}
                 />
               );
             })}

@@ -13,8 +13,8 @@ export const OrderList = () => {
   return (
     <>
       <div className={style.item_container}>
-        {item_arr.map((elem) => (
-          <OrderItem data={elem} />
+        {item_arr.map((elem,index) => (
+          <OrderItem data={elem} key={index}/>
         ))}
       </div>
       <div className={style.down_container}>
