@@ -17,6 +17,7 @@ export const LoginPage = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
+        localStorage.setItem("items", JSON.stringify(user));
         dispatch(
           setUser({
             email: user.email,

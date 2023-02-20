@@ -11,12 +11,30 @@ import { UserPage } from "./pages/User";
 // import { UserOrders } from "./pages/UserOrders";
 import { Information } from "./pages/Information";
 import { useAuth } from "./hooks/use-auth";
+import { useEffect } from "react";
+import { setUser } from "./store/slices/userSlice";
+import { useDispatch } from "react-redux";
+import { Loader } from "./components/Loader";
 
 function App() {
   const { id } = useAuth();
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("items"));
+  useEffect(() => {
+    if (user !== null) {
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.accessToken,
+        })
+      );
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="main_container">
+      <Loader />
       <Menu />
       <Routes>
         <Route path="/" element={<Home />} />

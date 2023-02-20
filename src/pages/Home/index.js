@@ -1,80 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./styles.module.scss";
 import { Order } from "../../components/Order/index.js";
 import { FilterButton } from "../../components/Filter_button";
 import { ItemCard } from "../../components/item_card";
 import { Payment } from "../../components/Payment_scren";
 import { TypeDelivery } from "../../components/Type_delivery";
+import { useDispatch, useSelector } from "react-redux";
+import { getItems } from "../../store/action/items";
 
 export const Home = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getItems(selected));
+  }, [dispatch]);
+  const { items } = useSelector((state) => state.items);
   const filter_array = [
-    "Hot Dishes",
-    "Cold Dishes",
-    "Soup",
-    "Grill",
-    "Appetizer",
-    "Dessert",
+    { name: "Hot Dishes", id: "hotDishes" },
+    { name: "Cold Dishes", id: "coldDishes" },
+    { name: "Soup", id: "soup" },
+    { name: "Grill", id: "grill" },
+    { name: "Appetizer", id: "appetizer" },
+    { name: "Dessert", id: "dessert" },
   ];
-  const [selected, setSelected] = useState("100button");
+  const [selected, setSelected] = useState("hotDishes");
   const onClick = (event) => {
     setSelected(event.target.id);
+    dispatch(getItems(event.target.id));
   };
-  const data = [
-    {
-      src: "Image1",
-      name: "Spicy seasoned seafood noodles",
-      price: "$" + 2.29,
-      bowl: "20 Bowls available",
-    },
-    {
-      src: "Image2",
-      name: "Salted Pasta with mushroom sauce",
-      price: "$" + 2.69,
-      bowl: "10 Bowls available",
-    },
-    {
-      src: "Image3",
-      name: "Beef dumpling in hot and sour soup",
-      price: "$" + 3.29,
-      bowl: "18 Bowls available",
-    },
-    {
-      src: "Image4",
-      name: "Healthy noodle with spinach leaf",
-      price: "$" + 4.99,
-      bowl: "22 Bowls available",
-    },
-    {
-      src: "Image5",
-      name: "Hot spicy fried rice with omelet",
-      price: "$" + 3.49,
-      bowl: "27 Bowls available",
-    },
-    {
-      src: "Image6",
-      name: "Spicy instant noodle with special omelette",
-      price: "$" + 7.0,
-      bowl: "30 Bowls available",
-    },
-    {
-      src: "Image7",
-      name: "Healthy noodle with spinach leaf",
-      price: "$" + 4.99,
-      bowl: "22 Bowls available",
-    },
-    {
-      src: "Image8",
-      name: "Hot spicy fried rice with omelet",
-      price: "$" + 3.49,
-      bowl: "27 Bowls available",
-    },
-    {
-      src: "Image9",
-      name: "Spicy instant noodle with special omelette",
-      price: "$" + 7.0,
-      bowl: "30 Bowls available",
-    },
-  ];
+  // const data = [
+  //   {
+  //     src: "Image4",
+  //     name: "Healthy noodle with spinach leaf",
+  //     price: "$" + 4.99,
+  //     bowl: "22 Bowls available",
+  //   },
+  //   {
+  //     src: "Image5",
+  //     name: "Hot spicy fried rice with omelet",
+  //     price: "$" + 3.49,
+  //     bowl: "27 Bowls available",
+  //   },
+  //   {
+  //     src: "Image6",
+  //     name: "Spicy instant noodle with special omelette",
+  //     price: "$" + 7.0,
+  //     bowl: "30 Bowls available",
+  //   },
+  //   {
+  //     src: "Image7",
+  //     name: "Healthy noodle with spinach leaf",
+  //     price: "$" + 4.99,
+  //     bowl: "22 Bowls available",
+  //   },
+  //   {
+  //     src: "Image8",
+  //     name: "Hot spicy fried rice with omelet",
+  //     price: "$" + 3.49,
+  //     bowl: "27 Bowls available",
+  //   },
+  //   {
+  //     src: "Image9",
+  //     name: "Spicy instant noodle with special omelette",
+  //     price: "$" + 7.0,
+  //     bowl: "30 Bowls available",
+  //   },
+  // ];
   return (
     <div className={style.container}>
       <div className={style.left_container_wrap}>
@@ -113,8 +104,8 @@ export const Home = () => {
               return (
                 <FilterButton
                   onClick={onClick}
-                  name={item}
-                  id={index + 100 + "button"}
+                  name={item.name}
+                  id={item.id}
                   selected={selected}
                   key={index}
                 />
@@ -126,12 +117,12 @@ export const Home = () => {
             <TypeDelivery />
           </div>
           <div className={style.content_container}>
-            {data.map((el, index) => (
+            {items.map((el, index) => (
               <ItemCard
                 src={el.src}
-                name={el.name}
+                name={el.nameItem}
                 price={el.price}
-                bowl={el.bowl}
+                bowl={el.bowls + " " + "Bowls available"}
                 key={index + 10}
               />
             ))}

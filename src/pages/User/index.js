@@ -13,13 +13,14 @@ export const UserPage = ({ id }) => {
   const navigate = useNavigate();
 
   const { userProfile } = useSelector((state) => state.currentUser);
- 
+
   useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
 
   const LogOut = () => {
     dispatch(removeUser());
+    localStorage.clear("items");
     navigate("/");
   };
 

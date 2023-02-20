@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc} from "firebase/firestore";
 import { setCurrentUser } from "../slices/currentUserSlice";
 import { db } from "./../../firebase";
 
@@ -22,4 +22,4 @@ const getCurrentUser = createAsyncThunk(
   }
 );
 
-export { getCurrentUser };
+export { getCurrentUser};

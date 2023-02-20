@@ -7,7 +7,6 @@ import { useAuth } from "./../../hooks/use-auth";
 export const Menu = () => {
   const navigate = useNavigate();
   const { isAuth, id } = useAuth();
-
   const openPopUp = () =>
     isAuth ? navigate(`/user/${id}`) : navigate("/logIn");
 

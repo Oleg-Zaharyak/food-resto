@@ -17,12 +17,13 @@
   display: grid;
   gap: 24px 16px;
   grid-template-columns: 1fr 1fr 1px 1fr 1fr;
-  grid-template-rows: max-content 1px 1fr 1fr 48px;
+  grid-template-rows: max-content 1px 1fr 1fr 1fr 48px;
   grid-template-areas:
     "signUp_text          signUp_text         .           exit               exit"
     "horz_line            horz_line           horz_line   horz_line          horz_line"
-    "email_input          email_input         vert_line   logIn_other_way    logIn_other_way "
-    "password_input       password_input      vert_line   logIn_other_way    logIn_other_way "
+    "email_input          email_input         vert_line   firstName_input    firstName_input "
+    "password_input       password_input      vert_line   lastName_input     lastName_input"
+    ".                    .                   vert_line   age_input          age_input   "
     "signUp_button        signUp_button       vert_line   logIn_buttons      logIn_buttons  ";
 }
 .signUp_text {
@@ -62,11 +63,17 @@ input:focus-visible {
   outline: none;
 }
 .email_lable,
-.password_lable {
+.password_lable,
+.firstName_lable,
+.lastName_lable,
+.age_lable {
   margin-bottom: 8px;
 }
 .email_container,
-.password_container {
+.password_container,
+.firstName_container,
+.lastName_container,
+.age_container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,6 +85,15 @@ input:focus-visible {
 }
 .password_container {
   grid-area: password_input;
+}
+.firstName_container {
+  grid-area: firstName_input;
+}
+.lastName_container {
+  grid-area: lastName_input;
+}
+.age_container {
+  grid-area: age_input;
 }
 .logIn_buttons,
 .signUp_buttons {
@@ -102,36 +118,40 @@ input:focus-visible {
 
 .logIn_buttons {
   grid-area: logIn_buttons;
+  font-size: 16px;
+  font-family: "Barlow-600";
 }
 .signUp_buttons {
   grid-area: signUp_button;
-}
-.logIn_other_way {
-  grid-area: logIn_other_way;
-  display: flex;
-  flex-direction: column;
-}
-.logIn_other_way_text {
+  font-size: 16px;
   font-family: "Barlow-600";
-  color: $white-color;
-  font-size: 18px;
-  margin-bottom: 10px;
 }
-.google,
-.facebook {
-  height: 48px;
-  background-color: $fourth-color;
-  margin-bottom: 24px;
-  text-align: center;
-  color: $white-color;
-  border: 1px solid $primary-color;
-  font-family: "Barlow-600";
-  border-radius: 8px;
-  font-size: 20px;
-  cursor: pointer;
-}
-.google:hover,
-.facebook:hover {
-  background-color: $white-color;
-  color: $fourth-color;
-}
+// .logIn_other_way {
+//   grid-area: logIn_other_way;
+//   display: flex;
+//   flex-direction: column;
+// }
+// .logIn_other_way_text {
+//   font-family: "Barlow-600";
+//   color: $white-color;
+//   font-size: 18px;
+//   margin-bottom: 10px;
+// }
+// .google,
+// .facebook {
+//   height: 48px;
+//   background-color: $fourth-color;
+//   margin-bottom: 24px;
+//   text-align: center;
+//   color: $white-color;
+//   border: 1px solid $primary-color;
+//   font-family: "Barlow-600";
+//   border-radius: 8px;
+//   font-size: 20px;
+//   cursor: pointer;
+// }
+// .google:hover,
+// .facebook:hover {
+//   background-color: $white-color;
+//   color: $fourth-color;
+// }

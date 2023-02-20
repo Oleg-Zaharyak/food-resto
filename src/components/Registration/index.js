@@ -5,6 +5,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import style from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./../../firebase";
 
 export const RegistrationPage = () => {
   const dispatch = useDispatch();
@@ -12,13 +14,25 @@ export const RegistrationPage = () => {
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
 
   const handlerRegistration = (email, pass) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, pass)
       .then(({ user }) => {
-        //saveUserInfo(user.id)
-        dispatch(setUser(user));
+        localStorage.setItem("items", JSON.stringify(user));
+        dispatch(
+          setUser({ email: user.email, id: user.uid, token: user.accessToken })
+        );
+        const data = {
+          firstName: firstName,
+          lastName: lastName,
+          age: age,
+          role: "user",
+        };
+        setDoc(doc(db, "users", user.uid), data);
         navigate("/");
       })
       .catch(console.error);
@@ -68,10 +82,46 @@ export const RegistrationPage = () => {
             onChange={(el) => setPass(el.target.value)}
           ></input>
         </div>
+        <div className={style.firstName_container}>
+          <label htmlFor="signUp_firstName" className={style.firstName_lable}>
+            First Name
+          </label>
+          <input
+            placeholder="Enter your first name"
+            id="signUp_firstName"
+            type="text"
+            value={firstName}
+            onChange={(el) => setFirstName(el.target.value)}
+          ></input>
+        </div>
+        <div className={style.lastName_container}>
+          <label htmlFor="signUp_lastName" className={style.lastName_lable}>
+            Last Name
+          </label>
+          <input
+            placeholder="Enter your last name"
+            id="signUp_lastName"
+            type="text"
+            value={lastName}
+            onChange={(el) => setLastName(el.target.value)}
+          ></input>
+        </div>
+        <div className={style.age_container}>
+          <label htmlFor="signUp_lastName" className={style.age_lable}>
+            Age
+          </label>
+          <input
+            placeholder="Enter your age"
+            id="signUp_age"
+            type="text"
+            value={age}
+            onChange={(el) => setAge(el.target.value)}
+          ></input>
+        </div>
         <div className={style.vert_line}></div>
-        <div className={style.logIn_other_way}>
-          <div className={style.logIn_other_way_text}>Log in as user:</div>
-          <button className={style.google}>
+        {/* <div className={style.logIn_other_way}> */}
+        {/* <div className={style.logIn_other_way_text}>Log in as user:</div> */}
+        {/* <button className={style.google}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -104,8 +154,8 @@ export const RegistrationPage = () => {
               ></path>{" "}
             </svg>
             Facebook
-          </button>
-        </div>
+          </button> */}
+        {/* </div> */}
         <button
           onClick={() => handlerRegistration(email, pass)}
           className={style.signUp_buttons}

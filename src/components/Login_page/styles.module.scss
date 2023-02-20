@@ -102,9 +102,13 @@ input:focus-visible {
 
 .logIn_buttons {
   grid-area: logIn_buttons;
+  font-size: 16px;
+  font-family: "Barlow-600";
 }
 .signUp_button {
   grid-area: signUp_button;
+  font-size: 16px;
+  font-family: "Barlow-600";
 }
 .logIn_other_way {
   grid-area: logIn_other_way;
