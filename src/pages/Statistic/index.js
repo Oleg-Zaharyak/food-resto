@@ -6,6 +6,12 @@ import { CircleGraph } from "../../components/Statistics_graph";
 import { OrderTableItem } from "../../components/Oreder_table";
 
 export const Statistic = () => {
+  const data_delivery = [
+    { name: "Dine In", id: "dineIn" },
+    { name: "Out", id: "out" },
+    { name: "Delivery", id: "delivery" },
+  ];
+
   const data = [
     {
       src: "Dolar",
@@ -134,10 +140,10 @@ export const Statistic = () => {
       <div className={style.most_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Ordered</div>
-          <TypeDelivery />
+          <TypeDelivery data={data_delivery} />
         </div>
         <div className={style.most_order_item_container}>
-          {data_item.map((el,index) => (
+          {data_item.map((el, index) => (
             <div className={style.most_order_item} key={index}>
               <img
                 className={style.most_order_image}
@@ -156,7 +162,7 @@ export const Statistic = () => {
       <div className={style.most_type_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Type of Order</div>
-          <TypeDelivery />
+          <TypeDelivery data={data_delivery} />
         </div>
         <div className={style.graph_container}>
           <div className={style.graph_wrap}>

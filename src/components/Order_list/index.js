@@ -1,20 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { OrderItem } from "../Order_item";
 import style from "./styles.module.scss";
 
 export const OrderList = () => {
-  const item_arr = [
-    { name: "Spicy seasoned sea...", price: 2.25 },
-    { name: "Salted pasta with mu...", price: 3.0 },
-    { name: "Spicy seasoned sea...", price: 2.25 },
-    { name: "Salted pasta with mu...", price: 3.0 },
-    { name: "Salted pasta with mu...", price: 3.0 },
-  ];
+  const { basketData } = useSelector((state) => state.basket);
+  let price = 0;
+  basketData.map((el) => (price += el.count * el.price));
+  const totalPrice = price.toFixed(2);
   return (
     <>
       <div className={style.item_container}>
-        {item_arr.map((elem,index) => (
-          <OrderItem data={elem} key={index}/>
+        {basketData.map((elem, index) => (
+          <OrderItem data={elem} key={index} />
         ))}
       </div>
       <div className={style.down_container}>
@@ -22,7 +20,7 @@ export const OrderList = () => {
           <div className={style.discount}>Discount</div>
           <div className={style.discount_price}>$0</div>
           <div className={style.sub_total}>Sub total</div>
-          <div className={style.sub_total_price}>$23.65</div>
+          <div className={style.sub_total_price}>$ {totalPrice}</div>
         </div>
       </div>
     </>

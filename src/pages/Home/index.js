@@ -4,61 +4,27 @@ import { Order } from "../../components/Order/index.js";
 import { FilterButton } from "../../components/Filter_button";
 import { ItemCard } from "../../components/item_card";
 import { Payment } from "../../components/Payment_scren";
-import { TypeDelivery } from "../../components/Type_delivery";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../store/action/items";
+import { getItems, getTypeDishes } from "../../store/action/items";
 
 export const Home = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getItems(selected));
-  }, [dispatch]);
+  const { typeDishes } = useSelector((state) => state.items);
   const { items } = useSelector((state) => state.items);
-  const filter_array = [
-    { name: "Hot Dishes", id: "hotDishes" },
-    { name: "Cold Dishes", id: "coldDishes" },
-    { name: "Soup", id: "soup" },
-    { name: "Grill", id: "grill" },
-    { name: "Appetizer", id: "appetizer" },
-    { name: "Dessert", id: "dessert" },
-  ];
-  const [selected, setSelected] = useState("hotDishes");
+
+  const [selected, setSelected] = useState("coldDishes");
+
   const onClick = (event) => {
     setSelected(event.target.id);
     dispatch(getItems(event.target.id));
+    // console.log(event.target.innerText)
   };
+  useEffect(() => {
+    dispatch(getItems(selected));
+    dispatch(getTypeDishes());
+  }, [dispatch, selected]);
   // const data = [
-  //   {
-  //     src: "Image4",
-  //     name: "Healthy noodle with spinach leaf",
-  //     price: "$" + 4.99,
-  //     bowl: "22 Bowls available",
-  //   },
-  //   {
-  //     src: "Image5",
-  //     name: "Hot spicy fried rice with omelet",
-  //     price: "$" + 3.49,
-  //     bowl: "27 Bowls available",
-  //   },
-  //   {
-  //     src: "Image6",
-  //     name: "Spicy instant noodle with special omelette",
-  //     price: "$" + 7.0,
-  //     bowl: "30 Bowls available",
-  //   },
-  //   {
-  //     src: "Image7",
-  //     name: "Healthy noodle with spinach leaf",
-  //     price: "$" + 4.99,
-  //     bowl: "22 Bowls available",
-  //   },
-  //   {
-  //     src: "Image8",
-  //     name: "Hot spicy fried rice with omelet",
-  //     price: "$" + 3.49,
-  //     bowl: "27 Bowls available",
-  //   },
   //   {
   //     src: "Image9",
   //     name: "Spicy instant noodle with special omelette",
@@ -100,7 +66,7 @@ export const Home = () => {
             </div>
           </div>
           <div className={style.filter_container}>
-            {filter_array.map((item, index) => {
+            {typeDishes.map((item, index) => {
               return (
                 <FilterButton
                   onClick={onClick}
@@ -114,15 +80,16 @@ export const Home = () => {
           </div>
           <div className={style.text_container}>
             <div className={style.text_block}>Choose Dishes</div>
-            <TypeDelivery />
           </div>
           <div className={style.content_container}>
             {items.map((el, index) => (
               <ItemCard
+                page={true}
                 src={el.src}
                 name={el.nameItem}
                 price={el.price}
-                bowl={el.bowls + " " + "Bowls available"}
+                bowl={el.bowls + " Bowls available"}
+                id={el.id}
                 key={index + 10}
               />
             ))}

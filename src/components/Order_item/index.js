@@ -1,36 +1,110 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { changeCount, removeItem } from "../../store/slices/basketSlice";
 import style from "./styles.module.scss";
-import image1 from "./../../assets/images/Image1.png";
 
 export const OrderItem = ({ data }) => {
-  const [sum, setSum] = useState(data.price);
+  const dispatch = useDispatch();
+  // const [count, setCount] = useState(data.count);
+  const summary = (data.count * data.price).toFixed(2);
 
-  const onChange = (event) => {
-    const count = event.target.value;
-    const summa = data.price * count;
-    setSum(summa.toFixed(2));
+  const cutNameItem = data.name.slice(0, 24) + "...";
+
+  const remove = () => {
+    dispatch(removeItem(data.name));
+  };
+
+  const handleDecrement = () => {
+    if (data.count === 1) {
+      dispatch(removeItem(data.name));
+    } else {
+      const obj = {
+        name: data.name,
+        increment: false,
+      };
+      dispatch(changeCount(obj));
+    }
+  };
+  const handleIncrement = () => {
+    const obj = {
+      name: data.name,
+      increment: true,
+    };
+    dispatch(changeCount(obj));
   };
 
   return (
     <div className={style.container}>
       <div className={style.item1}>
-        <img src={image1} alt="img1" className={style.item1_1}></img>
-        <div className={style.item1_2}>{data.name}</div>
-        <div className={style.item1_3}>{data.price}</div>
+        <img
+          src={require(`./../../assets/images/${data.src}.png`)}
+          alt="img1"
+          className={style.item1_1}
+        ></img>
+        <div className={style.item1_2}>{cutNameItem}</div>
+        <div className={style.item1_3}>$ {data.price}</div>
       </div>
-      <input
-        type="text"
-        className={style.item2}
-        onChange={onChange}
-        defaultValue="1"
-      ></input>
-      <div className={[style.item3, "summary"].join(" ")}>{sum}</div>
+      <div className={style.item2}>
+        <button onClick={handleDecrement} className={style.count_dec_button}>
+          {data.count === 1 ? (
+            <svg
+              className={style.decrement_icon}
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+          ) : (
+            <svg
+              className={style.decrement_icon}
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+            </svg>
+          )}
+        </button>
+        {data.count}
+        <button onClick={handleIncrement} className={style.count_inc_button}>
+          <svg
+            className={style.increment_icon}
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />{" "}
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />{" "}
+          </svg>
+        </button>
+      </div>
+      <div
+        style={
+          summary.length < 6
+            ? { fontSize: "16px" }
+            : summary.length < 7
+            ? { fontSize: "15px" }
+            : { fontSize: "13px" }
+        }
+        className={style.item3}
+      >
+        $ {summary}
+      </div>
       <input
         type="text"
         className={style.item4}
         placeholder="Order Note..."
       ></input>
-      <button className={style.item5}>
+      <button onClick={remove} className={style.item5}>
         <svg
           className={style.icon}
           width="24"

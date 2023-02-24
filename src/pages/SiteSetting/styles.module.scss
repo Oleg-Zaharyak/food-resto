@@ -1,1 +1,16 @@
 @import "./../../constants/colors.scss";
+
+
+
+//..................Site Setting.............
+
+.container {
+  padding: 24px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  justify-content: flex-start;
+}

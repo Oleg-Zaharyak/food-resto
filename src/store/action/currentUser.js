@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { doc, getDoc} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { setCurrentUser } from "../slices/currentUserSlice";
+import { setLoadStete } from "../slices/loaderSlice";
 import { db } from "./../../firebase";
 
 const getCurrentUser = createAsyncThunk(
@@ -10,16 +11,16 @@ const getCurrentUser = createAsyncThunk(
       user: { id },
     } = thunkAPI.getState();
     try {
-      //   thunkAPI.dispatch(toggleLoading(true));
+      thunkAPI.dispatch(setLoadStete(true));
       const docRef = await doc(db, "users", id);
       const data = await getDoc(docRef);
       thunkAPI.dispatch(setCurrentUser(data.data()));
     } catch (err) {
       console.log(err);
     } finally {
-      //   thunkAPI.dispatch(toggleLoading(false));
+      thunkAPI.dispatch(setLoadStete(false));
     }
   }
 );
 
-export { getCurrentUser};
+export { getCurrentUser };

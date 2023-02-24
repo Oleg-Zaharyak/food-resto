@@ -6,6 +6,12 @@ import style from "./styles.module.scss";
 export const Payment = () => {
   const [val, setVal] = useState("");
 
+  const data = [
+    { name: "Dine In", id: "dineIn" },
+    { name: "Out", id: "out" },
+    { name: "Delivery", id: "delivery" },
+  ];
+
   const onChange = (e) => {
     setVal(e.target.value);
   };
@@ -229,7 +235,7 @@ export const Payment = () => {
           <div className={style.horiz_line}></div>
           <div className={style.selector}>
             <div className={style.selector_text}>Order Type</div>
-            <TypeDelivery />
+            <TypeDelivery data={data} />
           </div>
           <div className={style.table_no}>
             <label htmlFor="table_no" className={style.label}>

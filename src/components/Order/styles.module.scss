@@ -3,12 +3,14 @@
 @import "./../../constants/mixin.scss";
 
 .container {
-  width: 410px;
+  min-width: 410px;
   height: 100vh;
   padding: 25px;
   background-color: $base-color;
   @include flex_position(space-between, normal, column);
+  display: none;
 }
+
 .up_container {
   display: flex;
   flex-direction: column;
@@ -55,7 +57,7 @@ input:checked + .delivery_button {
   line-height: 22.4px;
   display: grid;
   gap: 0 16px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 48px 48px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 48px 60px;
   grid-template-rows: 1fr;
   grid-template-areas: "item . . . qty price";
 }
