@@ -1,19 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { OrderList } from "../Order_list";
 import style from "./styles.module.scss";
 
-export const Order = () => {
-  const onClick = () => {
-    document.getElementById("payment").style.display = "block";
-  };
-  const { basketData } = useSelector((state) => state.basket);
-
+export const Order = ({ setShowPaymant }) => {
   return (
-    <div
-      className={style.container}
-      style={basketData.length > 0 ? { display: "flex" } : { display: "none" }}
-    >
+    <div className={style.container}>
       <div className={style.up_container}>
         <div className={style.top_container}>Order #324234</div>
         <div className={style.middle_container}>
@@ -37,7 +28,12 @@ export const Order = () => {
         </div>
       </div>
       <OrderList />
-      <button onClick={onClick} className={style.payment_button}>
+      <button
+        onClick={() => {
+          setShowPaymant(true);
+        }}
+        className={style.payment_button}
+      >
         Continue to Payment
       </button>
     </div>

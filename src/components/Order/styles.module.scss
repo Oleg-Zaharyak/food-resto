@@ -8,7 +8,6 @@
   padding: 25px;
   background-color: $base-color;
   @include flex_position(space-between, normal, column);
-  display: none;
 }
 
 .up_container {

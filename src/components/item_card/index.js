@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteDishes, getDishesById } from "../../store/action/items";
+import { useDispatch } from "react-redux";
+import {
+  deleteDishes,
+  getDishesById,
+  updateDishes,
+} from "../../store/action/items";
 import { addItem } from "../../store/slices/basketSlice";
-import { setDeleteItemId } from "../../store/slices/itemsSlice";
-import { AddItemCardData } from "../Add_item_card";
+import { AddItemCardModal } from "../AddItemCardModal";
+import { ConfirmPopUp } from "../ConfirmPopUp";
+
 import style from "./styles.module.scss";
 
 export const ItemCard = (props) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showAddItemCardModal, setShowAddItemCardModal] = useState(false);
+
   const handleIncrement = () => {
     setCount(count + 1);
   };
@@ -26,25 +34,23 @@ export const ItemCard = (props) => {
     dispatch(addItem(obj));
   };
 
-  const changeCard = () => {
-    dispatch(setDeleteItemId(props.id));
-    dispatch(getDishesById(props.id));
-    document.getElementById("changeCardData").style.display = "flex";
+  const deleteCard = () => {
+    dispatch(deleteDishes(props.id));
   };
 
-  const deleteCard = () => {
-    dispatch(setDeleteItemId(props.id));
-    document.getElementById("confirmDeleteCard").style.display = "flex";
+  const changeCard = () => {
+    dispatch(getDishesById(props.id));
+    setShowAddItemCardModal(true);
+  };
+
+  const changeCardItem = (el) => {
+    dispatch(updateDishes({ data: el, id: props.id }));
   };
 
   return (
     <div className={style.container}>
       <div className={style.second_container}>
-        <img
-          src={require(`./../../assets/images/${props.src}.png`)}
-          alt="img"
-          className={style.image}
-        />
+        <img src={props.src} alt="img" className={style.image} />
         <div className={style.text_block}>
           <span className={style.top_text}>{props.name}</span>
           <span className={style.middle_text}>$ {props.price}</span>
@@ -117,7 +123,10 @@ export const ItemCard = (props) => {
                   <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
                 </svg>
               </button>
-              <button onClick={deleteCard} className={style.delete_button}>
+              <button
+                onClick={() => setShowConfirmModal(true)}
+                className={style.delete_button}
+              >
                 <svg
                   className={style.delete_icon}
                   width="24"
@@ -133,36 +142,20 @@ export const ItemCard = (props) => {
           )}
         </div>
       </div>
-      <ConfirmDeletePopUp />
-      <AddItemCardData id={"changeCardData"} />
-    </div>
-  );
-};
-
-export const ConfirmDeletePopUp = () => {
-  const dispatch = useDispatch();
-  const { deleteItem } = useSelector((state) => state.items);
-
-  const deleteCard = () => {
-    dispatch(deleteDishes(deleteItem));
-    document.getElementById("confirmDeleteCard").style.display = "none";
-  };
-  const cancelDeletCard = () => {
-    document.getElementById("confirmDeleteCard").style.display = "none";
-  };
-  return (
-    <div id="confirmDeleteCard" className={style.confirm_wrap}>
-      <div className={style.confirm_container}>
-        <div className={style.confirm_text}>Confirm delete dishes?</div>
-        <div className={style.confirm_button_ccontainer}>
-          <button onClick={deleteCard} className={style.confirm_button}>
-            Yes
-          </button>
-          <button onClick={cancelDeletCard} className={style.confirm_button}>
-            No
-          </button>
-        </div>
-      </div>
+      {showConfirmModal ? (
+        <ConfirmPopUp
+          title={"Confirm delete dishes?"}
+          confirmFunc={deleteCard}
+          setShowPopUp={setShowConfirmModal}
+        />
+      ) : null}
+      {showAddItemCardModal ? (
+        <AddItemCardModal
+          title={"Change item"}
+          setShowAddItemModal={setShowAddItemCardModal}
+          confirmFunc={changeCardItem}
+        />
+      ) : null}
     </div>
   );
 };

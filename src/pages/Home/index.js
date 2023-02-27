@@ -5,33 +5,32 @@ import { FilterButton } from "../../components/Filter_button";
 import { ItemCard } from "../../components/item_card";
 import { Payment } from "../../components/Payment_scren";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems, getTypeDishes } from "../../store/action/items";
+import {
+  getItems,
+  getTypeDelivery,
+  getTypeDishes,
+} from "../../store/action/items";
 
 export const Home = () => {
   const dispatch = useDispatch();
+  const [showPaimantScreen, setShowPaymantScreen] = useState(false);
 
   const { typeDishes } = useSelector((state) => state.items);
   const { items } = useSelector((state) => state.items);
+  const { basketData } = useSelector((state) => state.basket);
 
-  const [selected, setSelected] = useState("coldDishes");
+  const [selected, setSelected] = useState("Cold Dishes");
 
   const onClick = (event) => {
-    setSelected(event.target.id);
-    dispatch(getItems(event.target.id));
-    // console.log(event.target.innerText)
+    setSelected(event.target.innerText);
+    dispatch(getItems(event.target.innerText));
   };
   useEffect(() => {
     dispatch(getItems(selected));
     dispatch(getTypeDishes());
+    dispatch(getTypeDelivery());
   }, [dispatch, selected]);
-  // const data = [
-  //   {
-  //     src: "Image9",
-  //     name: "Spicy instant noodle with special omelette",
-  //     price: "$" + 7.0,
-  //     bowl: "30 Bowls available",
-  //   },
-  // ];
+
   return (
     <div className={style.container}>
       <div className={style.left_container_wrap}>
@@ -71,7 +70,6 @@ export const Home = () => {
                 <FilterButton
                   onClick={onClick}
                   name={item.name}
-                  id={item.id}
                   selected={selected}
                   key={index}
                 />
@@ -96,10 +94,14 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <Order />
-      <div id="payment" className={style.payment_container}>
-        <Payment />
-      </div>
+      {basketData.length ? (
+        <Order setShowPaymant={setShowPaymantScreen} />
+      ) : null}
+      {showPaimantScreen ? (
+        <div className={style.payment_container}>
+          <Payment setShowPaymant={setShowPaymantScreen} />
+        </div>
+      ) : null}
     </div>
   );
 };

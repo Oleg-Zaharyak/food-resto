@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SummaryCard } from "../../components/Summary_card";
 import style from "./styles.module.scss";
 import { TypeDelivery } from "../../components/Type_delivery";
 import { CircleGraph } from "../../components/Statistics_graph";
 import { OrderTableItem } from "../../components/Oreder_table";
+import { useDispatch, useSelector } from "react-redux";
+import { getTypeDelivery } from "../../store/action/items";
 
 export const Statistic = () => {
-  const data_delivery = [
-    { name: "Dine In", id: "dineIn" },
-    { name: "Out", id: "out" },
-    { name: "Delivery", id: "delivery" },
-  ];
-
+  const { typeDelivery } = useSelector((state) => state.items);
+  const dispatch = useDispatch();
   const data = [
     {
       src: "Dolar",
@@ -84,6 +82,10 @@ export const Statistic = () => {
       status: "Preparing",
     },
   ];
+
+  useEffect(() => {
+    dispatch(getTypeDelivery());
+  }, [dispatch]);
   return (
     <div className={style.container}>
       <div className={style.text_container}>
@@ -140,7 +142,7 @@ export const Statistic = () => {
       <div className={style.most_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Ordered</div>
-          <TypeDelivery data={data_delivery} />
+          <TypeDelivery selected={"Choose Delivery"} data={typeDelivery} />
         </div>
         <div className={style.most_order_item_container}>
           {data_item.map((el, index) => (
@@ -162,7 +164,7 @@ export const Statistic = () => {
       <div className={style.most_type_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Type of Order</div>
-          <TypeDelivery data={data_delivery} />
+          <TypeDelivery selected={"Choose Delivery"} data={typeDelivery} />
         </div>
         <div className={style.graph_container}>
           <div className={style.graph_wrap}>

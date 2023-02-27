@@ -5,10 +5,9 @@ export const FilterButton = (props) => {
   return (
     <button
       onClick={props.onClick}
-      id={props.id}
       key={props.id}
       className={
-        props.id === props.selected
+        props.name === props.selected
           ? [style.button, style.active].join(" ")
           : style.button
       }

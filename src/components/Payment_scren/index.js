@@ -1,16 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { OrderList } from "../Order_list";
 import { TypeDelivery } from "../Type_delivery";
 import style from "./styles.module.scss";
 
-export const Payment = () => {
+export const Payment = ({ setShowPaymant }) => {
   const [val, setVal] = useState("");
 
-  const data = [
-    { name: "Dine In", id: "dineIn" },
-    { name: "Out", id: "out" },
-    { name: "Delivery", id: "delivery" },
-  ];
+  const { typeDelivery } = useSelector((state) => state.items);
 
   const onChange = (e) => {
     setVal(e.target.value);
@@ -30,15 +27,22 @@ export const Payment = () => {
     return parts.length > 1 ? parts.join(" ") : value;
   }
 
-  const onClick = () => {
-    document.getElementById("payment").style.display = "none";
-  };
-
   return (
     <div className={style.container}>
+      <div
+        onClick={() => {
+          setShowPaymant(false);
+        }}
+        className={style.shadow_container}
+      ></div>
       <div className={style.left_container}>
         <div className={style.left_up_container}>
-          <button onClick={onClick} className={style.back_arrow}>
+          <button
+            onClick={() => {
+              setShowPaymant(false);
+            }}
+            className={style.back_arrow}
+          >
             <svg
               className={style.arrow_icon}
               width="24"
@@ -235,7 +239,7 @@ export const Payment = () => {
           <div className={style.horiz_line}></div>
           <div className={style.selector}>
             <div className={style.selector_text}>Order Type</div>
-            <TypeDelivery data={data} />
+            <TypeDelivery selected={"Choose Delivery"} data={typeDelivery} />
           </div>
           <div className={style.table_no}>
             <label htmlFor="table_no" className={style.label}>
@@ -251,7 +255,12 @@ export const Payment = () => {
           </div>
         </form>
         <div className={style.buttons}>
-          <button onClick={onClick} className={style.cancel_button}>
+          <button
+            onClick={() => {
+              setShowPaymant(false);
+            }}
+            className={style.cancel_button}
+          >
             Cancel
           </button>
           <button className={style.confirm_button}>Confirm Payment</button>
