@@ -18,7 +18,13 @@ import {
   setTypeDishes,
 } from "../slices/itemsSlice";
 import { setLoadStete } from "../slices/loaderSlice";
-// import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 
 const getItems = createAsyncThunk("items/getItems", async (arg, thunkAPI) => {
   try {
@@ -117,10 +123,13 @@ const addNewDishes = createAsyncThunk(
 );
 const deleteDishes = createAsyncThunk(
   "item/deleteDishes",
-  async (arg, thunkAPI) => {
+  async ({ id, imagePath }, thunkAPI) => {
     try {
+      const storage = getStorage();
       thunkAPI.dispatch(setLoadStete(true));
-      await deleteDoc(doc(db, "dishes", arg));
+      await deleteDoc(doc(db, "dishes", id));
+      const desertRef = ref(storage, imagePath);
+      await deleteObject(desertRef);
       thunkAPI.dispatch(getAllItems());
     } catch (err) {
       console.log(err);
@@ -162,24 +171,32 @@ const updateDishes = createAsyncThunk(
   }
 );
 
-// const uploadPhoto = createAsyncThunk(
-//   "item/updateDishes",
-//   async (arg, thunkAPI) => {
-//     try {
-//       const storage = getStorage();
-//       thunkAPI.dispatch(setLoadStete(true));
-//       const imagesRef = ref(storage, `Dishes/${image.name}`);
-//       await uploadBytes(imagesRef, image).then(() => {
-//         getDownloadURL(imagesRef).then((url) => {});
-//       });
-//       thunkAPI.dispatch(getAllItems());
-//     } catch (err) {
-//       console.log(err);
-//     } finally {
-//       thunkAPI.dispatch(setLoadStete(false));
-//     }
-//   }
-// );
+const uploadPhoto = createAsyncThunk(
+  "item/updateDishes",
+  async ({ image, callbeck }, thunkAPI) => {
+    try {
+      if (image) {
+        const storage = getStorage();
+        thunkAPI.dispatch(setLoadStete(true));
+        const path = `Dishes/${image.name}`;
+        const imagesRef = ref(storage, path);
+        await uploadBytes(imagesRef, image).then(() => {
+          getDownloadURL(imagesRef).then((url) => {
+            callbeck({ url: url, path: path });
+          });
+        });
+      }
+      if (!image) {
+        callbeck(null);
+      }
+      thunkAPI.dispatch(getAllItems());
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
 
 export {
   getItems,
@@ -190,5 +207,5 @@ export {
   getDishesById,
   updateDishes,
   getTypeDelivery,
-  // uploadPhoto,
+  uploadPhoto,
 };

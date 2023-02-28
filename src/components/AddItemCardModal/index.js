@@ -3,19 +3,18 @@ import style from "./styles.module.scss";
 import { TypeDelivery } from "../Type_delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { serClearChangeItem } from "../../store/slices/itemsSlice";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { uploadPhoto } from "../../store/action/items";
 
 export const AddItemCardModal = ({
   title,
   setShowAddItemModal,
   confirmFunc,
 }) => {
-  const storage = getStorage();
   const dispatch = useDispatch();
   const { typeDelivery, typeDishes, changeItem } = useSelector(
     (state) => state.items
   );
-  // const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
   const [dataItem, setDataItem] = useState({});
 
@@ -30,37 +29,32 @@ export const AddItemCardModal = ({
   const closePopUp = () => {
     setShowAddItemModal(false);
     dispatch(serClearChangeItem());
+    setImage(null);
   };
 
   const UploadFfile = (e) => {
     if (e.target.files[0]) {
-      // setImage(e.target.files[0]);
-      // const url = URL.createObjectURL(e.target.files[0]);
-      // setUrl(url);
-      const imagesRef = ref(storage, `Dishes/${e.target.files[0].name}`);
-      uploadBytes(imagesRef, e.target.files[0]).then(() => {
-        getDownloadURL(imagesRef)
-          .then((url) => {
-            const src = "src";
-            setUrl(url);
-            setDataItem((prevState) => ({
-              ...prevState,
-              [src]: url,
-            }));
-          })
-          .catch((error) => {
-            console.log(error.message, "error geting image url");
-          });
-        // setImage(null);
-      });
+      setImage(e.target.files[0]);
+      const url = URL.createObjectURL(e.target.files[0]);
+      setUrl(url);
     }
   };
 
-  const addNewItem = () => {
+  const callbeck = (e) => {
+    if (e) {
+      dataItem.src = e.url;
+      dataItem.imagePath = e.path;
+    }
     confirmFunc(dataItem);
+    setImage(null);
+  };
+
+  const addNewItem = () => {
+    dispatch(uploadPhoto({ image: image, callbeck: callbeck }));
     setShowAddItemModal(false);
     dispatch(serClearChangeItem());
   };
+
   return (
     <div className={style.wrap_shadow}>
       <div onClick={closePopUp} className={style.confirm_wrap_blur}></div>
@@ -70,7 +64,7 @@ export const AddItemCardModal = ({
           <img
             className={style.current_image}
             src={url ? url : changeItem.src}
-            alt="images"
+            alt="imag"
           ></img>
         </div>
         <div className={style.input_images_container}>
@@ -83,7 +77,6 @@ export const AddItemCardModal = ({
               className={style.input_image}
             ></input>
           </label>
-          {/* <button onClick={addPhoto}>Add photo</button> */}
         </div>
         <button onClick={closePopUp} className={style.exit_button}>
           <svg
@@ -115,19 +108,6 @@ export const AddItemCardModal = ({
             ></input>
           </label>
         </div>
-        {/* <div className={style.src_input}>
-          <label className={style.lable}>
-            Src
-            <input
-              onChange={addItemData}
-              name="src"
-              type="text"
-              defaultValue={changeItem.src}
-              placeholder="Enter photo src"
-              className={style.input}
-            ></input>
-          </label>
-          </div> */}
         <div className={style.price_input}>
           <label className={style.lable}>
             Price

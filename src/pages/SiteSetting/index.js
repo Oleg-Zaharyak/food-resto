@@ -30,6 +30,7 @@ export const SiteSetting = () => {
           bowl={el.bowls + " Bowls available"}
           key={index + 10}
           id={el.id}
+          imagePath={el.imagePath}
         />
       ))}
       <AddItemCard />

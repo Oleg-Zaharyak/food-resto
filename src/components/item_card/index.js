@@ -29,15 +29,15 @@ export const ItemCard = (props) => {
       bowls: props.bowl,
       src: props.src,
       count: count,
+      path: props.imagePath,
     };
     setCount(1);
     dispatch(addItem(obj));
   };
 
   const deleteCard = () => {
-    dispatch(deleteDishes(props.id));
+    dispatch(deleteDishes({ id: props.id, imagePath: props.imagePath }));
   };
-
   const changeCard = () => {
     dispatch(getDishesById(props.id));
     setShowAddItemCardModal(true);

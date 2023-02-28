@@ -8,6 +8,7 @@ const initialState = {
   changeItem: {
     nameItem: "",
     src: "",
+    imagePath: "",
     bowls: "",
     price: "",
     typeDishes: "Choose Dishes",
@@ -38,6 +39,7 @@ const itemsSlice = createSlice({
       state.changeItem = {
         nameItem: "",
         src: "",
+        imagePath: "",
         bowls: "",
         price: "",
         typeDishes: "Choose Dishes",
