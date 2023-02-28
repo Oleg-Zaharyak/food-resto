@@ -8,7 +8,6 @@ import {
 import { addItem } from "../../store/slices/basketSlice";
 import { AddItemCardModal } from "../AddItemCardModal";
 import { ConfirmPopUp } from "../ConfirmPopUp";
-
 import style from "./styles.module.scss";
 
 export const ItemCard = (props) => {
@@ -30,6 +29,7 @@ export const ItemCard = (props) => {
       src: props.src,
       count: count,
       path: props.imagePath,
+      id: props.id,
     };
     setCount(1);
     dispatch(addItem(obj));

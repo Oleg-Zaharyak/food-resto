@@ -38,7 +38,6 @@
     "text_area text_area"
     "images_container name_input"
     "images_container price_input"
-    // "images_container src_input"
     "input_images_container bowls_input"
     "type_delivery type_dishes"
     "add_button add_button";
@@ -48,6 +47,9 @@
 }
 .input {
   margin-top: 8px;
+}
+img {
+  text-align: center;
 }
 
 .add_new_item_text {
@@ -71,15 +73,18 @@
 }
 .input_images_container {
   grid-area: input_images_container;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
 }
+
 .input_image {
   margin-top: 8px;
+  display: none;
 }
 .name_input {
   grid-area: name_input;
-}
-.src_input {
-  grid-area: src_input;
 }
 
 .price_input {
@@ -94,6 +99,7 @@
 .type_dishes {
   grid-area: type_dishes;
 }
+
 .add_button {
   cursor: pointer;
   grid-area: add_button;
@@ -126,4 +132,31 @@
 
 .exit_icon {
   color: $white-color;
+}
+
+label.label input[type="file"] {
+  position: absolute;
+}
+.lable_upload_image {
+  cursor: pointer;
+  width: 70%;
+  height: 48px;
+  padding: 12px;
+  background-color: $fourth-color;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+  color: $white-color;
+  white-space: nowrap;
+  overflow: auto;
+  // text-overflow:ellipsis;
+}
+.lable_upload_image::-webkit-scrollbar {
+  display: none;
+}
+.lable_upload_image:hover {
+  background-color: $white-color;
+  color: $third-color;
 }

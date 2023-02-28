@@ -128,8 +128,10 @@ const deleteDishes = createAsyncThunk(
       const storage = getStorage();
       thunkAPI.dispatch(setLoadStete(true));
       await deleteDoc(doc(db, "dishes", id));
-      const desertRef = ref(storage, imagePath);
-      await deleteObject(desertRef);
+      if (imagePath) {
+        const desertRef = ref(storage, imagePath);
+        await deleteObject(desertRef);
+      }
       thunkAPI.dispatch(getAllItems());
     } catch (err) {
       console.log(err);

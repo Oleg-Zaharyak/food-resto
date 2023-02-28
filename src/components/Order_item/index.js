@@ -19,7 +19,7 @@ export const OrderItem = ({ data }) => {
       dispatch(removeItem(data.name));
     } else {
       const obj = {
-        name: data.name,
+        id: data.id,
         increment: false,
       };
       dispatch(changeCount(obj));
@@ -27,7 +27,7 @@ export const OrderItem = ({ data }) => {
   };
   const handleIncrement = () => {
     const obj = {
-      name: data.name,
+      id: data.id,
       increment: true,
     };
     dispatch(changeCount(obj));
@@ -36,11 +36,7 @@ export const OrderItem = ({ data }) => {
   return (
     <div className={style.container}>
       <div className={style.item1}>
-        <img
-          src={require(`./../../assets/images/${data.src}.png`)}
-          alt="img1"
-          className={style.item1_1}
-        ></img>
+        <img src={data.src} alt="img1" className={style.item1_1}></img>
         <div className={style.item1_2}>{cutNameItem}</div>
         <div className={style.item1_3}>$ {data.price}</div>
       </div>

@@ -4,6 +4,7 @@ import { TypeDelivery } from "../Type_delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { serClearChangeItem } from "../../store/slices/itemsSlice";
 import { uploadPhoto } from "../../store/action/items";
+import defaultImage from "./../../assets/images/no_photo.png";
 
 export const AddItemCardModal = ({
   title,
@@ -63,13 +64,13 @@ export const AddItemCardModal = ({
         <div className={style.images_container}>
           <img
             className={style.current_image}
-            src={url ? url : changeItem.src}
+            src={url ? url : changeItem.src ? changeItem.src : defaultImage}
             alt="imag"
           ></img>
         </div>
         <div className={style.input_images_container}>
-          <label className={style.lable}>
-            Image
+          <label className={style.lable_upload_image}>
+            {image ? image.name : "Press to load image"}
             <input
               type="file"
               name="src"

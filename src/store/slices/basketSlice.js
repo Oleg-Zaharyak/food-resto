@@ -10,10 +10,9 @@ const basketSlice = createSlice({
   reducers: {
     addItem(state, action) {
       if (state.basketData.length > 0) {
-        // state.basketData.find(el => el.name === )
         const index = state.basketData
-          .map((element) => element.name)
-          .indexOf(action.payload.name);
+          .map((element) => element.id)
+          .indexOf(action.payload.id);
         index >= 0
           ? (state.basketData[index].count += action.payload.count)
           : (state.basketData = [...state.basketData, action.payload]);
@@ -23,14 +22,14 @@ const basketSlice = createSlice({
     },
     changeCount(state, action) {
       const index = state.basketData
-        .map((element) => element.name)
-        .indexOf(action.payload.name);
+        .map((element) => element.id)
+        .indexOf(action.payload.id);
       action.payload.increment
         ? (state.basketData[index].count += 1)
         : (state.basketData[index].count -= 1);
     },
     removeItem(state, action) {
-      let index = state.basketData.map((el) => el.name).indexOf(action.payload);
+      let index = state.basketData.map((el) => el.id).indexOf(action.payload);
       state.basketData.splice(index, 1);
     },
     cleanBasket(state) {
