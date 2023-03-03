@@ -28,7 +28,7 @@ export const ItemCard = (props) => {
       bowls: props.bowl,
       src: props.src,
       count: count,
-      path: props.imagePath,
+      imagePath: props.imagePath,
       id: props.id,
     };
     setCount(1);

@@ -1,13 +1,60 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth, useUserAdmin } from "../../hooks/use-auth";
+import { createOrder, setCountOrder } from "../../store/action/orders";
+import { cleanBasket } from "../../store/slices/basketSlice";
+import { ConfirmPopUp } from "../ConfirmPopUp";
 import { OrderList } from "../Order_list";
 import { TypeDelivery } from "../Type_delivery";
 import style from "./styles.module.scss";
 
 export const Payment = ({ setShowPaymant }) => {
+  const dispatch = useDispatch();
+  const { adminLogin } = useUserAdmin();
+  const { isAuth } = useAuth();
+
   const [val, setVal] = useState("");
+  const [typePayment, setTypePayment] = useState("Credit Card");
+  const [order, setOrder] = useState({});
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const { typeDelivery } = useSelector((state) => state.items);
+  const { basketData } = useSelector((state) => state.basket);
+  const { id } = useSelector((state) => state.user);
+  const { countOrder } = useSelector((state) => state.orders);
+
+  const createOrderData = () => {
+    const data = new Date().toLocaleString();
+    const resultData = basketData.map((el) => ({
+      nameItem: el.name,
+      price: el.price,
+      count: el.count,
+      totalItemPrice: (el.price * el.count).toFixed(2) * 1,
+      note: el.note ? el.note : "",
+      src: el.src,
+    }));
+    const totalPrise =
+      resultData
+        .map((el) => el.totalItemPrice)
+        .reduce((add, a) => add + a)
+        .toFixed(2) * 1;
+    setOrder({
+      orderNumber: countOrder,
+      status: "Pending",
+      menu: resultData,
+      typePayment: typePayment,
+      totalPrise: totalPrise,
+      dataOrder: data,
+    });
+    setShowConfirmModal(true);
+  };
+
+  const sendOrderData = (userData = null) => {
+    dispatch(createOrder({ id: id, orderData: order, userData: userData }));
+    dispatch(setCountOrder());
+    dispatch(cleanBasket());
+    setShowPaymant(false);
+  };
 
   const onChange = (e) => {
     setVal(e.target.value);
@@ -26,6 +73,9 @@ export const Payment = ({ setShowPaymant }) => {
 
     return parts.length > 1 ? parts.join(" ") : value;
   }
+  const changeTypePayment = (e) => {
+    setTypePayment(e.target.value);
+  };
 
   return (
     <div className={style.container}>
@@ -87,7 +137,7 @@ export const Payment = ({ setShowPaymant }) => {
         <OrderList />
       </div>
       <div className={style.right_container}>
-        <form className={style.payment_container}>
+        <div className={style.payment_container}>
           <div className={style.payment_text}>Payment</div>
           <div className={style.available_metod_text}>
             3 payment method available
@@ -95,7 +145,14 @@ export const Payment = ({ setShowPaymant }) => {
           <div className={style.up_horiz_line}></div>
           <div className={style.method_text}>Payment Method</div>
           <div className={style.payment_select}>
-            <input name="payment" type="radio" id="card" value="CreditCard" />
+            <input
+              onChange={changeTypePayment}
+              name="payment"
+              type="radio"
+              id="card"
+              value="Credit Card"
+              checked={typePayment === "Credit Card"}
+            />
             <label htmlFor="card" className={style.card_button}>
               <svg
                 className={style.checked_icon}
@@ -126,7 +183,14 @@ export const Payment = ({ setShowPaymant }) => {
               </svg>
               Credit card
             </label>
-            <input name="payment" type="radio" id="paypal" value="Paypal" />
+            <input
+              onChange={changeTypePayment}
+              name="payment"
+              type="radio"
+              id="paypal"
+              value="Paypal"
+              checked={typePayment === "Paypal"}
+            />
             <label htmlFor="paypal" className={style.paypal_button}>
               <svg
                 className={style.checked_icon}
@@ -158,7 +222,14 @@ export const Payment = ({ setShowPaymant }) => {
               </svg>
               Paypal
             </label>
-            <input name="payment" type="radio" id="Cash" value="Cash" />
+            <input
+              onChange={changeTypePayment}
+              name="payment"
+              type="radio"
+              id="Cash"
+              value="Cash"
+              checked={typePayment === "Cash"}
+            />
             <label htmlFor="Cash" className={style.cash_button}>
               <svg
                 className={style.checked_icon}
@@ -186,57 +257,49 @@ export const Payment = ({ setShowPaymant }) => {
               Cash
             </label>
           </div>
-          <div className={style.payment_name}>
-            <label htmlFor="name" className={style.label}>
-              Cardholder Name
-            </label>
-            <input
-              type="text"
-              name="payment_name"
-              id="payment_name"
-              className={style.input}
-              placeholder="Enter your name"
-            ></input>
-          </div>
-          <div className={style.card_number}>
-            <label htmlFor="card_number" className={style.label}>
-              Card Number
-            </label>
-            <input
-              type="text"
-              name="card_number"
-              id="card_number"
-              value={cc_format(val)}
-              onChange={onChange}
-              className={style.input}
-              placeholder="Enter your card number"
-            ></input>
-          </div>
-          <div className={style.expiration_date}>
-            <label htmlFor="expiration_date" className={style.label}>
-              Expiration Date
-            </label>
-            <input
-              type="month"
-              name="expiration_date"
-              id="expiration_date"
-              className={style.input_date}
-            ></input>
-          </div>
-          <div className={style.cvv}>
-            <label htmlFor="cvv" className={style.label}>
-              CVV
-            </label>
-            <input
-              type="password"
-              name="cvv"
-              id="cvv"
-              placeholder="CVV"
-              className={style.input_cvv}
-              maxLength="3"
-            ></input>
-          </div>
-          <div className={style.horiz_line}></div>
+          {!(typePayment === "Cash") ? (
+            <>
+              <div className={style.card_number}>
+                <label htmlFor="card_number" className={style.label}>
+                  Card Number
+                </label>
+                <input
+                  type="text"
+                  name="card_number"
+                  id="card_number"
+                  value={cc_format(val)}
+                  onChange={onChange}
+                  className={style.input}
+                  placeholder="Enter your card number"
+                ></input>
+              </div>
+              <div className={style.expiration_date}>
+                <label htmlFor="expiration_date" className={style.label}>
+                  Expiration Date
+                </label>
+                <input
+                  type="month"
+                  name="expiration_date"
+                  id="expiration_date"
+                  className={style.input_date}
+                ></input>
+              </div>
+              <div className={style.cvv}>
+                <label htmlFor="cvv" className={style.label}>
+                  CVV
+                </label>
+                <input
+                  type="password"
+                  name="cvv"
+                  id="cvv"
+                  placeholder="CVV"
+                  className={style.input_cvv}
+                  maxLength="3"
+                ></input>
+              </div>
+              <div className={style.horiz_line}></div>
+            </>
+          ) : null}
           <div className={style.selector}>
             <div className={style.selector_text}>Order Type</div>
             <TypeDelivery selected={"Choose Delivery"} data={typeDelivery} />
@@ -253,7 +316,47 @@ export const Payment = ({ setShowPaymant }) => {
               className={style.input}
             ></input>
           </div>
-        </form>
+          {!isAuth ? (
+            <>
+              <div className={style.name}>
+                <label htmlFor="name" className={style.label}>
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  className={style.input}
+                  placeholder="Enter your name"
+                ></input>
+              </div>
+              <div className={style.phoneNamber}>
+                <label htmlFor="phoneNamber" className={style.label}>
+                  Phone number *
+                </label>
+                <input
+                  type="text"
+                  name="phoneNamber"
+                  id="phoneNamber"
+                  className={style.input}
+                  placeholder="Enter your phone number"
+                ></input>
+              </div>
+              <div className={style.address}>
+                <label htmlFor="address" className={style.label}>
+                  Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  className={style.input}
+                  placeholder="Enter your address"
+                ></input>
+              </div>
+            </>
+          ) : null}
+        </div>
         <div className={style.buttons}>
           <button
             onClick={() => {
@@ -263,9 +366,22 @@ export const Payment = ({ setShowPaymant }) => {
           >
             Cancel
           </button>
-          <button className={style.confirm_button}>Confirm Payment</button>
+          <button
+            onClick={createOrderData}
+            disabled={adminLogin}
+            className={style.confirm_button}
+          >
+            Confirm Payment
+          </button>
         </div>
       </div>
+      {showConfirmModal ? (
+        <ConfirmPopUp
+          title="Create order?"
+          confirmFunc={sendOrderData}
+          setShowPopUp={setShowConfirmModal}
+        />
+      ) : null}
     </div>
   );
 };

@@ -141,7 +141,7 @@ export const AddItemCardModal = ({
             selected={changeItem.typeDelivery}
             data={typeDelivery}
             setTypeOf={addItemData}
-            name={"typeDeliverys"}
+            name={"typeDelivery"}
           />
         </div>
         <div className={style.type_dishes}>

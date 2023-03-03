@@ -3,13 +3,16 @@ import { SummaryCard } from "../../components/Summary_card";
 import style from "./styles.module.scss";
 import { TypeDelivery } from "../../components/Type_delivery";
 import { CircleGraph } from "../../components/Statistics_graph";
-import { OrderTableItem } from "../../components/Oreder_table";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeDelivery } from "../../store/action/items";
+import { getAllOrders } from "../../store/action/orders";
+import { OrderTableItem } from "../../components/Oreder_table";
 
 export const Statistic = () => {
   const { typeDelivery } = useSelector((state) => state.items);
   const dispatch = useDispatch();
+
+  const { allOrders } = useSelector((state) => state.orders);
   const data = [
     {
       src: "Dolar",
@@ -50,41 +53,19 @@ export const Statistic = () => {
       order: "80 dishes ordered",
     },
   ];
-  const data_order = [
-    {
-      name: "Oleg Zakhariak",
-      menu: "Spicy seasoned seafood noodles ",
-      payment: " $145",
-      status: "Completed",
-    },
-    {
-      name: "Oleg Zakhariak",
-      menu: "Beef dumpling in hot and sour soup",
-      payment: " $305",
-      status: "Completed",
-    },
-    {
-      name: "Oleg Zakhariak",
-      menu: "Salted pasta with mushroom sauce",
-      payment: "$50",
-      status: "Pending",
-    },
-    {
-      name: "Oleg Zakhariak",
-      menu: "Spicy seasoned seafood noodles ",
-      payment: " $145",
-      status: "Preparing",
-    },
-    {
-      name: "Oleg Zakhariak",
-      menu: "Beef dumpling in hot and sour soup",
-      payment: " $305",
-      status: "Preparing",
-    },
+
+  const headerText = [
+    "#",
+    "Total price",
+    "Payment type",
+    "Order status",
+    "Data(D/M/Y), time",
+    "Name",
   ];
 
   useEffect(() => {
     dispatch(getTypeDelivery());
+    dispatch(getAllOrders());
   }, [dispatch]);
   return (
     <div className={style.container}>
@@ -128,15 +109,7 @@ export const Statistic = () => {
           <div className={style.table_status}>Status</div>
         </div>
         <div className={style.order_report_container}>
-          {data_order.map((el, index) => (
-            <OrderTableItem
-              name={el.name}
-              menu={el.menu}
-              payment={el.payment}
-              status={el.status}
-              key={index}
-            />
-          ))}
+          <OrderTableItem data={allOrders} headerText={headerText} />
         </div>
       </div>
       <div className={style.most_order}>

@@ -1,12 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { OrderList } from "../Order_list";
 import style from "./styles.module.scss";
 
 export const Order = ({ setShowPaymant }) => {
+  const { countOrder } = useSelector((state) => state.orders);
   return (
     <div className={style.container}>
       <div className={style.up_container}>
-        <div className={style.top_container}>Order #324234</div>
+        <div className={style.top_container}>Order #{countOrder}</div>
         <div className={style.middle_container}>
           <input name="deliv" type="radio" id="dineIn" value="DineIn" />
           <label htmlFor="dineIn" className={style.delivery_button}>

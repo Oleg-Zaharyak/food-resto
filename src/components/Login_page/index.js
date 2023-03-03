@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import style from "./styles.module.scss";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../Button";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const LoginPage = () => {
           setUser({
             email: user.email,
             id: user.uid,
-            token: user.accessToken,
+            token: user.stsTokenManager.accessToken,
           })
         );
         navigate("/");
@@ -112,15 +113,20 @@ export const LoginPage = () => {
             Facebook
           </button>
         </div>
-        <button
-          onClick={() => handlerLogin(email, pass)}
-          className={style.logIn_buttons}
-        >
-          Log In
-        </button>
-        <NavLink to={"/registration"} className={style.signUp_button}>
-          Sign Up
-        </NavLink>
+        <div className={style.logIn_buttons}>
+          <Button
+            title="Log In"
+            onClick={() => handlerLogin(email, pass)}
+            width="100%"
+          />
+        </div>
+        <div className={style.signUp_button}>
+          <Button
+            title="Sign Up"
+            onClick={() => navigate("/registration")}
+            width="100%"
+          />
+        </div>
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ export const OrderList = () => {
   let price = 0;
   basketData.map((el) => (price += el.count * el.price));
   const totalPrice = price.toFixed(2);
+
+  
   return (
     <>
       <div className={style.item_container}>

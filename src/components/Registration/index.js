@@ -7,6 +7,7 @@ import style from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "./../../firebase";
+import { Button } from "../Button";
 
 export const RegistrationPage = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,9 @@ export const RegistrationPage = () => {
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
 
   const handlerRegistration = (email, pass) => {
     const auth = getAuth();
@@ -27,9 +28,9 @@ export const RegistrationPage = () => {
           setUser({ email: user.email, id: user.uid, token: user.accessToken })
         );
         const data = {
-          firstName: firstName,
-          lastName: lastName,
-          age: age,
+          userName: name,
+          phoneNumber: phoneNumber,
+          address: address,
           role: "user",
         };
         setDoc(doc(db, "users", user.uid), data);
@@ -84,38 +85,38 @@ export const RegistrationPage = () => {
         </div>
         <div className={style.firstName_container}>
           <label htmlFor="signUp_firstName" className={style.firstName_lable}>
-            First Name
+            Name
           </label>
           <input
             placeholder="Enter your first name"
             id="signUp_firstName"
             type="text"
-            value={firstName}
-            onChange={(el) => setFirstName(el.target.value)}
+            value={name}
+            onChange={(el) => setName(el.target.value)}
           ></input>
         </div>
         <div className={style.lastName_container}>
           <label htmlFor="signUp_lastName" className={style.lastName_lable}>
-            Last Name
+            Phone number*
           </label>
           <input
-            placeholder="Enter your last name"
+            placeholder="Enter your phone number"
             id="signUp_lastName"
             type="text"
-            value={lastName}
-            onChange={(el) => setLastName(el.target.value)}
+            value={phoneNumber}
+            onChange={(el) => setPhoneNumber(el.target.value)}
           ></input>
         </div>
         <div className={style.age_container}>
           <label htmlFor="signUp_lastName" className={style.age_lable}>
-            Age
+            Address
           </label>
           <input
             placeholder="Enter your age"
             id="signUp_age"
             type="text"
-            value={age}
-            onChange={(el) => setAge(el.target.value)}
+            value={address}
+            onChange={(el) => setAddress(el.target.value)}
           ></input>
         </div>
         <div className={style.vert_line}></div>
@@ -156,15 +157,20 @@ export const RegistrationPage = () => {
             Facebook
           </button> */}
         {/* </div> */}
-        <button
-          onClick={() => handlerRegistration(email, pass)}
-          className={style.signUp_buttons}
-        >
-          Sign Up
-        </button>
-        <NavLink to={"/login"} className={style.logIn_buttons}>
-          Return to Log In
-        </NavLink>
+        <div className={style.signUp_buttons}>
+          <Button
+            title="Sign Up"
+            onClick={() => handlerRegistration(email, pass)}
+            width="100%"
+          />
+        </div>
+        <div className={style.logIn_buttons}>
+          <Button
+            title="Return to Log In"
+            onClick={() => navigate("/login")}
+            width="100%"
+          />
+        </div>
       </div>
     </div>
   );

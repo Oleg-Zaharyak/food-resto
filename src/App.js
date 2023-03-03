@@ -8,29 +8,30 @@ import { Home } from "./pages/Home";
 import { Statistic } from "./pages/Statistic";
 import { SiteSetting } from "./pages/SiteSetting";
 import { UserPage } from "./pages/User";
-// import { UserOrders } from "./pages/UserOrders";
 import { Information } from "./pages/Information";
-import { useAuth } from "./hooks/use-auth";
 import { useEffect } from "react";
 import { setUser } from "./store/slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "./components/Loader";
+import PrivateRoutes from "./utils/PrivateRoutes";
+import { PageNotFound } from "./pages/NotFoundPage";
+import { Basket } from "./pages/Basket";
 
 function App() {
-  const { id } = useAuth();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("items"));
+  const { id } = useSelector((state) => state.user);
   useEffect(() => {
-    if (user !== null) {
+    const user = JSON.parse(localStorage.getItem("items"));
+    if (user) {
       dispatch(
         setUser({
           email: user.email,
           id: user.uid,
-          token: user.accessToken,
+          token: user.stsTokenManager.accessToken,
         })
       );
     }
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   return (
     <div className="main_container">
@@ -41,17 +42,17 @@ function App() {
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/information" element={<Information />} />
 
-        {/* <Route path="/user_orders" element={<UserOrders />} /> */}
+        <Route element={<PrivateRoutes />}>
+          <Route path="/statistic" element={<Statistic />} />
+          <Route path="/site_setting" element={<SiteSetting />} />
+        </Route>
 
-        <Route path="/statistic" element={<Statistic />} />
-        <Route path="/site_setting" element={<SiteSetting />} />
-
-        {/* <Route path="/user_list" element={<UsersList />} /> */}
+        <Route path="/busket" element={<Basket />} />
+        <Route path={`/user/${id}`} element={<UserPage id={id} />} />
 
         <Route path="/logIn" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
-        {/* <Route path="/user" element={<UserPage />} /> */}
-        <Route path={`/user/${id}`} element={<UserPage id={id} />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

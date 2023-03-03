@@ -1,0 +1,26 @@
+@import "./../../constants/colors.scss";
+@import "./../../constants/mixin.scss";
+
+.main_wrap {
+  width: 100%;
+  height: 100vh;
+}
+.empty_busket {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 24px;
+}
+.empty_busket_text {
+  font-family: "Comfortaaa-700";
+  font-size: 30px;
+  color: $white-color;
+}
+
+.main_container {
+  width: 100%;
+  height: 100%;
+}

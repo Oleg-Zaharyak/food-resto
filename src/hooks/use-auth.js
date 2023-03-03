@@ -1,12 +1,20 @@
-import { useSelector } from "react-redux";
-
 export function useAuth() {
-  const { email, token, id } = useSelector((state) => state.user);
+  const user = JSON.parse(localStorage.getItem("items"));
   return {
-    isAuth: !!email,
-    email,
-    token,
-    id,
+    isAuth: user ? true : false,
+    email: user ? user.email : null,
+    token: user ? user.stsTokenManager.accessToken : null,
+    id: user ? user.uid : null,
   };
 }
 
+export function useUserAdmin() {
+  const user = JSON.parse(localStorage.getItem("items"));
+  let adminLogin = false;
+  if (user ? user.uid === "8okTMYakF0gaFX8W2AeqAFqWqyw1" : false) {
+    adminLogin = true;
+  } else {
+    adminLogin = false;
+  }
+  return { adminLogin: adminLogin };
+}

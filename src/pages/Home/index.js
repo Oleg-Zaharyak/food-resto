@@ -10,6 +10,7 @@ import {
   getTypeDelivery,
   getTypeDishes,
 } from "../../store/action/items";
+import { getCountOrder } from "../../store/action/orders";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ export const Home = () => {
   const { typeDishes } = useSelector((state) => state.items);
   const { items } = useSelector((state) => state.items);
   const { basketData } = useSelector((state) => state.basket);
-
   const [selected, setSelected] = useState("Cold Dishes");
 
   const onClick = (event) => {
@@ -29,6 +29,7 @@ export const Home = () => {
     dispatch(getItems(selected));
     dispatch(getTypeDishes());
     dispatch(getTypeDelivery());
+    dispatch(getCountOrder());
   }, [dispatch, selected]);
 
   return (
@@ -89,6 +90,7 @@ export const Home = () => {
                 bowl={el.bowls + " Bowls available"}
                 id={el.id}
                 key={index + 10}
+                imagePath={el.imagePath}
               />
             ))}
           </div>

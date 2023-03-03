@@ -28,6 +28,12 @@ const basketSlice = createSlice({
         ? (state.basketData[index].count += 1)
         : (state.basketData[index].count -= 1);
     },
+    addNoteToState(state, action) {
+      const index = state.basketData
+        .map((element) => element.id)
+        .indexOf(action.payload.id);
+      state.basketData[index].note = action.payload.note;
+    },
     removeItem(state, action) {
       let index = state.basketData.map((el) => el.id).indexOf(action.payload);
       state.basketData.splice(index, 1);
@@ -38,7 +44,7 @@ const basketSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, cleanBasket, changeCount } =
+export const { addItem, removeItem, cleanBasket, changeCount, addNoteToState } =
   basketSlice.actions;
 
 export default basketSlice.reducer;

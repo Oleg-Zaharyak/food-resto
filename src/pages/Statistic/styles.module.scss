@@ -25,13 +25,13 @@
 }
 .header_main_text {
   color: $white-color;
-  font-family: "Barlow-600";
+  font-family: "Comfortaaa-700";
   font-size: 28px;
   margin-bottom: 8px;
 }
 .header_second_text {
   color: $secont-text-color;
-  font-family: "Barlow-400";
+  font-family: "Comfortaaa-400";
 }
 .summary_container {
   grid-area: summary_container;
@@ -54,7 +54,7 @@
   margin-bottom: 16px;
 }
 .top_order_text {
-  font-family: "Barlow-600";
+  font-family: "Comfortaaa-700";
   font-size: 28px;
   color: $white-color;
 }
@@ -96,7 +96,7 @@
 .table_payment,
 .table_status {
   color: $white-color;
-  font-family: "Barlow-600";
+  font-family: "Comfortaaa-700";
   font-size: 14px;
 }
 .order_report_container {
@@ -104,7 +104,6 @@
   overflow-y: auto;
   height: calc(100% - 87px);
   // background-color: red;
-
 }
 
 .most_order {
@@ -125,7 +124,7 @@
 }
 .top_container_text {
   color: $white-color;
-  font-family: "Barlow-600";
+  font-family: "Comfortaaa-700";
   font-size: 20px;
 }
 .most_type_order {
@@ -141,7 +140,7 @@
   background-color: inherit;
   border-radius: 8px;
   color: $primary-color;
-  font-family: "Barlow-600";
+  font-family: "Comfortaaa-700";
   font-size: 14px;
   cursor: pointer;
 }
@@ -168,7 +167,7 @@
   margin-bottom: 4px;
 }
 .order_item_secon_text {
-  font-family: "Barlow-400";
+  font-family: "Comfortaaa-400";
   font-size: 12px;
   color: $secont-text-color;
 }
@@ -238,7 +237,7 @@
 }
 .second_type_text {
   margin-top: 4px;
-  font-family: "Barlow-400";
+  font-family: "Comfortaaa-400";
   font-size: 12px;
   color: $secont-text-color;
 }

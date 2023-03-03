@@ -1,0 +1,60 @@
+@import "./../../constants/colors.scss";
+@import "./../../constants/mixin.scss";
+
+.wrap {
+  width: 100%;
+  height: 100vh;
+  background-color: $fourth-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.icon_container {
+  width: 50%;
+  aspect-ratio: 1 / 1;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.error_number {
+  font-family: "Comfortaaa-700";
+  font-size: 100px;
+  color: $primary-color;
+  margin-top: 24px;
+}
+
+.error_text {
+  color: $white-color;
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+.reutrn_button {
+  color: $primary-color;
+  background-color: inherit;
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  font-family: "Comfortaaa-700";
+  font-size: 14px;
+  cursor: pointer;
+  padding: 12px 24px;
+}
+
+.reutrn_button:hover {
+  background-color: $primary-color;
+  color: $white-color;
+}

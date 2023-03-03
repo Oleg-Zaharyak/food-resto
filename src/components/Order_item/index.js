@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { changeCount, removeItem } from "../../store/slices/basketSlice";
+import {
+  addNoteToState,
+  changeCount,
+  removeItem,
+} from "../../store/slices/basketSlice";
 import style from "./styles.module.scss";
 
 export const OrderItem = ({ data }) => {
@@ -31,6 +35,14 @@ export const OrderItem = ({ data }) => {
       increment: true,
     };
     dispatch(changeCount(obj));
+  };
+
+  const addNote = (el) => {
+    const obj = {
+      id: data.id,
+      note: el.target.value,
+    };
+    dispatch(addNoteToState(obj));
   };
 
   return (
@@ -99,6 +111,8 @@ export const OrderItem = ({ data }) => {
         type="text"
         className={style.item4}
         placeholder="Order Note..."
+        onBlur={addNote}
+        defaultValue={data.note ? data.note : ""}
       ></input>
       <button onClick={remove} className={style.item5}>
         <svg

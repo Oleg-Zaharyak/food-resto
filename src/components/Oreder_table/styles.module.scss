@@ -2,13 +2,13 @@
 
 .table_item_container {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
   color: $white-color;
-  font-family: "Barlow-400";
+  font-family: "Comfortaaa-400";
   font-size: 14px;
-  margin-bottom: 24px;
-  align-items: center;
+  // margin-bottom: 24px;
+  // align-items: center;
 }
 .customer_icon {
   width: 32px;
@@ -28,24 +28,46 @@
 .table_item_payment {
   width: 20%;
 }
-.table_item_status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Barlow-500";
-  width: 15%;
-  padding: 4px;
+.table_status {
   border-radius: 30px;
+  padding: 4px 0;
 }
 .green_color {
   background-color: rgba(80, 209, 170, 0.24);
   color: $green-color;
 }
 .orange_color {
-  background-color: rgba(255, 181, 114,0.24);
+  background-color: rgba(255, 181, 114, 0.24);
   color: $orang-color;
 }
 .purple_color {
   background-color: rgba(146, 144, 254, 0.24);
   color: $purple-color;
+}
+
+.table_container {
+  width: 100%;
+  overflow-y: auto;
+  border-collapse: collapse;
+}
+.table_header_row {
+  height: 48px;
+  text-align: center;
+}
+.table_body {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.table_row {
+  border-top: 2px solid $fourth-color;
+  height: 48px;
+}
+.table_row:hover {
+  cursor: pointer;
+  background-color: $base-color;
+}
+.table_column {
+  text-align: center;
 }
