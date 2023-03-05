@@ -90,55 +90,7 @@
   align-items: center;
 }
 
-.bottom_continer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.link_busket_container {
-  width: 56px;
-  padding: 10px;
-  pointer-events: auto;
-  border-radius: 8px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 8px;
-}
-.busket_price {
-  color: $primary-color;
-}
 
-.link_busket_container:hover {
-  background-color: $primary-color;
-  box-shadow: 0px 0px 0 12px $secondary-color;
-  .icon {
-    color: $white-color;
-  }
-  .busket_price {
-    color: $white-color;
-  }
-}
-.active_busket {
-  width: 56px;
-  padding: 10px;
-  background-color: $primary-color;
-  pointer-events: auto;
-  border-radius: 8px;
-  box-shadow: 0px 0px 0 12px $secondary-color;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 8px;
-  text-decoration: none;
-  .icon {
-    color: white;
-  }
-  .busket_price {
-    color: $white-color;
-  }
-}
+
+

@@ -1,0 +1,32 @@
+@import "./../../constants/colors.scss";
+
+.label_checkbox {
+  color: white;
+  position: relative;
+  padding: 5px 8px 5px 30px;
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  background-color: $fourth-color;
+  color: $primary-color;
+}
+.input_typeDelivery:checked + .label_checkbox {
+  color: $white-color;
+  background-color: $primary-color;
+}
+.label_checked_circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid $primary-color;
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  transform: translateY(-50%);
+}
+.label_checked_icon {
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  transform: translateY(-50%);
+  color: $white-color;
+}

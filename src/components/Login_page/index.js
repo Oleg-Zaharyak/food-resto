@@ -34,7 +34,7 @@ export const LoginPage = () => {
   return (
     <div className={style.container}>
       <div className={style.logIn_container}>
-        <div className={style.logIn_text}>Log In</div>
+        <div className={style.logIn_text}>Вхід у кабінет</div>
         <NavLink to={"/"} className={style.exit}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,10 +53,10 @@ export const LoginPage = () => {
         <div className={style.horz_line}></div>
         <div className={style.email_container}>
           <label htmlFor="login_email" className={style.email_lable}>
-            Email
+            Меїл
           </label>
           <input
-            placeholder="Enter your email"
+            placeholder="Введіть емеїл"
             id="login_email"
             type="email"
             value={email}
@@ -65,10 +65,10 @@ export const LoginPage = () => {
         </div>
         <div className={style.password_container}>
           <label htmlFor="login_password" className={style.password_lable}>
-            Password
+            Пароль
           </label>
           <input
-            placeholder="Enter your password"
+            placeholder="Введіть пароль"
             id="login_password"
             type="password"
             value={pass}
@@ -77,14 +77,13 @@ export const LoginPage = () => {
         </div>
         <div className={style.vert_line}></div>
         <div className={style.logIn_other_way}>
-          <div className={style.logIn_other_way_text}>Log in as user:</div>
+          <div className={style.logIn_other_way_text}>Увійти за допомогою:</div>
           <button className={style.google}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
-              className="bi bi-google"
               viewBox="0 0 16 16"
               style={{ marginRight: 10 }}
             >
@@ -115,14 +114,14 @@ export const LoginPage = () => {
         </div>
         <div className={style.logIn_buttons}>
           <Button
-            title="Log In"
+            title="Увійти"
             onClick={() => handlerLogin(email, pass)}
             width="100%"
           />
         </div>
         <div className={style.signUp_button}>
           <Button
-            title="Sign Up"
+            title="Зареєструватися"
             onClick={() => navigate("/registration")}
             width="100%"
           />

@@ -3,14 +3,15 @@ import { useSelector } from "react-redux";
 import style from "./styles.module.scss";
 
 export const Loader = () => {
-  const loadingState = useSelector((state) => state.loading);
+  const { loading } = useSelector((state) => state.loading);
+  console.log();
   return (
     <div
-      style={loadingState.loading ? { display: "flex" } : { display: "none" }}
+      style={loading ? { display: "flex" } : { display: "none" }}
       className={style.container}
     >
       <div className={style.loader}></div>
-      <span className={style.text}> Loading ...</span>
+      <span className={style.text}> Завантаження ...</span>
     </div>
   );
 };

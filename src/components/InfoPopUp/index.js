@@ -1,12 +1,11 @@
 import React from "react";
 import style from "./styles.module.scss";
 
-export const ConfirmPopUp = ({ title, confirmFunc, setShowPopUp }) => {
+export const InfoPopUp = ({ title, setShowPopUp }) => {
   const closePopUp = () => {
     setShowPopUp(false);
   };
   const confirmPopUp = () => {
-    confirmFunc();
     setShowPopUp(false);
   };
   return (
@@ -16,10 +15,7 @@ export const ConfirmPopUp = ({ title, confirmFunc, setShowPopUp }) => {
         <div className={style.confirm_text}>{title}</div>
         <div className={style.confirm_button_ccontainer}>
           <button onClick={confirmPopUp} className={style.confirm_button}>
-            Так
-          </button>
-          <button onClick={closePopUp} className={style.confirm_button}>
-            Ні
+           Окей
           </button>
         </div>
       </div>

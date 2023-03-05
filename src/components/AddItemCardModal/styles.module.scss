@@ -38,8 +38,8 @@
     "text_area text_area"
     "images_container name_input"
     "images_container price_input"
-    "input_images_container bowls_input"
-    "type_delivery type_dishes"
+    "input_images_container description_input"
+    "type_dishes ."
     "add_button add_button";
 }
 .lable {
@@ -67,8 +67,8 @@ img {
 .current_image {
   display: block;
   aspect-ratio: 1 / 1;
-  width: 65%;
-  border-radius: 50%;
+  width: 70%;
+  border-radius: 8px;
   background-color: $third-color;
 }
 .input_images_container {
@@ -90,11 +90,8 @@ img {
 .price_input {
   grid-area: price_input;
 }
-.bowls_input {
-  grid-area: bowls_input;
-}
-.type_delivery {
-  grid-area: type_delivery;
+.description_input {
+  grid-area: description_input;
 }
 .type_dishes {
   grid-area: type_dishes;
@@ -151,7 +148,6 @@ label.label input[type="file"] {
   color: $white-color;
   white-space: nowrap;
   overflow: auto;
-  // text-overflow:ellipsis;
 }
 .lable_upload_image::-webkit-scrollbar {
   display: none;

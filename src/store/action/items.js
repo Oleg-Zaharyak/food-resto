@@ -12,6 +12,7 @@ import {
 import { db } from "./../../firebase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  setAllItems,
   setChangeItem,
   setItems,
   setTypeDelivery,
@@ -29,11 +30,7 @@ import {
 const getItems = createAsyncThunk("items/getItems", async (arg, thunkAPI) => {
   try {
     thunkAPI.dispatch(setLoadStete(true));
-    const q = query(
-      collection(db, "dishes"),
-      where("typeDishes", "==", arg),
-      where("typeDelivery", "==", "Dine In")
-    );
+    const q = query(collection(db, "dishes"), where("typeDishes", "==", arg));
     const querySnapshot = await getDocs(q);
     const result = [];
     querySnapshot.forEach((doc) => {
@@ -62,7 +59,7 @@ const getAllItems = createAsyncThunk(
         data.id = doc.id;
         result.push(data);
       });
-      thunkAPI.dispatch(setItems(result));
+      thunkAPI.dispatch(setAllItems(result));
     } catch (err) {
       console.log(err);
     } finally {
@@ -113,7 +110,6 @@ const addNewDishes = createAsyncThunk(
     try {
       thunkAPI.dispatch(setLoadStete(true));
       await addDoc(collection(db, "dishes"), arg);
-      thunkAPI.dispatch(getAllItems());
     } catch (err) {
       console.log(err);
     } finally {
@@ -199,8 +195,6 @@ const uploadPhoto = createAsyncThunk(
     }
   }
 );
-
-
 
 export {
   getItems,

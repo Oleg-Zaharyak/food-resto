@@ -25,7 +25,7 @@ export const ItemCard = (props) => {
     let obj = {
       name: props.name,
       price: props.price,
-      bowls: props.bowl,
+      description: props.description,
       src: props.src,
       count: count,
       imagePath: props.imagePath,
@@ -53,8 +53,8 @@ export const ItemCard = (props) => {
         <img src={props.src} alt="img" className={style.image} />
         <div className={style.text_block}>
           <span className={style.top_text}>{props.name}</span>
-          <span className={style.middle_text}>$ {props.price}</span>
-          <span className={style.bottom_text}>{props.bowl}</span>
+          <span className={style.middle_text}>{props.price} грн.</span>
+          <span className={style.bottom_text}>{props.description}</span>
         </div>
         <div className={style.shadow_container}>
           {props.page ? (
@@ -144,14 +144,14 @@ export const ItemCard = (props) => {
       </div>
       {showConfirmModal ? (
         <ConfirmPopUp
-          title={"Confirm delete dishes?"}
+          title={"Підтвердити видалення?"}
           confirmFunc={deleteCard}
           setShowPopUp={setShowConfirmModal}
         />
       ) : null}
       {showAddItemCardModal ? (
         <AddItemCardModal
-          title={"Change item"}
+          title={"Змінити дані про страву"}
           setShowAddItemModal={setShowAddItemCardModal}
           confirmFunc={changeCardItem}
         />

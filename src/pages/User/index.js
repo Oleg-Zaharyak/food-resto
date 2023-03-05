@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../store/action/currentUser";
-import { getUserOrder } from "../../store/action/orders";
+// import { getUserOrder } from "../../store/action/orders";
 import { OrderTableItem } from "../../components/Oreder_table";
 
 export const UserPage = ({ id }) => {
@@ -30,7 +30,7 @@ export const UserPage = ({ id }) => {
   };
   useEffect(() => {
     dispatch(getCurrentUser());
-    dispatch(getUserOrder({ id: id }));
+    // dispatch(getUserOrder({ id: id }));
   }, [dispatch, id]);
   return (
     <div className={style.wrap}>

@@ -42,12 +42,12 @@
   height: 48px;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 .confirm_button {
   cursor: pointer;
   color: $primary-color;
-  width: 48px;
+  padding: 0 8px;
   height: 48px;
   border: 1px solid $primary-color;
   border-radius: 8px;

@@ -12,9 +12,7 @@ export const AddItemCardModal = ({
   confirmFunc,
 }) => {
   const dispatch = useDispatch();
-  const { typeDelivery, typeDishes, changeItem } = useSelector(
-    (state) => state.items
-  );
+  const { typeDishes, changeItem } = useSelector((state) => state.items);
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
   const [dataItem, setDataItem] = useState({});
@@ -70,7 +68,7 @@ export const AddItemCardModal = ({
         </div>
         <div className={style.input_images_container}>
           <label className={style.lable_upload_image}>
-            {image ? image.name : "Press to load image"}
+            {image ? image.name : "Завантажити фото"}
             <input
               type="file"
               name="src"
@@ -98,11 +96,11 @@ export const AddItemCardModal = ({
         <div className={style.add_new_item_text}>{title}</div>
         <div className={style.name_input}>
           <label className={style.lable}>
-            Name
+            Назва страви
             <input
               type="text"
               name="nameItem"
-              placeholder="Enter dishes name"
+              placeholder="Введіть назву страви"
               defaultValue={changeItem.nameItem}
               onChange={addItemData}
               className={style.input}
@@ -111,41 +109,32 @@ export const AddItemCardModal = ({
         </div>
         <div className={style.price_input}>
           <label className={style.lable}>
-            Price
+            Ціна
             <input
               onChange={addItemData}
               name="price"
               type="number"
               defaultValue={changeItem.price}
-              placeholder="Enter dishes price"
+              placeholder="Введіть ціну страви"
               className={style.input}
             ></input>
           </label>
         </div>
-        <div className={style.bowls_input}>
+        <div className={style.description_input}>
           <label className={style.lable}>
-            Bowls
+            Опис
             <input
               onChange={addItemData}
-              name="bowls"
-              type="number"
-              defaultValue={changeItem.bowls}
-              placeholder="Enter dishes bowls"
+              name="description"
+              type="text"
+              defaultValue={changeItem.description}
+              placeholder="Введіть опис страви"
               className={style.input}
             ></input>
           </label>
         </div>
-        <div className={style.type_delivery}>
-          <div className={style.type_text}>Select type of delivery</div>
-          <TypeDelivery
-            selected={changeItem.typeDelivery}
-            data={typeDelivery}
-            setTypeOf={addItemData}
-            name={"typeDelivery"}
-          />
-        </div>
         <div className={style.type_dishes}>
-          <div className={style.type_text}>Select type of dishes</div>
+          <div className={style.type_text}>Виберіть тип їжі</div>
           <TypeDelivery
             selected={changeItem.typeDishes}
             data={typeDishes}

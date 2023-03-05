@@ -2,7 +2,6 @@
 
 .container {
   display: none;
-  //   display: flex;
   position: absolute;
   z-index: 1000;
   width: 100%;
@@ -12,8 +11,8 @@
   align-items: center;
 }
 .loader {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border: 5px solid;
   border-color: $white-color transparent transparent transparent;
   border-radius: 50%;

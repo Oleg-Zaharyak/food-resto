@@ -5,7 +5,7 @@ import { TypeDelivery } from "../../components/Type_delivery";
 import { CircleGraph } from "../../components/Statistics_graph";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeDelivery } from "../../store/action/items";
-import { getAllOrders } from "../../store/action/orders";
+// import { getAllOrders } from "../../store/action/orders";
 import { OrderTableItem } from "../../components/Oreder_table";
 
 export const Statistic = () => {
@@ -65,7 +65,7 @@ export const Statistic = () => {
 
   useEffect(() => {
     dispatch(getTypeDelivery());
-    dispatch(getAllOrders());
+    // dispatch(getAllOrders());
   }, [dispatch]);
   return (
     <div className={style.container}>
@@ -115,7 +115,7 @@ export const Statistic = () => {
       <div className={style.most_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Ordered</div>
-          <TypeDelivery selected={"Choose Delivery"} data={typeDelivery} />
+          <TypeDelivery selected={"Тип доставки"} data={typeDelivery} />
         </div>
         <div className={style.most_order_item_container}>
           {data_item.map((el, index) => (
@@ -137,7 +137,7 @@ export const Statistic = () => {
       <div className={style.most_type_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Type of Order</div>
-          <TypeDelivery selected={"Choose Delivery"} data={typeDelivery} />
+          <TypeDelivery selected={"Тип доставки"} data={typeDelivery} />
         </div>
         <div className={style.graph_container}>
           <div className={style.graph_wrap}>

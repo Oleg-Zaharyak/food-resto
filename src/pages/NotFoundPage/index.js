@@ -22,8 +22,8 @@ export const PageNotFound = () => {
           </svg>
         </div>
         <div className={style.error_number}>404</div>
-        <div className={style.error_text}>Page not found</div>
-        <Button title="Home page" onClick={() => navigate("/")}/>
+        <div className={style.error_text}>Сторінки не знайдено</div>
+        <Button title="Повернутись на головну" onClick={() => navigate("/")} />
       </div>
     </div>
   );

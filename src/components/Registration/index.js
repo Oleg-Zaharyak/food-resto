@@ -61,10 +61,10 @@ export const RegistrationPage = () => {
         <div className={style.horz_line}></div>
         <div className={style.email_container}>
           <label htmlFor="signUp_email" className={style.email_lable}>
-            Email
+            Емеїл
           </label>
           <input
-            placeholder="Enter your email"
+            placeholder="Введіть емаїл"
             id="signUp_email"
             type="email"
             value={email}
@@ -73,10 +73,10 @@ export const RegistrationPage = () => {
         </div>
         <div className={style.password_container}>
           <label htmlFor="signUp_password" className={style.password_lable}>
-            Password
+            Пароль
           </label>
           <input
-            placeholder="Enter your password"
+            placeholder="Введіть пароль"
             id="signUp_password"
             type="password"
             value={pass}
@@ -85,10 +85,10 @@ export const RegistrationPage = () => {
         </div>
         <div className={style.firstName_container}>
           <label htmlFor="signUp_firstName" className={style.firstName_lable}>
-            Name
+            Ім'я
           </label>
           <input
-            placeholder="Enter your first name"
+            placeholder="Введіть ваше ім'я"
             id="signUp_firstName"
             type="text"
             value={name}
@@ -97,10 +97,10 @@ export const RegistrationPage = () => {
         </div>
         <div className={style.lastName_container}>
           <label htmlFor="signUp_lastName" className={style.lastName_lable}>
-            Phone number*
+            Номер телефону
           </label>
           <input
-            placeholder="Enter your phone number"
+            placeholder="Введіть ваш номер телефону"
             id="signUp_lastName"
             type="text"
             value={phoneNumber}
@@ -109,10 +109,10 @@ export const RegistrationPage = () => {
         </div>
         <div className={style.age_container}>
           <label htmlFor="signUp_lastName" className={style.age_lable}>
-            Address
+            Адреса
           </label>
           <input
-            placeholder="Enter your age"
+            placeholder="Введіть вашу адресу"
             id="signUp_age"
             type="text"
             value={address}
@@ -159,14 +159,14 @@ export const RegistrationPage = () => {
         {/* </div> */}
         <div className={style.signUp_buttons}>
           <Button
-            title="Sign Up"
+            title="Зареєструватися"
             onClick={() => handlerRegistration(email, pass)}
             width="100%"
           />
         </div>
         <div className={style.logIn_buttons}>
           <Button
-            title="Return to Log In"
+            title="Повернутись до входу"
             onClick={() => navigate("/login")}
             width="100%"
           />

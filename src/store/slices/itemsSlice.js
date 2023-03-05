@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  allItem: [],
   typeDishes: [],
   typeDelivery: [],
   deleteItem: "",
@@ -9,10 +10,10 @@ const initialState = {
     nameItem: "",
     src: "",
     imagePath: "",
-    bowls: "",
+    description: "",
     price: "",
-    typeDishes: "Choose Dishes",
-    typeDelivery: "Choose Delivery",
+    typeDishes: "Тип їжі",
+    typeDelivery: "Тип доставки",
   },
 };
 
@@ -29,6 +30,9 @@ const itemsSlice = createSlice({
     setTypeDelivery(state, action) {
       state.typeDelivery = action.payload;
     },
+    setAllItems(state, action) {
+      state.allItem = action.payload;
+    },
     setDeleteItemId(state, action) {
       state.deleteItem = action.payload;
     },
@@ -40,10 +44,10 @@ const itemsSlice = createSlice({
         nameItem: "",
         src: "",
         imagePath: "",
-        bowls: "",
+        description: "",
         price: "",
-        typeDishes: "Choose Dishes",
-        typeDelivery: "Choose Delivery",
+        typeDishes: "Тип їжі",
+        typeDelivery: "Тип доставки",
       };
     },
   },
@@ -51,6 +55,7 @@ const itemsSlice = createSlice({
 
 export const {
   setItems,
+  setAllItems,
   setTypeDishes,
   setDeleteItemId,
   setChangeItem,
