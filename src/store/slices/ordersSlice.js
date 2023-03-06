@@ -6,6 +6,7 @@ const initialState = {
   countOrder: 0,
   availablePromoCod: null,
   promoCod: { note: null, count: 0, sale: 0, id: null },
+  restourantsAddress: [],
 };
 
 const ordersSlice = createSlice({
@@ -31,6 +32,9 @@ const ordersSlice = createSlice({
       state.promoCod = { name: null, count: 0, sale: 0, id: null };
       state.availablePromoCod = null;
     },
+    setRestourantsAddress(state, action) {
+      state.restourantsAddress = action.payload;
+    },
   },
 });
 
@@ -40,6 +44,8 @@ export const {
   setAllOrders,
   setPromoCod,
   setAvailablePromoCod,
+  cleanPromoOrder,
+  setRestourantsAddress,
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "./styles.module.scss";
-import { TypeDelivery } from "../Type_delivery";
+import { CustomSelector } from "../CustomSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { serClearChangeItem } from "../../store/slices/itemsSlice";
 import { uploadPhoto } from "../../store/action/items";
@@ -135,7 +135,7 @@ export const AddItemCardModal = ({
         </div>
         <div className={style.type_dishes}>
           <div className={style.type_text}>Виберіть тип їжі</div>
-          <TypeDelivery
+          <CustomSelector
             selected={changeItem.typeDishes}
             data={typeDishes}
             setTypeOf={addItemData}

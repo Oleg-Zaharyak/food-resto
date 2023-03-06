@@ -1,3 +1,49 @@
 @import "./../../constants/colors.scss";
-@import "./../../constants/mixin.scss";
 
+.main_container {
+  width: 100%;
+  height: 100vh;
+  padding: 12px 24px;
+}
+
+.header {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.header_text {
+  color: $white-color;
+  font-family: "Comfortaaa-700";
+  font-size: 30px;
+}
+
+.promotion_container {
+  width: 100%;
+  max-height: 91%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.promotion_container::-webkit-scrollbar{
+    display: none;
+}
+
+.no_promotion {
+  width: 100%;
+  height: 91%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 24px;
+}
+.no_promotion_text {
+  color: $white-color;
+  font-family: "Comfortaaa-600";
+  font-size: 25px;
+}

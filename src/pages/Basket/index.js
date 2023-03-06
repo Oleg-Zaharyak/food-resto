@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
+import { ConfirmPopUp } from "../../components/ConfirmPopUp";
 import { CustomRadioButton } from "../../components/CustomRadioButton";
 import { InfoPopUp } from "../../components/InfoPopUp";
 import { OrderItemCard } from "../../components/OrderItemCard";
-import { checkPromoCod, createOrder } from "../../store/action/orders";
+import { CustomSelector } from "../../components/CustomSelector";
+import {
+  checkPromoCod,
+  createOrder,
+  getRestourantsAddress,
+} from "../../store/action/orders";
+import { cleanPromoOrder } from "../../store/slices/ordersSlice";
 import style from "./styles.module.scss";
+import { cleanBasket } from "../../store/slices/basketSlice";
 
 export const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { basketData } = useSelector((state) => state.basket);
-  const { availablePromoCod, promoCod } = useSelector((state) => state.orders);
+  const { availablePromoCod, promoCod, restourantsAddress } = useSelector(
+    (state) => state.orders
+  );
 
   let price = 0;
   basketData.map((el) => (price += el.count * el.price));
@@ -45,14 +55,17 @@ export const Basket = () => {
       id: "online",
     },
     {
-      value: "Карткою кур'єру",
-      id: "cardOnline",
+      value: "Карткою",
+      id: "card",
     },
   ];
 
   const [typePayment, setTypePayment] = useState("Готівка");
   const [typeDelivery, setTypeDelivery] = useState("Доставка");
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showInfoPopUp, setShowInfoPopUp] = useState(false);
+  const [showCancelConfirmModal, setshowCancelConfirmModal] = useState(false);
+  const [showConfirmOrderModal, setshowConfirmOrderModal] = useState(false);
+
   const [promo, setPromo] = useState("");
   const [dataItem, setDataItem] = useState({
     userName: "",
@@ -60,7 +73,9 @@ export const Basket = () => {
     street: "",
     city: "",
     buildNumber: "",
-    shopAddress: "",
+    userCash: "",
+    orderNote: "",
+    restourantsAddress: "Виберіть адресу магазину",
   });
 
   const addItemData = (event) => {
@@ -73,7 +88,11 @@ export const Basket = () => {
 
   const PromoCod = () => {
     dispatch(checkPromoCod(promo.toUpperCase()));
-    setShowPopUp(true);
+    setShowInfoPopUp(true);
+  };
+
+  const CancelPromoCod = () => {
+    dispatch(cleanPromoOrder());
   };
 
   const checkField = () => {
@@ -92,17 +111,40 @@ export const Basket = () => {
       result =
         dataItem.userName.length > 0 &&
         dataItem.phoneNumber.length > 0 &&
-        dataItem.shopAddress.length > 0
+        dataItem.restourantsAddress !== "Виберіть адресу магазину"
           ? false
           : true;
     }
     return result;
   };
 
+  const openConfirmOrderModal = () => {
+    setshowConfirmOrderModal(true);
+    dataItem.typeDelivery = typeDelivery;
+    dataItem.typePayment = typePayment;
+    dataItem.menu = basketData;
+    dataItem.timeOrder = new Date().toLocaleString();
+    dataItem.totalPrice = totalPrice;
+    dataItem.saleAmont = saleAmont;
+  };
   const sendOrderData = () => {
-    dispatch(createOrder({ promoCod: promoCod, available: availablePromoCod }));
+    dispatch(
+      createOrder({
+        promoCod: promoCod,
+        available: availablePromoCod,
+        dataItem: dataItem,
+      })
+    );
+    dispatch(cleanBasket());
+    dispatch(cleanPromoOrder());
+    navigate("/");
   };
 
+  useEffect(() => {
+    dispatch(getRestourantsAddress());
+  }, [dispatch]);
+
+  console.log(dataItem);
   return (
     <div className={style.main_wrap}>
       {basketData.length ? (
@@ -146,6 +188,11 @@ export const Basket = () => {
                       title="Застосувати"
                       onClick={PromoCod}
                       disabled={availablePromoCod}
+                    />
+                    <Button
+                      title="Скасувати"
+                      onClick={setshowCancelConfirmModal}
+                      disabled={!availablePromoCod}
                     />
                   </div>
                   <div className={style.total_container}>
@@ -242,19 +289,12 @@ export const Basket = () => {
                       </label>
                     </div>
                   ) : typeDelivery === "Самовивіз" ? (
-                    <div key={1000} className={style.shop_address}>
-                      <label className={style.lable}>
-                        Виберіть магазин:
-                        <input
-                          name="shopAddress"
-                          className={style.input}
-                          type="text"
-                          placeholder="Виберіть магазин"
-                          onChange={addItemData}
-                          defaultValue={dataItem.shopAddress}
-                        ></input>
-                      </label>
-                    </div>
+                    <CustomSelector
+                      selected={dataItem.restourantsAddress}
+                      data={restourantsAddress}
+                      setTypeOf={addItemData}
+                      name={"restourantsAddress"}
+                    />
                   ) : null}
                 </div>
                 <div className={style.payment_container}>
@@ -296,7 +336,7 @@ export const Basket = () => {
               <Button
                 title="Готово"
                 width="100%"
-                onClick={sendOrderData}
+                onClick={openConfirmOrderModal}
                 disabled={checkField()}
               />
             </div>
@@ -311,14 +351,28 @@ export const Basket = () => {
           />
         </div>
       )}
-      {showPopUp ? (
+      {showInfoPopUp ? (
         <InfoPopUp
           title={
             availablePromoCod
               ? `Промо-код "${promoCod.note}" активовано`
               : "Промо-код не знайдено"
           }
-          setShowPopUp={(el) => setShowPopUp(el)}
+          setShowPopUp={(el) => setShowInfoPopUp(el)}
+        />
+      ) : null}
+      {showCancelConfirmModal ? (
+        <ConfirmPopUp
+          title={"Скасувати промо код?"}
+          confirmFunc={CancelPromoCod}
+          setShowPopUp={setshowCancelConfirmModal}
+        />
+      ) : null}
+      {showConfirmOrderModal ? (
+        <ConfirmPopUp
+          title={"Створити замовлення?"}
+          confirmFunc={sendOrderData}
+          setShowPopUp={setshowConfirmOrderModal}
         />
       ) : null}
     </div>

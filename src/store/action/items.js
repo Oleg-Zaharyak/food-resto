@@ -73,7 +73,6 @@ const getTypeDishes = createAsyncThunk(
   async (arg, thunkAPI) => {
     try {
       thunkAPI.dispatch(setLoadStete(true));
-
       const q = query(collection(db, "typeDishes"));
       const querySnapshot = await getDocs(q);
       const result = [];

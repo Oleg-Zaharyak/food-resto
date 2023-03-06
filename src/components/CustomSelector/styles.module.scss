@@ -20,14 +20,15 @@
   height: 100%;
   padding: 14px;
   border: 1px solid $third-color;
-  background-color: $base-color;
+  background-color: $fourth-color;
   border-radius: 8px;
 }
 
 .option_container {
   position: absolute;
+  z-index: 2;
   top: 45px;
-  background-color: $base-color;
+  background-color: $fourth-color;
   width: 100%;
   text-align: end;
   border-radius: 0 0 8px 8px;

@@ -6,7 +6,8 @@ export const SummaryCard = (props) => {
     <div className={style.container}>
       <div className={style.upper_container}>
         <img
-          src={require(`./../../assets/images/${props.src}.svg`)}
+          src=""
+          // src={require(`./../../assets/images/${props.src}.svg`)}
           className={style.img}
           alt={props.src}
         ></img>
@@ -21,7 +22,8 @@ export const SummaryCard = (props) => {
           {props.proc}
         </div>
         <img
-          src={require(`./../../assets/images/${props.arrow}.svg`)}
+          src=""
+          // src={require(`./../../assets/images/${props.arrow}.svg`)}
           className={style.arrow_icon}
           alt={props.arrow}
         ></img>

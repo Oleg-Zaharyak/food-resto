@@ -1,9 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  addDoc,
+  collection,
   // addDoc,
   // collection,
   doc,
   getDoc,
+  getDocs,
+  query,
   // getDocs,
   // query,
   updateDoc,
@@ -15,19 +19,34 @@ import {
   setAvailablePromoCod,
   // setCountOrders,
   setPromoCod,
+  setRestourantsAddress,
   // setUserOrder,
 } from "../slices/ordersSlice";
 
 const createOrder = createAsyncThunk(
   "orders/creteOrder",
-  async ({ promoCod, available }, thunkAPI) => {
+  async ({ promoCod, available, dataItem }, thunkAPI) => {
     try {
       thunkAPI.dispatch(setLoadStete(true));
       if (available) {
         const washingtonRef = doc(db, "promoCod", promoCod.id);
         await updateDoc(washingtonRef, { count: promoCod.count - 1 });
       }
-      console.log(promoCod, available);
+      if (dataItem.typeDelivery === "Самовивіз") {
+        delete dataItem.street;
+        delete dataItem.city;
+        delete dataItem.buildNumber;
+        if (dataItem.typePayment === "Онлайн" || "Карткою") {
+          delete dataItem.userCash;
+        }
+      }
+      if (dataItem.typeDelivery === "Доставка") {
+        delete dataItem.restourantsAddress;
+        if (dataItem.typePayment === "Онлайн" || "Карткою") {
+          delete dataItem.userCash;
+        }
+      }
+      await addDoc(collection(db, "allOrders"), dataItem);
     } catch (err) {
       console.log(err);
     } finally {
@@ -142,11 +161,30 @@ const checkPromoCod = createAsyncThunk(
   }
 );
 
+const getRestourantsAddress = createAsyncThunk(
+  "items/getTypeDishes",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const q = query(collection(db, "restourant"));
+      const querySnapshot = await getDocs(q);
+      const result = [];
+      querySnapshot.forEach((doc) => result.push(doc.data()));
+      thunkAPI.dispatch(setRestourantsAddress(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+
 export {
   createOrder,
   // getUserOrder,
   // getAllOrders,
   // getCountOrder,
   // setCountOrder,
+  getRestourantsAddress,
   checkPromoCod,
 };

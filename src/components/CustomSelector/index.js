@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./styles.module.scss";
 
-export const TypeDelivery = ({ selected, data, setTypeOf, name }) => {
+export const CustomSelector = ({ selected, data, setTypeOf, name }) => {
   const [type, setType] = useState("");
   const [open, setOpen] = useState(false);
   useEffect(() => {

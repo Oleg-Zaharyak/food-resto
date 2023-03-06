@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { SummaryCard } from "../../components/Summary_card";
 import style from "./styles.module.scss";
-import { TypeDelivery } from "../../components/Type_delivery";
+import { CustomSelector } from "../../components/CustomSelector";
 import { CircleGraph } from "../../components/Statistics_graph";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeDelivery } from "../../store/action/items";
@@ -76,7 +76,7 @@ export const Statistic = () => {
       <div className={style.summary_container}>
         {data.map((el, index) => (
           <SummaryCard
-            src={el.src}
+            // src={el.src}
             sum={el.sum}
             name={el.name}
             proc={el.proc}
@@ -115,14 +115,15 @@ export const Statistic = () => {
       <div className={style.most_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Ordered</div>
-          <TypeDelivery selected={"Тип доставки"} data={typeDelivery} />
+          <CustomSelector selected={"Тип доставки"} data={typeDelivery} />
         </div>
         <div className={style.most_order_item_container}>
           {data_item.map((el, index) => (
             <div className={style.most_order_item} key={index}>
               <img
                 className={style.most_order_image}
-                src={require(`./../../assets/images/${el.src}.png`)}
+                src=""
+                // src={require(`./../../assets/images/${el.src}.png`)}
                 alt="img"
               ></img>
               <div className={style.order_item_text}>
@@ -137,7 +138,7 @@ export const Statistic = () => {
       <div className={style.most_type_order}>
         <div className={style.top_container}>
           <div className={style.top_container_text}>Most Type of Order</div>
-          <TypeDelivery selected={"Тип доставки"} data={typeDelivery} />
+          <CustomSelector selected={"Тип доставки"} data={typeDelivery} />
         </div>
         <div className={style.graph_container}>
           <div className={style.graph_wrap}>
