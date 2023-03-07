@@ -5,40 +5,45 @@ import { removeUser } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../../store/action/currentUser";
 // import { getUserOrder } from "../../store/action/orders";
-import { OrderTableItem } from "../../components/Oreder_table";
+// import { OrderTableItem } from "../../components/Oreder_table";
+import { cleanBasket } from "../../store/slices/basketSlice";
+import { cleanPromoOrder } from "../../store/slices/ordersSlice";
 
 export const UserPage = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { userProfile } = useSelector((state) => state.currentUser);
-  const { userOrders } = useSelector((state) => state.orders);
+  // const { userOrders } = useSelector((state) => state.orders);
 
-  const headerText = [
-    "#",
-    "Total price",
-    "Payment type",
-    "Order status",
-    "Data(D/M/Y), time",
-    "Info",
-  ];
+  // const headerText = [
+  //   "#",
+  //   "Total price",
+  //   "Payment type",
+  //   "Order status",
+  //   "Data(D/M/Y), time",
+  //   "Info",
+  // ];
 
   const LogOut = () => {
     dispatch(removeUser());
     localStorage.clear("items");
+    dispatch(cleanBasket());
+    dispatch(cleanPromoOrder());
     navigate("/");
   };
   useEffect(() => {
     dispatch(getCurrentUser());
     // dispatch(getUserOrder({ id: id }));
   }, [dispatch, id]);
+
   return (
     <div className={style.wrap}>
       <div className={style.container}>
         <div className={style.header}>
           <div className={style.user_name}>
             <div>
-              {userProfile.firstName} {userProfile.lastName}
+              {userProfile.userName} 
             </div>
           </div>
           <button className={style.log_out_button} onClick={LogOut}>
@@ -54,9 +59,9 @@ export const UserPage = ({ id }) => {
             </svg>
           </button>
         </div>
-        <div>
+        {/* <div>
           <OrderTableItem data={userOrders} headerText={headerText} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

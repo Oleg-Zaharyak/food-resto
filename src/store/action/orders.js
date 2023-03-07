@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   query,
+  setDoc,
   // getDocs,
   // query,
   updateDoc,
@@ -28,6 +29,7 @@ const createOrder = createAsyncThunk(
   async ({ promoCod, available, dataItem }, thunkAPI) => {
     try {
       thunkAPI.dispatch(setLoadStete(true));
+
       if (available) {
         const washingtonRef = doc(db, "promoCod", promoCod.id);
         await updateDoc(washingtonRef, { count: promoCod.count - 1 });
@@ -47,6 +49,86 @@ const createOrder = createAsyncThunk(
         }
       }
       await addDoc(collection(db, "allOrders"), dataItem);
+      // ............... count total Revenue ..................
+      thunkAPI.dispatch(changeTotalRelevant(dataItem.totalPrice));
+
+      // ................ count total Order Dishesh ................
+      thunkAPI.dispatch(saveTotalDishes(dataItem.menu));
+
+      // ................ count total all dishes ................
+      thunkAPI.dispatch(saveAllDishesCount(dataItem.menu));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+const changeTotalRelevant = createAsyncThunk(
+  "orders/changeTotalRelevant",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const data = await getDoc(doc(db, "Statistic", "totalRevenue"));
+      const result = data.data().count + arg * 1;
+      const oldCount = doc(db, "Statistic", "totalRevenue");
+      await updateDoc(oldCount, { count: result });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+const saveTotalDishes = createAsyncThunk(
+  "orders/saveTotalDishes",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const data = await getDoc(doc(db, "Statistic", "totalOrderedDishes"));
+      const oldCount = data.data().count;
+      const totalCountDishes = arg.reduce((sum, el) => sum + el.count, 0);
+      const result = oldCount + totalCountDishes;
+      const oldCountDishes = doc(db, "Statistic", "totalOrderedDishes");
+      await updateDoc(oldCountDishes, { count: result });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+const saveAllDishesCount = createAsyncThunk(
+  "orders/saveAllDishesCount",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      for (let i = 0; i < arg.length; i++) {
+        const frankDocRef = doc(
+          db,
+          "Statistic/totalOrderedDishes/AllCountDishes",
+          arg[i].id
+        );
+        const docSnap = await getDoc(frankDocRef);
+        if (docSnap.exists()) {
+          const oldCount = docSnap.data().count;
+          const result = oldCount + arg[i].count * 1;
+          const frankDocRef = doc(
+            db,
+            "Statistic/totalOrderedDishes/AllCountDishes",
+            arg[i].id
+          );
+          await updateDoc(frankDocRef, { count: result });
+        } else {
+          await setDoc(
+            doc(db, "Statistic/totalOrderedDishes/AllCountDishes", arg[i].id),
+            {
+              count: arg[i].count,
+              name: arg[i].name,
+            }
+          );
+        }
+      }
     } catch (err) {
       console.log(err);
     } finally {

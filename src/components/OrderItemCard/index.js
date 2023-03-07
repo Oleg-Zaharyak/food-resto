@@ -4,7 +4,7 @@ import { changeCount, removeItem } from "../../store/slices/basketSlice";
 import { ConfirmPopUp } from "../ConfirmPopUp";
 import style from "./styles.module.scss";
 
-export const OrderItemCard = ({ data, key }) => {
+export const OrderItemCard = ({ data}) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const dispatch = useDispatch();
   const summary = (data.count * data.price).toFixed();
@@ -36,7 +36,6 @@ export const OrderItemCard = ({ data, key }) => {
     dispatch(changeCount(obj));
   };
 
-  
   return (
     <div className={style.main_continer}>
       <div className={style.product_container}>

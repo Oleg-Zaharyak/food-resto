@@ -4,7 +4,6 @@ import style from "./styles.module.scss";
 
 export const Loader = () => {
   const { loading } = useSelector((state) => state.loading);
-  console.log();
   return (
     <div
       style={loading ? { display: "flex" } : { display: "none" }}

@@ -16,15 +16,16 @@
   border-radius: 8px;
   display: grid;
   gap: 24px 16px;
-  grid-template-columns: 1fr 1fr 1px 1fr 1fr;
-  grid-template-rows: max-content 1px 1fr 1fr 1fr 48px;
+  grid-template-columns: 1fr 1fr 1px 1fr  1fr;
+  grid-template-rows: max-content 1px 1fr 1fr 1fr 1fr 48px;
   grid-template-areas:
-    "signUp_text          signUp_text         .           exit               exit"
-    "horz_line            horz_line           horz_line   horz_line          horz_line"
-    "email_input          email_input         vert_line   firstName_input    firstName_input "
-    "password_input       password_input      vert_line   lastName_input     lastName_input"
-    ".                    .                   vert_line   age_input          age_input   "
-    "signUp_button        signUp_button       vert_line   logIn_buttons      logIn_buttons  ";
+    "signUp_text          signUp_text         .           exit                exit              "
+    "horz_line            horz_line           horz_line   horz_line          horz_line         "
+    "email_input          email_input         vert_line   userName_input     userName_input    "
+    "password_input       password_input      vert_line   city_input         city_input        "
+    "phonerNumber_input   phonerNumber_input  vert_line   street_input       street_input"
+    ".                     .                    vert_line   buildNumber_input  buildNumber_input"
+    "signUp_button        signUp_button       vert_line   logIn_buttons      logIn_buttons    ";
 }
 .signUp_text {
   grid-area: signUp_text;
@@ -64,16 +65,20 @@ input:focus-visible {
 }
 .email_lable,
 .password_lable,
-.firstName_lable,
-.lastName_lable,
-.age_lable {
+.userName_lable,
+.phonerNumber_lable,
+.city_lable,
+.street_lable,
+.buildNumber_lable {
   margin-bottom: 8px;
 }
 .email_container,
 .password_container,
-.firstName_container,
-.lastName_container,
-.age_container {
+.userName_container,
+.phonerNumber_container,
+.city_container,
+.street_container,
+.buildNumber_container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,14 +91,20 @@ input:focus-visible {
 .password_container {
   grid-area: password_input;
 }
-.firstName_container {
-  grid-area: firstName_input;
+.userName_container {
+  grid-area: userName_input;
 }
-.lastName_container {
-  grid-area: lastName_input;
+.phonerNumber_container {
+  grid-area: phonerNumber_input;
 }
-.age_container {
-  grid-area: age_input;
+.city_container {
+  grid-area: city_input;
+}
+.street_container {
+  grid-area: street_input;
+}
+.buildNumber_container {
+  grid-area: buildNumber_input;
 }
 .logIn_buttons {
   grid-area: logIn_buttons;
@@ -101,32 +112,3 @@ input:focus-visible {
 .signUp_buttons {
   grid-area: signUp_button;
 }
-// .logIn_other_way {
-//   grid-area: logIn_other_way;
-//   display: flex;
-//   flex-direction: column;
-// }
-// .logIn_other_way_text {
-//   font-family: "Comfortaaa-700";
-//   color: $white-color;
-//   font-size: 18px;
-//   margin-bottom: 10px;
-// }
-// .google,
-// .facebook {
-//   height: 48px;
-//   background-color: $fourth-color;
-//   margin-bottom: 24px;
-//   text-align: center;
-//   color: $white-color;
-//   border: 1px solid $primary-color;
-//   font-family: "Comfortaaa-700";
-//   border-radius: 8px;
-//   font-size: 20px;
-//   cursor: pointer;
-// }
-// .google:hover,
-// .facebook:hover {
-//   background-color: $white-color;
-//   color: $fourth-color;
-// }

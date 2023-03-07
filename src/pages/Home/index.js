@@ -10,6 +10,7 @@ import {
 } from "../../store/action/items";
 // import { getCountOrder } from "../../store/action/orders";
 import { NavLink } from "react-router-dom";
+import { getCurrentUser } from "../../store/action/currentUser";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export const Home = () => {
     dispatch(getItems(selected));
     dispatch(getTypeDishes());
     dispatch(getTypeDelivery());
+    dispatch(getCurrentUser());
     // dispatch(getCountOrder());
   }, [dispatch, selected]);
 

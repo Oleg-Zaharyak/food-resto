@@ -15,11 +15,17 @@ import {
 import { cleanPromoOrder } from "../../store/slices/ordersSlice";
 import style from "./styles.module.scss";
 import { cleanBasket } from "../../store/slices/basketSlice";
+import { useAuth, useUserAdmin } from "../../hooks/use-auth";
+import { getCurrentUser } from "../../store/action/currentUser";
 
 export const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { adminLogin } = useUserAdmin();
+  const { isAuth } = useAuth();
+
   const { basketData } = useSelector((state) => state.basket);
+  const { userProfile } = useSelector((state) => state.currentUser);
   const { availablePromoCod, promoCod, restourantsAddress } = useSelector(
     (state) => state.orders
   );
@@ -78,6 +84,14 @@ export const Basket = () => {
     restourantsAddress: "Виберіть адресу магазину",
   });
 
+  if (isAuth && !adminLogin) {
+    dataItem.userName = userProfile.userName;
+    dataItem.phoneNumber = userProfile.phoneNumber;
+    dataItem.city = userProfile.city;
+    dataItem.street = userProfile.street;
+    dataItem.buildNumber = userProfile.buildNumber;
+  }
+
   const addItemData = (event) => {
     const { name, value } = event.target;
     setDataItem((prevState) => ({
@@ -103,7 +117,8 @@ export const Basket = () => {
         dataItem.phoneNumber.length > 0 &&
         dataItem.street.length > 0 &&
         dataItem.city.length > 0 &&
-        dataItem.buildNumber.length > 0
+        dataItem.buildNumber.length > 0 &&
+        !adminLogin
           ? false
           : true;
     }
@@ -111,7 +126,8 @@ export const Basket = () => {
       result =
         dataItem.userName.length > 0 &&
         dataItem.phoneNumber.length > 0 &&
-        dataItem.restourantsAddress !== "Виберіть адресу магазину"
+        dataItem.restourantsAddress !== "Виберіть адресу магазину" &&
+        !adminLogin
           ? false
           : true;
     }
@@ -142,9 +158,9 @@ export const Basket = () => {
 
   useEffect(() => {
     dispatch(getRestourantsAddress());
+    dispatch(getCurrentUser());
   }, [dispatch]);
 
-  console.log(dataItem);
   return (
     <div className={style.main_wrap}>
       {basketData.length ? (
@@ -185,12 +201,12 @@ export const Basket = () => {
                     </label>
 
                     <Button
-                      title="Застосувати"
+                      title="Додати"
                       onClick={PromoCod}
                       disabled={availablePromoCod}
                     />
                     <Button
-                      title="Скасувати"
+                      title="Відмінити"
                       onClick={setshowCancelConfirmModal}
                       disabled={!availablePromoCod}
                     />

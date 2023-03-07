@@ -117,6 +117,7 @@ export const LoginPage = () => {
             title="Увійти"
             onClick={() => handlerLogin(email, pass)}
             width="100%"
+            disabled={email.length > 0 && pass.length > 0 ? false : true}
           />
         </div>
         <div className={style.signUp_button}>
