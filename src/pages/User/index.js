@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./styles.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../store/slices/userSlice";
@@ -8,11 +8,12 @@ import { getCurrentUser } from "../../store/action/currentUser";
 // import { OrderTableItem } from "../../components/Oreder_table";
 import { cleanBasket } from "../../store/slices/basketSlice";
 import { cleanPromoOrder } from "../../store/slices/ordersSlice";
+import { ConfirmPopUp } from "../../components/ConfirmPopUp";
 
 export const UserPage = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [showConfirmOrderModal, setShowConfirmOrderModal] = useState(false);
   const { userProfile } = useSelector((state) => state.currentUser);
   // const { userOrders } = useSelector((state) => state.orders);
 
@@ -26,12 +27,16 @@ export const UserPage = ({ id }) => {
   // ];
 
   const LogOut = () => {
+    setShowConfirmOrderModal(true);
+  };
+  const sendOrderData = () => {
     dispatch(removeUser());
     localStorage.clear("items");
     dispatch(cleanBasket());
     dispatch(cleanPromoOrder());
     navigate("/");
   };
+
   useEffect(() => {
     dispatch(getCurrentUser());
     // dispatch(getUserOrder({ id: id }));
@@ -42,9 +47,7 @@ export const UserPage = ({ id }) => {
       <div className={style.container}>
         <div className={style.header}>
           <div className={style.user_name}>
-            <div>
-              {userProfile.userName} 
-            </div>
+            <div>{userProfile.userName}</div>
           </div>
           <button className={style.log_out_button} onClick={LogOut}>
             <svg
@@ -63,6 +66,13 @@ export const UserPage = ({ id }) => {
           <OrderTableItem data={userOrders} headerText={headerText} />
         </div> */}
       </div>
+      {showConfirmOrderModal ? (
+        <ConfirmPopUp
+          title={"Підтверджуєте вихід?"}
+          confirmFunc={sendOrderData}
+          setShowPopUp={setShowConfirmOrderModal}
+        />
+      ) : null}
     </div>
   );
 };

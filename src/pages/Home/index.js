@@ -7,6 +7,7 @@ import {
   getItems,
   getTypeDelivery,
   getTypeDishes,
+  searchItem,
 } from "../../store/action/items";
 // import { getCountOrder } from "../../store/action/orders";
 import { NavLink } from "react-router-dom";
@@ -19,6 +20,8 @@ export const Home = () => {
   const { basketData } = useSelector((state) => state.basket);
   const { promoCod } = useSelector((state) => state.orders);
   const [selected, setSelected] = useState("Піца");
+  const [searchValue, setSearchValue] = useState("");
+
   let price = 0;
   basketData.map((el) => (price += el.count * el.price));
   const totalPrice = (
@@ -28,7 +31,28 @@ export const Home = () => {
   const onClick = (event) => {
     setSelected(event.target.innerText);
     dispatch(getItems(event.target.innerText));
+    setSearchValue("");
   };
+  const searchItems = (el) => {
+    setSearchValue(el);
+    if (el.length > 0) {
+      dispatch(searchItem(el));
+    }
+    if (el.length === 0) {
+      dispatch(searchItem("error"));
+    }
+  };
+  const onFocusSearch = (el) => {
+    if (el.length === 0) {
+      setSelected("");
+    }
+  };
+  const onBlurSearch = (el) => {
+    if (el.length === 0) {
+      setSelected("Піца");
+    }
+  };
+
   useEffect(() => {
     dispatch(getItems(selected));
     dispatch(getTypeDishes());
@@ -73,6 +97,10 @@ export const Home = () => {
                   type="text"
                   placeholder="Пошук за назвою"
                   className={style.search}
+                  onChange={(el) => searchItems(el.target.value)}
+                  onFocus={(el) => onFocusSearch(el.target.value)}
+                  onBlur={(el) => onBlurSearch(el.target.value)}
+                  value={searchValue}
                 ></input>
                 <svg
                   className={style.search_icon}
@@ -106,20 +134,28 @@ export const Home = () => {
           <div className={style.text_container}>
             <div className={style.text_block}>Виберіть страву</div>
           </div>
-          <div className={style.content_container}>
-            {items.map((el, index) => (
-              <ItemCard
-                page={true}
-                src={el.src}
-                name={el.nameItem}
-                price={el.price}
-                description={el.description}
-                id={el.id}
-                key={index + 10}
-                imagePath={el.imagePath}
-              />
-            ))}
-          </div>
+          {items.length > 0 ? (
+            <div className={style.content_container}>
+              {items.map((el, index) => (
+                <ItemCard
+                  page={true}
+                  src={el.src}
+                  name={el.nameItem}
+                  price={el.price}
+                  description={el.description}
+                  id={el.id}
+                  key={index + 10}
+                  imagePath={el.imagePath}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className={style.empty_container}>
+              <div className={style.empty_container_text}>
+                За вашим запитом нічого не знайдено
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

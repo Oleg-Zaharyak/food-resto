@@ -5,6 +5,7 @@ import itemsSlice from "./slices/itemsSlice";
 import basketSlice from "./slices/basketSlice";
 import loaderSlice from "./slices/loaderSlice";
 import ordersSlice from "./slices/ordersSlice";
+import statisticSlice from "./slices/statisticSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     basket: basketSlice,
     loading: loaderSlice,
     orders: ordersSlice,
+    statistic: statisticSlice,
   },
 });

@@ -39,7 +39,7 @@
     "images_container name_input"
     "images_container price_input"
     "input_images_container description_input"
-    "type_dishes ."
+    "type_dishes description_input"
     "add_button add_button";
 }
 .lable {
@@ -47,6 +47,7 @@
 }
 .input {
   margin-top: 8px;
+  font-family: "Comfortaaa-600";
 }
 img {
   text-align: center;
@@ -95,6 +96,24 @@ img {
 }
 .type_dishes {
   grid-area: type_dishes;
+}
+.note {
+  resize: none;
+  height: 140px;
+  width: 100%;
+  padding: 12px;
+  line-height: 22px;
+  margin-top: 8px;
+  background-color: $fourth-color;
+  font-family: "Comfortaaa-500";
+  color: $white-color;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+  overflow-y: initial;
+}
+.note:focus {
+  outline: none;
+  border-color: $white-color;
 }
 
 .add_button {

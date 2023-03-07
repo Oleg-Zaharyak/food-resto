@@ -161,3 +161,16 @@
   height: 100vh;
   z-index: 2;
 }
+.empty_container {
+  width: 100%;
+  height: calc(100vh - 210px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty_container_text {
+  color: $white-color;
+  font-family: "Comfortaaa-700";
+  font-size: 30px;
+}

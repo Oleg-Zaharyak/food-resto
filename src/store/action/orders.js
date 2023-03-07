@@ -123,6 +123,7 @@ const saveAllDishesCount = createAsyncThunk(
           await setDoc(
             doc(db, "Statistic/totalOrderedDishes/AllCountDishes", arg[i].id),
             {
+              src: arg[i].src,
               count: arg[i].count,
               name: arg[i].name,
             }

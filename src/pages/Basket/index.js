@@ -142,6 +142,7 @@ export const Basket = () => {
     dataItem.timeOrder = new Date().toLocaleString();
     dataItem.totalPrice = totalPrice;
     dataItem.saleAmont = saleAmont;
+    dataItem.status = "Очікує";
   };
   const sendOrderData = () => {
     dispatch(

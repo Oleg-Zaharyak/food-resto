@@ -123,14 +123,13 @@ export const AddItemCardModal = ({
         <div className={style.description_input}>
           <label className={style.lable}>
             Опис
-            <input
-              onChange={addItemData}
+            <textarea
               name="description"
-              type="text"
+              onChange={addItemData}
               defaultValue={changeItem.description}
               placeholder="Введіть опис страви"
-              className={style.input}
-            ></input>
+              className={style.note}
+            ></textarea>
           </label>
         </div>
         <div className={style.type_dishes}>

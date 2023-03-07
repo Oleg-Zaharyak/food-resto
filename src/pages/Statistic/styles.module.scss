@@ -44,132 +44,21 @@
   grid-area: order_report;
   background-color: $base-color;
   border-radius: 8px;
-  padding: 24px;
-}
-.top_order_container {
-  height: 45px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.top_order_text {
-  font-family: "Comfortaaa-700";
-  font-size: 28px;
-  color: $white-color;
-}
-.top_order_filter {
-  height: 100%;
-  border: 1px solid $third-color;
-  border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $white-color;
-  column-gap: 8px;
-  font-size: 14px;
-}
-.table_header {
-  width: 100%;
-  padding-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid $third-color;
-  margin-bottom: 16px;
-}
-.table_customer {
-  width: 28%;
-}
-.table_menu {
-  width: 26%;
-}
-.table_payment {
-  width: 20%;
-}
-.table_status {
-  width: 15%;
-}
-.table_customer,
-.table_menu,
-.table_payment,
-.table_status {
-  color: $white-color;
-  font-family: "Comfortaaa-700";
-  font-size: 14px;
-}
-.order_report_container {
-  width: 100%;
-  overflow-y: auto;
-  height: calc(100% - 87px);
-  // background-color: red;
+  padding: 10px;
 }
 
 .most_order {
   grid-area: most_order;
   background-color: $base-color;
-  padding: 24px;
+  padding: 12px;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
-.top_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid $third-color;
-  padding-bottom: 24px;
-}
-.top_container_text {
-  color: $white-color;
-  font-family: "Comfortaaa-700";
-  font-size: 20px;
-}
+
 .most_type_order {
   grid-area: most_type_order;
   background-color: $base-color;
   padding: 24px;
   border-radius: 8px;
-}
-.most_order_button {
-  height: 48px;
-  width: 100%;
-  border: 1px solid $primary-color;
-  background-color: inherit;
-  border-radius: 8px;
-  color: $primary-color;
-  font-family: "Comfortaaa-700";
-  font-size: 14px;
-  cursor: pointer;
-}
-.most_order_button:hover {
-  background-color: $primary-color;
-  color: white;
-}
-
-.most_order_item {
-  display: flex;
-}
-.most_order_image {
-  margin-bottom: 24px;
-  border-radius: 50%;
-  width: 54px;
-  height: 54px;
-}
-.order_item_text {
-  margin-left: 16px;
-}
-.order_item_main_text {
-  color: $white-color;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-.order_item_secon_text {
-  font-family: "Comfortaaa-400";
-  font-size: 12px;
-  color: $secont-text-color;
 }
 
 .graph_container {

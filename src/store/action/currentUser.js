@@ -11,6 +11,9 @@ const getCurrentUser = createAsyncThunk(
       user: { id },
     } = thunkAPI.getState();
     try {
+      if(id  === null){
+        return 
+      }
       thunkAPI.dispatch(setLoadStete(true));
       const docRef = await doc(db, "users", id);
       const data = await getDoc(docRef);

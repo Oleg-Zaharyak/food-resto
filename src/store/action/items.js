@@ -46,6 +46,31 @@ const getItems = createAsyncThunk("items/getItems", async (arg, thunkAPI) => {
   }
 });
 
+const searchItem = createAsyncThunk(
+  "items/searchItem",
+  async (arg, thunkAPI) => {
+    try {
+      // thunkAPI.dispatch(setLoadStete(true));
+      const result = [];
+      const q = query(collection(db, "dishes"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const lowerName = data.nameItem.toLowerCase();
+        const lowerSearch = arg.toLowerCase();
+        if (lowerName.indexOf(lowerSearch) !== -1) {
+          result.push(data);
+        }
+      });
+      thunkAPI.dispatch(setItems(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+
 const getAllItems = createAsyncThunk(
   "items/getAllItems",
   async (arg, thunkAPI) => {
@@ -197,6 +222,7 @@ const uploadPhoto = createAsyncThunk(
 
 export {
   getItems,
+  searchItem,
   getAllItems,
   getTypeDishes,
   addNewDishes,
