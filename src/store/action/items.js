@@ -17,6 +17,7 @@ import {
   setItems,
   setTypeDelivery,
   setTypeDishes,
+  setTypePayment,
 } from "../slices/itemsSlice";
 import { setLoadStete } from "../slices/loaderSlice";
 import {
@@ -127,6 +128,23 @@ const getTypeDelivery = createAsyncThunk(
     }
   }
 );
+const getTypePayment = createAsyncThunk(
+  "items/getTypePayment",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const q = query(collection(db, "typePayment"));
+      const querySnapshot = await getDocs(q);
+      const result = [];
+      querySnapshot.forEach((doc) => result.push(doc.data()));
+      thunkAPI.dispatch(setTypePayment(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
 
 const addNewDishes = createAsyncThunk(
   "item/addNewDishes",
@@ -230,5 +248,6 @@ export {
   getDishesById,
   updateDishes,
   getTypeDelivery,
+  getTypePayment,
   uploadPhoto,
 };

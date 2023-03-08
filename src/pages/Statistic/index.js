@@ -4,7 +4,7 @@ import style from "./styles.module.scss";
 import { CircleGraph } from "../../components/Statistics_graph";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeDelivery } from "../../store/action/items";
-// import { getAllOrders } from "../../store/action/orders";
+import { getAllOrders } from "../../store/action/orders";
 import { OrderTableItem } from "../../components/Oreder_table";
 import { MostOrderScreen } from "../../components/MostOrderedScreen";
 import { getMostOrderDishes } from "../../store/action/statistic";
@@ -12,7 +12,7 @@ import { getMostOrderDishes } from "../../store/action/statistic";
 export const Statistic = () => {
   const dispatch = useDispatch();
 
-  // const { allOrders } = useSelector((state) => state.orders);
+  const { allOrders } = useSelector((state) => state.orders);
   const { mostOrderDishes } = useSelector((state) => state.statistic);
   const data = [
     {
@@ -41,8 +41,7 @@ export const Statistic = () => {
   useEffect(() => {
     dispatch(getTypeDelivery());
     dispatch(getMostOrderDishes());
-
-    // dispatch(getAllOrders());
+    dispatch(getAllOrders());
   }, [dispatch]);
   return (
     <div className={style.container}>
@@ -63,10 +62,10 @@ export const Statistic = () => {
         ))}
       </div>
       <div className={style.order_report}>
-        <OrderTableItem />
+        <OrderTableItem data={allOrders} />
       </div>
       <div className={style.most_order}>
-        <MostOrderScreen data={mostOrderDishes} />
+        <MostOrderScreen title="Найпопулярніші:" data={mostOrderDishes} />
       </div>
       <div className={style.most_type_order}>
         <div className={style.top_container}>

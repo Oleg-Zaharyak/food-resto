@@ -1,9 +1,112 @@
 @import "./../../constants/colors.scss";
 
+.wrap {
+  width: 100%;
+  height: 100%;
+}
+
 .table_item_container {
   width: 100%;
   height: 100%;
   border: 1px solid $third-color;
   border-radius: 8px;
+  padding: 0 10px;
+}
+.thead {
+  display: block;
+  width: 100%;
+  height: 10%;
 }
 
+.tbody {
+  display: block;
+  width: 100%;
+  max-height: 80%;
+  min-height: 80%;
+  overflow-y: auto;
+  border-bottom: 1px solid $third-color;
+}
+
+.header {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white-color;
+  font-family: "Comfortaaa-400";
+  border-bottom: 1px solid $third-color;
+}
+.body {
+  cursor: pointer;
+  width: 100%;
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white-color;
+  font-family: "Comfortaaa-400";
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid $third-color;
+  padding: 5px 0;
+  line-height: 1.5;
+}
+.body:last-child {
+  border-bottom: none;
+}
+.body:hover {
+  background-color: $third-color;
+}
+
+.number_header,
+.number_body {
+  width: 10%;
+}
+.userName_header,
+.userName_body {
+  width: 26%;
+}
+.totalPrice_header,
+.totalPrice_body {
+  width: 19%;
+}
+.data_header,
+.data_body {
+  width: 20%;
+}
+.status_header,
+.status_body {
+  width: 25%;
+}
+.status_body {
+  display: flex;
+  justify-content: center;
+}
+
+.status_body_text {
+  display: block;
+  width: 80%;
+  padding: 4px 5px;
+  font-family: "Comfortaaa-700";
+  overflow-x: hidden;
+  border-radius: 8px;
+}
+.orang_status {
+  background-color: $orang-opacity-color;
+  color: $orang-color;
+}
+
+.green_status {
+  background-color: $green-opacity-color;
+  color: $green-color;
+}
+.purple_status {
+  background-color: $purple-opacity-color;
+  color: $purple-color;
+}
+
+.red_status {
+  background-color: $red-opacity-color;
+  color: $red-color;
+}

@@ -1,0 +1,153 @@
+@import "./../../constants/colors.scss";
+
+.wrap {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.blur_wrap {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.main_container {
+  position: relative;
+  width: 80%;
+  padding: 30px 24px 24px;
+  background-color: $base-color;
+  border-radius: 16px;
+  z-index: 1;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr 1fr 300px;
+  grid-template-rows: repeat(7, 48px);
+  grid-template-areas:
+    "headerBlock    headerBlock     headerBlock"
+    "userName       phoneNumber     orderMenu"
+    "address        address         orderMenu"
+    "delivery       payment         orderMenu"
+    "timeData       timeData          orderMenu"
+    "orderNote      orderNote       orderMenu"
+    "sale           totalPrice      orderMenu";
+}
+
+.info_block {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  border-bottom: 1px solid $third-color;
+}
+
+.info_block_head {
+  color: $second-text-color;
+  font-size: 13px;
+}
+.info_block_text {
+  font-family: "Comfortaaa-700";
+  font-size: 18px;
+  color: $white-color;
+}
+
+.headerBlock {
+  grid-area: headerBlock;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.exit_button {
+  width: 35px;
+  height: 35px;
+  background-color: inherit;
+  border: none;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  z-index: -1;
+}
+.exit_icon {
+  cursor: pointer;
+  color: $white-color;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+}
+.headerBlock_text {
+  font-family: "Comfortaaa-700";
+  font-size: 25px;
+  color: $white-color;
+}
+.status_block {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+.status_block_text {
+  color: $second-text-color;
+}
+.status {
+  width: 140px;
+  padding: 4px 5px;
+  font-family: "Comfortaaa-700";
+  overflow-x: hidden;
+  border-radius: 8px;
+  text-align: center;
+}
+.orang_status {
+  background-color: $orang-opacity-color;
+  color: $orang-color;
+}
+.green_status {
+  background-color: $green-opacity-color;
+  color: $green-color;
+}
+.purple_status {
+  background-color: $purple-opacity-color;
+  color: $purple-color;
+}
+.red_status {
+  background-color: $red-opacity-color;
+  color: $red-color;
+}
+
+.userName {
+  grid-area: userName;
+}
+.phoneNumber {
+  grid-area: phoneNumber;
+}
+.address {
+  grid-area: address;
+}
+.delivery {
+  grid-area: delivery;
+}
+.payment {
+  grid-area: payment;
+}
+.timeData {
+  grid-area: timeData;
+}
+.orderNote {
+  grid-area: orderNote;
+}
+.orderMenu {
+  grid-area: orderMenu;
+}
+.sale {
+  grid-area: sale;
+}
+.totalPrice {
+  grid-area: totalPrice;
+}

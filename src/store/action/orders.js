@@ -16,8 +16,9 @@ import {
 import { db } from "../../firebase";
 import { setLoadStete } from "../slices/loaderSlice";
 import {
-  // setAllOrders,
+  setAllOrders,
   setAvailablePromoCod,
+  setOrderById,
   // setCountOrders,
   setPromoCod,
   setRestourantsAddress,
@@ -29,7 +30,6 @@ const createOrder = createAsyncThunk(
   async ({ promoCod, available, dataItem }, thunkAPI) => {
     try {
       thunkAPI.dispatch(setLoadStete(true));
-
       if (available) {
         const washingtonRef = doc(db, "promoCod", promoCod.id);
         await updateDoc(washingtonRef, { count: promoCod.count - 1 });
@@ -57,6 +57,14 @@ const createOrder = createAsyncThunk(
 
       // ................ count total all dishes ................
       thunkAPI.dispatch(saveAllDishesCount(dataItem.menu));
+
+      //................ most type of order .................
+      thunkAPI.dispatch(
+        saveTypeOfOrder({
+          delivery: dataItem.typeDelivery,
+          payment: dataItem.typePayment,
+        })
+      );
     } catch (err) {
       console.log(err);
     } finally {
@@ -137,6 +145,44 @@ const saveAllDishesCount = createAsyncThunk(
     }
   }
 );
+const saveTypeOfOrder = createAsyncThunk(
+  "orders/changeTotalRelevant",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const data = await getDoc(doc(db, "Statistic", "typeOfOrder"));
+      let typeDelivery;
+      let typePayment;
+      if (arg.delivery === "Доставка") {
+        typeDelivery = "typeDelivery";
+      }
+      if (arg.delivery === "Самовивіз") {
+        typeDelivery = "typeOut";
+      }
+      if (arg.payment === "Готівка") {
+        typePayment = "typeCash";
+      }
+      if (arg.payment === "Онлайн") {
+        typePayment = "typeOnline";
+      }
+      if (arg.payment === "Карткою") {
+        typePayment = "typeCard";
+      }
+      const resultPayment = data.data()[typePayment] + 1;
+      const resultDelivery = data.data()[typeDelivery] + 1;
+
+      const oldCount = doc(db, "Statistic", "typeOfOrder");
+      await updateDoc(oldCount, {
+        [typeDelivery]: resultDelivery,
+        [typePayment]: resultPayment,
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
 
 // const getUserOrder = createAsyncThunk(
 //   "orders/creteOrder",
@@ -160,27 +206,44 @@ const saveAllDishesCount = createAsyncThunk(
 //   }
 // );
 
-// const getAllOrders = createAsyncThunk(
-//   "orders/AllOrder",
-//   async (arg, thunkAPI) => {
-//     try {
-//       thunkAPI.dispatch(setLoadStete(true));
-//       const q = query(collection(db, "allOrders"));
-//       const querySnapshot = await getDocs(q);
-//       const result = [];
-//       querySnapshot.forEach((doc) => {
-//         const data = doc.data();
-//         data.id = doc.id;
-//         result.push(data);
-//       });
-//       thunkAPI.dispatch(setAllOrders(result));
-//     } catch (err) {
-//       console.log(err);
-//     } finally {
-//       thunkAPI.dispatch(setLoadStete(false));
-//     }
-//   }
-// );
+const getAllOrders = createAsyncThunk(
+  "orders/AllOrder",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const q = query(collection(db, "allOrders"));
+      const querySnapshot = await getDocs(q);
+      const result = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        result.push(data);
+      });
+
+      thunkAPI.dispatch(setAllOrders(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+
+const getOrderById = createAsyncThunk(
+  "orders/orderById",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const docRef = doc(db, "allOrders", arg);
+      const docSnap = await getDoc(docRef);
+      thunkAPI.dispatch(setOrderById(docSnap.data()));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
 
 // const getCountOrder = createAsyncThunk(
 //   "orders/countOrder",
@@ -264,8 +327,8 @@ const getRestourantsAddress = createAsyncThunk(
 
 export {
   createOrder,
-  // getUserOrder,
-  // getAllOrders,
+  getAllOrders,
+  getOrderById,
   // getCountOrder,
   // setCountOrder,
   getRestourantsAddress,

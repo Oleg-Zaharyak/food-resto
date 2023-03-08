@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   allOrders: [],
+  orderById: {},
   userOrders: [],
   countOrder: 0,
   availablePromoCod: null,
@@ -19,9 +20,12 @@ const ordersSlice = createSlice({
     // setCountOrders(state, action) {
     //   state.countOrder = action.payload;
     // },
-    // setAllOrders(state, action) {
-    //   state.allOrders = action.payload;
-    // },
+    setAllOrders(state, action) {
+      state.allOrders = action.payload;
+    },
+    setOrderById(state, action) {
+      state.orderById = action.payload;
+    },
     setPromoCod(state, action) {
       state.promoCod = action.payload;
     },
@@ -42,6 +46,7 @@ export const {
   setUserOrder,
   setCountOrders,
   setAllOrders,
+  setOrderById,
   setPromoCod,
   setAvailablePromoCod,
   cleanPromoOrder,

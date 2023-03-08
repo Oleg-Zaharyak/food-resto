@@ -5,6 +5,7 @@ const initialState = {
   allItem: [],
   typeDishes: [],
   typeDelivery: [],
+  typePayment: [],
   deleteItem: "",
   changeItem: {
     nameItem: "",
@@ -29,6 +30,9 @@ const itemsSlice = createSlice({
     },
     setTypeDelivery(state, action) {
       state.typeDelivery = action.payload;
+    },
+    setTypePayment(state, action) {
+      state.typePayment = action.payload;
     },
     setAllItems(state, action) {
       state.allItem = action.payload;
@@ -60,6 +64,7 @@ export const {
   setDeleteItemId,
   setChangeItem,
   setTypeDelivery,
+  setTypePayment,
   serClearChangeItem,
 } = itemsSlice.actions;
 

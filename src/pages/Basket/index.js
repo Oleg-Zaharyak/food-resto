@@ -17,6 +17,7 @@ import style from "./styles.module.scss";
 import { cleanBasket } from "../../store/slices/basketSlice";
 import { useAuth, useUserAdmin } from "../../hooks/use-auth";
 import { getCurrentUser } from "../../store/action/currentUser";
+import { getTypeDelivery, getTypePayment } from "../../store/action/items";
 
 export const Basket = () => {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ export const Basket = () => {
 
   const { basketData } = useSelector((state) => state.basket);
   const { userProfile } = useSelector((state) => state.currentUser);
+  const { typeDelivery, typePayment } = useSelector((state) => state.items);
+
   const { availablePromoCod, promoCod, restourantsAddress } = useSelector(
     (state) => state.orders
   );
@@ -41,33 +44,8 @@ export const Basket = () => {
     promoCod.sale === 0 ? 0 : (price / 100) * promoCod.sale
   ).toFixed();
 
-  const typeDeliveryData = [
-    {
-      value: "Доставка",
-      id: "delivery",
-    },
-    {
-      value: "Самовивіз",
-      id: "out",
-    },
-  ];
-  const typePaymentData = [
-    {
-      value: "Готівка",
-      id: "cash",
-    },
-    {
-      value: "Онлайн",
-      id: "online",
-    },
-    {
-      value: "Карткою",
-      id: "card",
-    },
-  ];
-
-  const [typePayment, setTypePayment] = useState("Готівка");
-  const [typeDelivery, setTypeDelivery] = useState("Доставка");
+  const [typePayments, setTypePayments] = useState("Готівка");
+  const [typeDeliverys, setTypeDeliverys] = useState("Доставка");
   const [showInfoPopUp, setShowInfoPopUp] = useState(false);
   const [showCancelConfirmModal, setshowCancelConfirmModal] = useState(false);
   const [showConfirmOrderModal, setshowConfirmOrderModal] = useState(false);
@@ -111,7 +89,7 @@ export const Basket = () => {
 
   const checkField = () => {
     let result = true;
-    if (typeDelivery === "Доставка") {
+    if (typeDeliverys === "Доставка") {
       result =
         dataItem.userName.length > 0 &&
         dataItem.phoneNumber.length > 0 &&
@@ -122,7 +100,7 @@ export const Basket = () => {
           ? false
           : true;
     }
-    if (typeDelivery === "Самовивіз") {
+    if (typeDeliverys === "Самовивіз") {
       result =
         dataItem.userName.length > 0 &&
         dataItem.phoneNumber.length > 0 &&
@@ -136,8 +114,8 @@ export const Basket = () => {
 
   const openConfirmOrderModal = () => {
     setshowConfirmOrderModal(true);
-    dataItem.typeDelivery = typeDelivery;
-    dataItem.typePayment = typePayment;
+    dataItem.typeDelivery = typeDeliverys;
+    dataItem.typePayment = typePayments;
     dataItem.menu = basketData;
     dataItem.timeOrder = new Date().toLocaleString();
     dataItem.totalPrice = totalPrice;
@@ -160,6 +138,8 @@ export const Basket = () => {
   useEffect(() => {
     dispatch(getRestourantsAddress());
     dispatch(getCurrentUser());
+    dispatch(getTypeDelivery());
+    dispatch(getTypePayment());
   }, [dispatch]);
 
   return (
@@ -231,13 +211,13 @@ export const Basket = () => {
                       Спосіб доставки:
                     </div>
                     <div className={style.delivery_type_buttons}>
-                      {typeDeliveryData.map((el, index) => (
+                      {typeDelivery.map((el, index) => (
                         <CustomRadioButton
                           name="delivery"
-                          value={el.value}
+                          value={el.name}
                           id={el.id}
-                          selected={typeDelivery}
-                          setTypeDelivery={(elem) => setTypeDelivery(elem)}
+                          selected={typeDeliverys}
+                          setTypeDelivery={(elem) => setTypeDeliverys(elem)}
                           key={index}
                         />
                       ))}
@@ -267,7 +247,7 @@ export const Basket = () => {
                       ></input>
                     </label>
                   </div>
-                  {typeDelivery === "Доставка" ? (
+                  {typeDeliverys === "Доставка" ? (
                     <div className={style.user_adress_block}>
                       <label className={style.lable}>
                         Місто*
@@ -305,7 +285,7 @@ export const Basket = () => {
                         ></input>
                       </label>
                     </div>
-                  ) : typeDelivery === "Самовивіз" ? (
+                  ) : typeDeliverys === "Самовивіз" ? (
                     <CustomSelector
                       selected={dataItem.restourantsAddress}
                       data={restourantsAddress}
@@ -320,19 +300,19 @@ export const Basket = () => {
                       Спосіб оплати:
                     </div>
                     <div className={style.payment_type_buttons}>
-                      {typePaymentData.map((el, index) => (
+                      {typePayment.map((el, index) => (
                         <CustomRadioButton
                           key={index}
                           name="payment"
-                          value={el.value}
+                          value={el.name}
                           id={el.id}
-                          selected={typePayment}
-                          setTypeDelivery={(elem) => setTypePayment(elem)}
+                          selected={typePayments}
+                          setTypeDelivery={(elem) => setTypePayments(elem)}
                         />
                       ))}
                     </div>
                   </div>
-                  {typePayment === "Готівка" ? (
+                  {typePayments === "Готівка" ? (
                     <div className={style.user_cash}>
                       <label className={style.lable}>
                         Підготувати решту з:
