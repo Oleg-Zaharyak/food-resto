@@ -5,13 +5,16 @@
   max-height: 100vh;
   display: grid;
   padding: 24px;
-  gap: 24px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 100px 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 50px repeat(7, 1fr);
   grid-template-areas:
     "text_container text_container text_container most_order most_order "
     "summary_container summary_container summary_container most_order most_order"
+    "summary_container summary_container summary_container most_order most_order"
+    "summary_container summary_container summary_container most_order most_order"
     "order_report order_report order_report most_order most_order"
+    "order_report order_report order_report most_type_order most_type_order"
     "order_report order_report order_report most_type_order most_type_order"
     "order_report order_report order_report most_type_order most_type_order";
 }
@@ -36,8 +39,8 @@
 .summary_container {
   grid-area: summary_container;
   display: flex;
-  gap: 0 24px;
-  justify-content: space-between;
+  row-gap: 17px;
+  flex-direction: column;
 }
 
 .order_report {
@@ -54,79 +57,9 @@
   border-radius: 8px;
 }
 
-.most_type_order {
+.most_type_of_order {
   grid-area: most_type_order;
   background-color: $base-color;
-  padding: 24px;
+  padding: 12px;
   border-radius: 8px;
-}
-
-.graph_container {
-  height: calc(100% - 75px);
-  display: flex;
-  column-gap: 24px;
-  align-items: center;
-  justify-content: space-between;
-}
-.graph_wrap {
-  position: relative;
-  width: 200px;
-  height: 100%;
-}
-.type_of_order_container {
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-  align-items: center;
-}
-.type_dineIn {
-  position: relative;
-  ::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -27px;
-    width: 18px;
-    height: 18px;
-    background-color: $red-color;
-    border-radius: 50%;
-  }
-}
-
-.type_toGo {
-  position: relative;
-  ::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -27px;
-    width: 18px;
-    height: 18px;
-    background-color: $orang-color;
-    border-radius: 50%;
-  }
-}
-
-.type_delivery {
-  position: relative;
-  ::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -27px;
-    width: 18px;
-    height: 18px;
-    background-color: $blue-color;
-    border-radius: 50%;
-  }
-}
-.type_text {
-  color: $white-color;
-  font-size: 14px;
-}
-.second_type_text {
-  margin-top: 4px;
-  font-family: "Comfortaaa-400";
-  font-size: 12px;
-  color: $second-text-color;
 }
