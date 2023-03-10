@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   mostOrderDishes: [],
+  userMostOrder: [],
   typeOfOrders: {},
   totalRevenue: 0,
   allOrderedDishes: 0,
@@ -14,6 +15,22 @@ const statisticSlice = createSlice({
   reducers: {
     setMostOrderDishes(state, action) {
       state.mostOrderDishes = action.payload;
+    },
+    setUserMostOrder(state, action) {
+      state.userMostOrder = [];
+      action.payload.map((doc) => {
+        if (state.userMostOrder.length > 0) {
+          const index = state.userMostOrder
+            .map((element) => element.name)
+            .indexOf(doc.name);
+          return index >= 0
+            ? (state.userMostOrder[index].count =
+                state.userMostOrder[index].count + doc.count)
+            : (state.userMostOrder = [...state.userMostOrder, doc]);
+        } else {
+          return (state.userMostOrder = [...state.userMostOrder, doc]);
+        }
+      });
     },
     setTypeOfOrders(state, action) {
       state.typeOfOrders = action.payload;
@@ -32,6 +49,7 @@ const statisticSlice = createSlice({
 
 export const {
   setMostOrderDishes,
+  setUserMostOrder,
   setTypeOfOrders,
   setTotalRevenue,
   setAllOrderedDishes,

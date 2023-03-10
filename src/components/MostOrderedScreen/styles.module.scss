@@ -44,10 +44,12 @@
   display: flex;
   align-items: center;
   column-gap: 12px;
+  padding-right: 5px;
 }
 .item_img {
   height: 71px;
   min-width: 71px;
+  max-width: 71px;
   border-radius: 8px;
 }
 .item_name {

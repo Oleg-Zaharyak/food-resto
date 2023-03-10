@@ -3,27 +3,86 @@
 .wrap {
   width: calc(100vw - 104px);
   max-height: 100vh;
-  padding: 24px;
 }
 .container {
   width: 100%;
-  border-radius: 8px;
-  background-color: $third-color;
+  height: 100%;
   position: relative;
   padding: 24px;
+  display: grid;
+  padding: 24px;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "header_block  header_block  header_block "
+    "info info info"
+    "orderTable orderTable mostOrderedDishes"
+    "orderTable orderTable mostOrderedDishes"
+    "orderTable orderTable mostOrderedDishes";
+}
+.header_block {
+  padding: 12px;
+  border-radius: 8px;
+  grid-area: header_block;
+  background-color: $base-color;
+}
+.info {
+  padding: 12px;
+  border-radius: 8px;
+  grid-area: info;
+  background-color: $base-color;
+}
+.orderTable {
+  padding: 12px;
+  border-radius: 8px;
+  grid-area: orderTable;
+  background-color: $base-color;
+}
+.mostOrderedDishes {
+  padding: 12px;
+  border-radius: 8px;
+  grid-area: mostOrderedDishes;
+  background-color: $base-color;
 }
 .header {
+  height: 100%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+}
+.user_header_block {
+  width: 90%;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid $fourth-color;
-  padding-bottom: 24px;
-  margin-bottom: 24px;
+  column-gap: 24px;
 }
 .user_name {
   color: $white-color;
   font-family: "Comfortaaa-700";
   font-size: 28px;
 }
+
+.info_block {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.info_block_head {
+  color: $second-text-color;
+  font-size: 14px;
+}
+.info_block_text {
+  font-family: "Comfortaaa-700";
+  font-size: 17px;
+  color: $white-color;
+  border-bottom: 1px solid $third-color;
+}
+
 .icon {
   color: $primary-color;
 }

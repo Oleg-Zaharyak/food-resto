@@ -4,24 +4,27 @@
 .container {
   flex: 0 0 23%;
   max-width: 23%;
+  padding: 12px;
+  border-radius: 16px;
+  background-color: $base-color;
 }
 .second_container {
   position: relative;
-  padding: 24px;
+  padding: 12px;
   width: 100%;
   height: 100%;
   border-radius: 16px;
-  background-color: $base-color;
+  border: 1px solid $third-color;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .image {
-  width: 80%;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 8px;
   background-color: $third-color;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .text_block {
@@ -33,12 +36,16 @@
   width: 100%;
   color: white;
   font-size: 14px;
+  border-top: 1px solid $third-color;
 }
 .top_text {
-  line-height: 18.2px;
+  font-family: "Comfortaaa-700";
+  font-size: 20px;
+  line-height: 22px;
   margin-bottom: 8px;
-  max-height: 37px;
-  min-height: 37px;
+  margin-top: 12px;
+  max-height: 44px;
+  min-height: 44px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

@@ -22,8 +22,9 @@ import {
   // setCountOrders,
   setPromoCod,
   setRestourantsAddress,
-  // setUserOrder,
+  setUserOrder,
 } from "../slices/ordersSlice";
+import { setUserMostOrder } from "../slices/statisticSlice";
 
 const createOrder = createAsyncThunk(
   "orders/creteOrder",
@@ -184,27 +185,65 @@ const saveTypeOfOrder = createAsyncThunk(
   }
 );
 
-// const getUserOrder = createAsyncThunk(
-//   "orders/creteOrder",
-//   async ({ id }, thunkAPI) => {
-//     try {
-//       thunkAPI.dispatch(setLoadStete(true));
-//       const q = query(collection(db, `users/${id}/orders`));
-//       const querySnapshot = await getDocs(q);
-//       const result = [];
-//       querySnapshot.forEach((doc) => {
-//         const data = doc.data();
-//         data.id = doc.id;
-//         result.push(data);
-//       });
-//       thunkAPI.dispatch(setUserOrder(result));
-//     } catch (err) {
-//       console.log(err);
-//     } finally {
-//       thunkAPI.dispatch(setLoadStete(false));
-//     }
-//   }
-// );
+const getUserOrder = createAsyncThunk(
+  "orders/getUserOrder",
+  async ({ id }, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const docRef = await doc(db, "users", id);
+      const data = await getDoc(docRef);
+      const q = query(collection(db, "allOrders"));
+      const querySnapshot = await getDocs(q);
+      const result = [];
+      querySnapshot.forEach((doc) => {
+        const userPhoneNumber = data.data().phoneNumber;
+        const searchPhoneNumber = doc.data().phoneNumber;
+        if (searchPhoneNumber.indexOf(userPhoneNumber) !== -1) {
+          const data = doc.data();
+          data.id = doc.id;
+          result.push(data);
+        }
+      });
+      result.sort((a, b) => {
+        let res1 = Date.parse(a.timeOrder);
+        let res2 = Date.parse(b.timeOrder);
+        return res2 - res1;
+      });
+      thunkAPI.dispatch(setUserOrder(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+const getUserMostOrder = createAsyncThunk(
+  "orders/getUserMostOrder",
+  async ({ id }, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const docRef = await doc(db, "users", id);
+      const data = await getDoc(docRef);
+      const q = query(collection(db, "allOrders"));
+      const querySnapshot = await getDocs(q);
+      const result = [];
+      querySnapshot.forEach((doc) => {
+        const userPhoneNumber = data.data().phoneNumber;
+        const searchPhoneNumber = doc.data().phoneNumber;
+        let dataMap = [];
+        dataMap = [...dataMap, doc.data()];
+        if (searchPhoneNumber.indexOf(userPhoneNumber) !== -1) {
+          dataMap.forEach((doc) => doc.menu.forEach((el) => result.push(el)));
+        }
+      });
+      thunkAPI.dispatch(setUserMostOrder(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
 
 const getAllOrders = createAsyncThunk(
   "orders/AllOrder",
@@ -219,7 +258,11 @@ const getAllOrders = createAsyncThunk(
         data.id = doc.id;
         result.push(data);
       });
-
+      result.sort((a, b) => {
+        let res1 = Date.parse(a.timeOrder);
+        let res2 = Date.parse(b.timeOrder);
+        return res2 - res1;
+      });
       thunkAPI.dispatch(setAllOrders(result));
     } catch (err) {
       console.log(err);
@@ -329,6 +372,8 @@ export {
   createOrder,
   getAllOrders,
   getOrderById,
+  getUserOrder,
+  getUserMostOrder,
   // getCountOrder,
   // setCountOrder,
   getRestourantsAddress,

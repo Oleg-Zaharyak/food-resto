@@ -22,6 +22,7 @@ export const Statistic = () => {
   const { mostOrderDishes, totalRevenue, allOrderedDishes, allOrdersCount } =
     useSelector((state) => state.statistic);
 
+
   useEffect(() => {
     dispatch(getTypeDelivery());
     dispatch(getMostOrderDishes());
