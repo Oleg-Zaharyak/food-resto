@@ -2,29 +2,28 @@
 
 .wrap {
   width: 100%;
-  height: 100%;
 }
 
 .table_item_container {
   width: 100%;
-  height: 100%;
-  border: 1px solid $third-color;
-  border-radius: 8px;
-  padding: 0 10px;
+  border-top: 1px solid $third-color;
 }
 .thead {
   display: block;
   width: 100%;
-  height: 10%;
+  height: 38px;
 }
 
 .tbody {
   display: block;
   width: 100%;
-  max-height: 80%;
-  min-height: 80%;
+  min-height: 370px;
+  max-height: 370px;
   overflow-y: auto;
   border-bottom: 1px solid $third-color;
+}
+.tbody::-webkit-scrollbar {
+  display: none;
 }
 
 .header {

@@ -34,10 +34,6 @@
   color: $first-text-color;
   line-height: 22.4px;
 }
-.header_right_container {
-  display: flex;
-  column-gap: 24px;
-}
 .hover_container {
   border-radius: 8px;
   border: 1px solid $primary-color;
@@ -116,9 +112,9 @@
 
 .filter_container {
   display: flex;
-  margin-top: 24px;
-  height: 33px;
+  height: 56px;
   border-bottom: 1px solid $third-color;
+  column-gap: 32px;
 }
 
 .active {
@@ -173,4 +169,14 @@
   color: $white-color;
   font-family: "Comfortaaa-700";
   font-size: 30px;
+  text-align: center;
 }
+
+@media screen and (max-width: 991px) {
+  .filter_container {
+    column-gap: 20px;
+  }
+}
+// @media screen and (max-width: 768px) {
+  
+// }

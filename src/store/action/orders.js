@@ -12,6 +12,7 @@ import {
   // getDocs,
   // query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { setLoadStete } from "../slices/loaderSlice";
@@ -19,6 +20,7 @@ import {
   setAllOrders,
   setAvailablePromoCod,
   setOrderById,
+  setPendingOrders,
   // setCountOrders,
   setPromoCod,
   setRestourantsAddress,
@@ -192,18 +194,19 @@ const getUserOrder = createAsyncThunk(
       thunkAPI.dispatch(setLoadStete(true));
       const docRef = await doc(db, "users", id);
       const data = await getDoc(docRef);
-      const q = query(collection(db, "allOrders"));
+
+      const q = query(
+        collection(db, "allOrders"),
+        where("phoneNumber", "==", data.data().phoneNumber)
+      );
       const querySnapshot = await getDocs(q);
       const result = [];
       querySnapshot.forEach((doc) => {
-        const userPhoneNumber = data.data().phoneNumber;
-        const searchPhoneNumber = doc.data().phoneNumber;
-        if (searchPhoneNumber.indexOf(userPhoneNumber) !== -1) {
-          const data = doc.data();
-          data.id = doc.id;
-          result.push(data);
-        }
+        const data = doc.data();
+        data.id = doc.id;
+        result.push(data);
       });
+
       result.sort((a, b) => {
         let res1 = Date.parse(a.timeOrder);
         let res2 = Date.parse(b.timeOrder);
@@ -217,6 +220,7 @@ const getUserOrder = createAsyncThunk(
     }
   }
 );
+
 const getUserMostOrder = createAsyncThunk(
   "orders/getUserMostOrder",
   async ({ id }, thunkAPI) => {
@@ -224,17 +228,17 @@ const getUserMostOrder = createAsyncThunk(
       thunkAPI.dispatch(setLoadStete(true));
       const docRef = await doc(db, "users", id);
       const data = await getDoc(docRef);
-      const q = query(collection(db, "allOrders"));
+
+      const q = query(
+        collection(db, "allOrders"),
+        where("phoneNumber", "==", data.data().phoneNumber)
+      );
       const querySnapshot = await getDocs(q);
       const result = [];
       querySnapshot.forEach((doc) => {
-        const userPhoneNumber = data.data().phoneNumber;
-        const searchPhoneNumber = doc.data().phoneNumber;
         let dataMap = [];
         dataMap = [...dataMap, doc.data()];
-        if (searchPhoneNumber.indexOf(userPhoneNumber) !== -1) {
-          dataMap.forEach((doc) => doc.menu.forEach((el) => result.push(el)));
-        }
+        dataMap.forEach((doc) => doc.menu.forEach((el) => result.push(el)));
       });
       thunkAPI.dispatch(setUserMostOrder(result));
     } catch (err) {
@@ -264,6 +268,36 @@ const getAllOrders = createAsyncThunk(
         return res2 - res1;
       });
       thunkAPI.dispatch(setAllOrders(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+
+const getPendingOrders = createAsyncThunk(
+  "orders/PendingOrders",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const q = query(
+        collection(db, "allOrders"),
+        where("status", "==", "Очікує")
+      );
+      const querySnapshot = await getDocs(q);
+      const result = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        result.push(data);
+      });
+      result.sort((a, b) => {
+        let res1 = Date.parse(a.timeOrder);
+        let res2 = Date.parse(b.timeOrder);
+        return res2 - res1;
+      });
+      thunkAPI.dispatch(setPendingOrders(result));
     } catch (err) {
       console.log(err);
     } finally {
@@ -374,6 +408,7 @@ export {
   getOrderById,
   getUserOrder,
   getUserMostOrder,
+  getPendingOrders,
   // getCountOrder,
   // setCountOrder,
   getRestourantsAddress,

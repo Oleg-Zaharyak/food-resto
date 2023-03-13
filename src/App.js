@@ -47,8 +47,8 @@ function App() {
           <Route path="/site_setting" element={<SiteSetting />} />
         </Route>
 
-        <Route path="/busket" element={<Basket />} />
         <Route path={`/user/${id}`} element={<UserPage id={id} />} />
+        <Route path="/busket" element={<Basket />} />
 
         <Route path="/logIn" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   allOrders: [],
+  pendingOrders: [],
   orderById: {},
   userOrders: [],
   countOrder: 0,
@@ -22,6 +23,9 @@ const ordersSlice = createSlice({
     // },
     setAllOrders(state, action) {
       state.allOrders = action.payload;
+    },
+    setPendingOrders(state, action) {
+      state.pendingOrders = action.payload;
     },
     setOrderById(state, action) {
       state.orderById = action.payload;
@@ -51,6 +55,7 @@ export const {
   setAvailablePromoCod,
   cleanPromoOrder,
   setRestourantsAddress,
+  setPendingOrders,
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

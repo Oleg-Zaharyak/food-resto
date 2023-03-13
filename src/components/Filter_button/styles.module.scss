@@ -1,6 +1,5 @@
 @import "./../../constants/colors.scss";
 
-
 .button {
   height: calc(100% - 2px);
   font-family: "Comfortaaa-700";
@@ -12,8 +11,8 @@
   padding-top: 0;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   position: relative;
-  margin-right: 32px;
 }
 .button_before {
   content: "";

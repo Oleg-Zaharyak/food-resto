@@ -9,7 +9,6 @@ export const OrderTableItem = ({ data }) => {
   const [showOrderInfoScreen, setShowOrderInfoScreen] = useState(false);
 
   const openOrderInfo = (el) => {
-    console.log(el);
     dispatch(getOrderById(el));
     setShowOrderInfoScreen(true);
   };

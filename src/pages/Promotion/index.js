@@ -3,7 +3,7 @@ import style from "./styles.module.scss";
 import { Button } from "../../components/Button";
 import { useUserAdmin } from "../../hooks/use-auth";
 import { useNavigate } from "react-router-dom";
-// import { PromotionCard } from "../../components/PromotionCard";
+import { PromotionCard } from "../../components/PromotionCard";
 import { AddPromotionModal } from "../../components/AddPromotion";
 
 export const Promotion = () => {
@@ -20,7 +20,7 @@ export const Promotion = () => {
         ) : null}
       </div>
       <div className={style.promotion_container}>
-        {/* <PromotionCard /> */}
+        <PromotionCard />
       </div>
       <div className={style.no_promotion}>
         <div className={style.no_promotion_text}>На даний момент акцій немає</div>

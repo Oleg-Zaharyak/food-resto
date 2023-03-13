@@ -3,63 +3,179 @@
 .container {
   width: calc(100vw - 104px);
   max-height: 100vh;
-  display: grid;
-  padding: 24px;
-  gap: 20px;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 50px repeat(7, 1fr);
-  grid-template-areas:
-    "text_container text_container text_container most_order most_order "
-    "summary_container summary_container summary_container most_order most_order"
-    "summary_container summary_container summary_container most_order most_order"
-    "summary_container summary_container summary_container most_order most_order"
-    "order_report order_report order_report most_order most_order"
-    "order_report order_report order_report most_type_order most_type_order"
-    "order_report order_report order_report most_type_order most_type_order"
-    "order_report order_report order_report most_type_order most_type_order";
-}
-
-.text_container {
-  grid-area: text_container;
   display: flex;
+  padding: 24px 24px 0;
   flex-direction: column;
-  padding-bottom: 24px;
+}
+.text_container {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
   border-bottom: 1px solid $third-color;
 }
 .header_main_text {
   color: $white-color;
   font-family: "Comfortaaa-700";
   font-size: 28px;
-  margin-bottom: 8px;
 }
-.header_second_text {
-  color: $second-text-color;
-  font-family: "Comfortaaa-400";
+.icon {
+  color: $primary-color;
 }
-.summary_container {
-  grid-area: summary_container;
+.log_out_button {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid $primary-color;
+  width: 56px;
+  height: 56px;
+}
+.log_out_button:hover {
+  background-color: $primary-color;
+  .icon {
+    color: $white-color;
+  }
+}
+.content_container {
+  width: 100%;
+  min-height: 90%;
+  max-height: 90%;
+  padding-top: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-content: flex-start;
+  justify-content: space-between;
+}
+.content_container::-webkit-scrollbar {
+  display: none;
+}
+
+.summary_container {
+  display: flex;
+  width: 62%;
   row-gap: 17px;
   flex-direction: column;
 }
-
-.order_report {
-  grid-area: order_report;
-  background-color: $base-color;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.most_order {
-  grid-area: most_order;
-  background-color: $base-color;
-  padding: 12px;
-  border-radius: 8px;
-}
-
 .most_type_of_order {
-  grid-area: most_type_order;
+  width: 35%;
   background-color: $base-color;
   padding: 12px;
   border-radius: 8px;
+}
+.most_order {
+  width: 35%;
+  background-color: $base-color;
+  padding: 12px;
+  border-radius: 8px;
+}
+.order_table_wrap {
+  width: 62%;
+  background-color: $base-color;
+  padding: 12px;
+  border-radius: 8px;
+}
+.order_table_container {
+  width: 100%;
+  padding: 10px 10px 0;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.order_table_text {
+  margin-bottom: 12px;
+  color: $white-color;
+  font-family: "Comfortaaa-700";
+  font-size: 18px;
+}
+.order_report {
+  width: 100%;
+  max-height: 450px;
+  min-height: 450px;
+  border-radius: 8px;
+}
+.all_orders_wrap {
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  background-color: $base-color;
+  overflow-y: hidden;
+  margin-bottom: 12px;
+}
+.all_orders_container {
+  padding: 10px 10px 0;
+  border: 1px solid $third-color;
+  border-radius: 8px;
+}
+.all_orders_up_container {
+  cursor: pointer;
+  height: 36px;
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.all_orders_text {
+  font-family: "Comfortaaa-700";
+  font-size: 18px;
+  color: $white-color;
+}
+.all_orders_icon {
+  color: $white-color;
+  width: 30px;
+  height: 30px;
+}
+
+.all_order_report {
+  width: 100%;
+  background-color: $base-color;
+  max-height: 450px;
+  min-height: 450px;
+  animation-name: openSelector;
+  animation-fill-mode:forwards;
+  animation-duration: 2s;
+}
+@keyframes openSelector {
+  0% {
+    max-height: 0;
+    min-height: 0;
+  }
+  100% {
+    max-height: 450px;
+    min-height: 450px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .summary_container {
+    min-width: 100%;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .most_type_of_order {
+    width: 48%;
+  }
+  .most_order {
+    width: 48%;
+  }
+  .order_table_wrap {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .most_type_of_order {
+    width: 100%;
+  }
+  .most_order {
+    width: 100%;
+  }
 }

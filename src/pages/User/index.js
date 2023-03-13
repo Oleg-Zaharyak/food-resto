@@ -35,7 +35,7 @@ export const UserPage = ({ id }) => {
     dispatch(cleanPromoOrder());
     navigate("/");
   };
-
+  
   useEffect(() => {
     dispatch(getCurrentUser());
     dispatch(getUserOrder({ id: id }));
@@ -78,11 +78,14 @@ export const UserPage = ({ id }) => {
           </div>
         </div>
         <div className={style.info}></div>
-        <div className={style.orderTable}>
-          <OrderTableItem data={userOrders} />
-        </div>
         <div className={style.mostOrderedDishes}>
           <MostOrderScreen title="Найпопулярніші:" data={obj.slice(0, 4)} />
+        </div>
+        <div className={style.orderTable}>
+          <div className={style.order_table_wrap}>
+            <div className={style.order_table_text}>Ваші замовлення</div>
+            <OrderTableItem data={userOrders} />
+          </div>
         </div>
       </div>
       {showConfirmOrderModal ? (

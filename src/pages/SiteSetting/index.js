@@ -30,6 +30,10 @@ export const SiteSetting = () => {
   return (
     <div className={style.wrap}>
       <div className={style.header}>
+        <div className={style.header_up_container}>
+          <div className={style.header_text}>Налаштування</div>
+          <AddItemCard />
+        </div>
         <div className={style.filter_container}>
           {typeDishes.map((item, index) => {
             return (
@@ -42,7 +46,6 @@ export const SiteSetting = () => {
             );
           })}
         </div>
-        <AddItemCard />
       </div>
       <div className={style.container}>
         {items.map((el, index) => (
