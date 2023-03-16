@@ -7,6 +7,7 @@ const initialState = {
   totalRevenue: 0,
   allOrderedDishes: 0,
   allOrdersCount: 0,
+  defaultStatus: "Очікує",
 };
 
 const statisticSlice = createSlice({
@@ -44,6 +45,9 @@ const statisticSlice = createSlice({
     setAllOrdersCount(state, action) {
       state.allOrdersCount = action.payload;
     },
+    setDefaultStatus(state, action) {
+      state.defaultStatus = action.payload;
+    },
   },
 });
 
@@ -54,6 +58,7 @@ export const {
   setTotalRevenue,
   setAllOrderedDishes,
   setAllOrdersCount,
+  setDefaultStatus,
 } = statisticSlice.actions;
 
 export default statisticSlice.reducer;

@@ -178,5 +178,17 @@
   }
 }
 // @media screen and (max-width: 768px) {
-  
+
 // }
+
+@media screen and (max-width: 670px) {
+  .container {
+    max-height: calc(100vh - 69px);
+  }
+  .content_container {
+    max-height: calc(100vh - 255px);
+  }
+  .empty_container {
+    height: calc(100vh - 255px);
+  }
+}

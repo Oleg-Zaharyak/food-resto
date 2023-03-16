@@ -1,10 +1,39 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./styles.module.scss";
 import { MostOrderScreen } from "../../components/MostOrderedScreen";
+import { ConfirmPopUp } from "../ConfirmPopUp";
+import { useUserAdmin } from "./../../hooks/use-auth";
+import { changeOrderStatusTo } from "../../store/action/orders";
+import { CustomSelector } from "../CustomSelector";
+import { setDefaultStatus } from "../../store/slices/statisticSlice";
 
-export const OrderInfoScreen = ({ setShowPopUp }) => {
+export const OrderInfoScreen = ({
+  setShowPopUp,
+  blockChangeStatus = false,
+}) => {
+  const dispatch = useDispatch();
+  const { adminLogin } = useUserAdmin();
   const { orderById } = useSelector((state) => state.orders);
+  const [showSelectedPopUp, setShowSelectedPopUp] = useState(false);
+  const [orderStatus, setOrderStatus] = useState();
+  const ordersStatusData = [
+    { name: "Очікує" },
+    { name: "Приготування" },
+    { name: "Завершено" },
+    { name: "Скасовано" },
+  ];
+
+  const addItemData = (event) => {
+    const { value } = event.target;
+    setShowSelectedPopUp(true);
+    setOrderStatus(value);
+  };
+  const changeStatus = () => {
+    dispatch(changeOrderStatusTo({ status: orderStatus, id: orderById.id }));
+    dispatch(setDefaultStatus(orderStatus));
+    setShowPopUp(false);
+  };
 
   const closeInfoScreen = () => {
     setShowPopUp(false);
@@ -32,23 +61,34 @@ export const OrderInfoScreen = ({ setShowPopUp }) => {
           </button>
           <div className={style.headerBlock}>
             <div className={style.headerBlock_text}>Замовлення:</div>
-            <div className={style.status_block}>
-              <div className={style.status_block_text}> Статус: </div>
-              <div
-                className={[
-                  style.status,
-                  orderById.status === "Очікує"
-                    ? style.orang_status
-                    : orderById.status === "Приготування"
-                    ? style.purple_status
-                    : orderById.status === "Завершено"
-                    ? style.green_status
-                    : style.red_status,
-                ].join(" ")}
-              >
-                {orderById.status}
+            {adminLogin && blockChangeStatus ? (
+              <div className={style.status_block_selector}>
+                <CustomSelector
+                  selected={orderById?.status}
+                  data={ordersStatusData}
+                  setTypeOf={addItemData}
+                  name={"status"}
+                />
               </div>
-            </div>
+            ) : (
+              <div className={style.status_block}>
+                <div className={style.status_block_text}> Статус: </div>
+                <div
+                  className={[
+                    style.status,
+                    orderById.status === "Очікує"
+                      ? style.orang_status
+                      : orderById.status === "Приготування"
+                      ? style.purple_status
+                      : orderById.status === "Завершено"
+                      ? style.green_status
+                      : style.red_status,
+                  ].join(" ")}
+                >
+                  {orderById.status}
+                </div>
+              </div>
+            )}
           </div>
           <div className={[style.userName, style.info_block].join(" ")}>
             <div className={style.info_block_head}>Ім'я користувача:</div>
@@ -107,6 +147,13 @@ export const OrderInfoScreen = ({ setShowPopUp }) => {
           </div>
         </div>
       </div>
+      {showSelectedPopUp ? (
+        <ConfirmPopUp
+          title="Змінити статус?"
+          setShowPopUp={setShowSelectedPopUp}
+          confirmFunc={changeStatus}
+        />
+      ) : null}
     </div>
   );
 };

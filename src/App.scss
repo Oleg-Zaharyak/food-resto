@@ -24,3 +24,9 @@ input:focus-visible {
 input[type="radio"] {
   display: none;
 }
+
+@media screen and (max-width: 670px) {
+  .main_container{
+    flex-direction: column;
+  }
+}

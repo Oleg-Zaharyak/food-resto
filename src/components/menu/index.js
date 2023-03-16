@@ -18,6 +18,7 @@ export const Menu = () => {
   return (
     <>
       <div className={style.container}>
+        <div className={style.burger_menu}></div>
         <div className={style.logo}>
           <img className={style.logo_icon} src={logo} alt="Logo" />
         </div>

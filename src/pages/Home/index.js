@@ -53,6 +53,7 @@ export const Home = () => {
     }
   };
 
+
   useEffect(() => {
     dispatch(getItems(selected));
     dispatch(getTypeDishes());

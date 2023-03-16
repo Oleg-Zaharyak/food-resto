@@ -3,7 +3,7 @@ import { SummaryCard } from "../../components/Summary_card";
 import style from "./styles.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypeDelivery } from "../../store/action/items";
-import { getAllOrders, getPendingOrders } from "../../store/action/orders";
+import { getAllOrders, getChoosenOrders } from "../../store/action/orders";
 import { OrderTableItem } from "../../components/Oreder_table";
 import { MostOrderScreen } from "../../components/MostOrderedScreen";
 import {
@@ -19,23 +19,40 @@ import { removeUser } from "../../store/slices/userSlice";
 import { cleanBasket } from "../../store/slices/basketSlice";
 import { cleanPromoOrder } from "../../store/slices/ordersSlice";
 import { useNavigate } from "react-router-dom";
+import { CustomSelector } from "../../components/CustomSelector";
 
 export const Statistic = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { allOrders, pendingOrders } = useSelector((state) => state.orders);
+  const {
+    mostOrderDishes,
+    totalRevenue,
+    allOrderedDishes,
+    allOrdersCount,
+    defaultStatus,
+  } = useSelector((state) => state.statistic);
+
   const [openTable, setOpenTable] = useState(false);
   const [showConfirmOrderModal, setShowConfirmOrderModal] = useState(false);
+  const [orderStatus, setOrderStatus] = useState(defaultStatus);
+
+  const ordersStatusData = [
+    { name: "Очікує" },
+    { name: "Приготування" },
+    { name: "Завершено" },
+    { name: "Скасовано" },
+  ];
+
   const openTableClick = () => {
     openTable ? setOpenTable(false) : setOpenTable(true);
   };
 
-  const { allOrders, pendingOrders } = useSelector((state) => state.orders);
-  const { mostOrderDishes, totalRevenue, allOrderedDishes, allOrdersCount } =
-    useSelector((state) => state.statistic);
-
   const LogOut = () => {
     setShowConfirmOrderModal(true);
   };
+
   const LogOutUser = () => {
     dispatch(removeUser());
     localStorage.clear("items");
@@ -44,16 +61,21 @@ export const Statistic = () => {
     navigate("/");
   };
 
+  const addItemData = (event) => {
+    const { value } = event.target;
+    setOrderStatus(value);
+  };
+
   useEffect(() => {
     dispatch(getTypeDelivery());
     dispatch(getMostOrderDishes());
     dispatch(getAllOrders());
-    dispatch(getPendingOrders());
+    dispatch(getChoosenOrders(orderStatus));
     dispatch(getTypeOfOrder());
     dispatch(getTotalRevenue());
     dispatch(getAllOrderedDishes());
     dispatch(getAllOrdersCount());
-  }, [dispatch]);
+  }, [dispatch, orderStatus, defaultStatus]);
   return (
     <div className={style.container}>
       <div className={style.text_container}>
@@ -97,9 +119,19 @@ export const Statistic = () => {
         </div>
         <div className={style.order_table_wrap}>
           <div className={style.order_table_container}>
-            <div className={style.order_table_text}>Ордери</div>
+            <div className={style.order_table_header}>
+              <div className={style.order_table_text}>Ордери</div>
+              <div className={style.custom_selector}>
+                <CustomSelector
+                  selected={orderStatus}
+                  data={ordersStatusData}
+                  setTypeOf={addItemData}
+                  name={"status"}
+                />
+              </div>
+            </div>
             <div className={style.order_report}>
-              <OrderTableItem data={pendingOrders} />
+              <OrderTableItem data={pendingOrders} blockChangeStatus={true} />
             </div>
           </div>
         </div>

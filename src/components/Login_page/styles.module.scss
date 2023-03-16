@@ -11,7 +11,7 @@
 }
 .logIn_container {
   padding: 24px;
-  width: 50vw;
+  width: 60vw;
   background-color: $base-color;
   border-radius: 8px;
   display: grid;
@@ -102,4 +102,21 @@
 .facebook:hover {
   background-color: $white-color;
   color: $fourth-color;
+}
+
+@media screen and (max-width: 991px) {
+  .logIn_container {
+    width: 70vw;
+  }
+}
+@media screen and (max-width: 756px) {
+  .logIn_container {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .logIn_container {
+    width: 90vw;
+  }
 }

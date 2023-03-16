@@ -4,7 +4,7 @@ import { getOrderById } from "../../store/action/orders";
 import { OrderInfoScreen } from "../ViewOrderInfoScreen";
 import style from "./styles.module.scss";
 
-export const OrderTableItem = ({ data }) => {
+export const OrderTableItem = ({ data, blockChangeStatus }) => {
   const dispatch = useDispatch();
   const [showOrderInfoScreen, setShowOrderInfoScreen] = useState(false);
 
@@ -56,7 +56,10 @@ export const OrderTableItem = ({ data }) => {
         </tbody>
       </table>
       {showOrderInfoScreen ? (
-        <OrderInfoScreen setShowPopUp={setShowOrderInfoScreen} />
+        <OrderInfoScreen
+          setShowPopUp={setShowOrderInfoScreen}
+          blockChangeStatus={blockChangeStatus}
+        />
       ) : null}
     </div>
   );

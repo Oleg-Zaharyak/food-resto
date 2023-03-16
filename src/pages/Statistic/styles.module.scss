@@ -45,7 +45,7 @@
   width: 100%;
   min-height: 90%;
   max-height: 90%;
-  padding-top: 12px;
+  padding: 12px 0;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -89,11 +89,20 @@
   display: flex;
   flex-direction: column;
 }
-.order_table_text {
+.order_table_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 12px;
+}
+.order_table_text {
   color: $white-color;
   font-family: "Comfortaaa-700";
-  font-size: 18px;
+  font-size: 20px;
+}
+.custom_selector {
+  height: 100%;
+  width: 190px;
 }
 .order_report {
   width: 100%;
@@ -139,7 +148,7 @@
   max-height: 450px;
   min-height: 450px;
   animation-name: openSelector;
-  animation-fill-mode:forwards;
+  animation-fill-mode: forwards;
   animation-duration: 2s;
 }
 @keyframes openSelector {
@@ -177,5 +186,11 @@
   }
   .most_order {
     width: 100%;
+  }
+}
+@media screen and (max-width: 670px) {
+  .container {
+    width: 100vw;
+    max-height: calc(100vh - 69px);
   }
 }

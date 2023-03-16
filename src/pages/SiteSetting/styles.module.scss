@@ -45,3 +45,12 @@
     column-gap: 12px;
   }
 }
+@media screen and (max-width: 670px) {
+  .wrap {
+    width: 100vw;
+    height: calc(100vh - 69px);
+  }
+  .container{
+    max-height: 80%;
+  }
+}

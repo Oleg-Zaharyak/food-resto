@@ -24,7 +24,7 @@
 }
 
 .data_container {
-  width: 50vw;
+  width: 55vw;
   z-index: 1;
   padding: 24px;
   border-radius: 16px;
@@ -33,7 +33,7 @@
   display: grid;
   gap: 16px 13px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 48px 1fr 1fr 1fr 1fr 48px;
+  grid-template-rows: 48px 100px 100px 1fr 1fr 48px;
   grid-template-areas:
     "text_area text_area"
     "images_container name_input"
@@ -174,4 +174,21 @@ label.label input[type="file"] {
 .lable_upload_image:hover {
   background-color: $white-color;
   color: $third-color;
+}
+
+@media screen and (max-width: 1150px) {
+  .data_container {
+    width: 60vw;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .data_container {
+    width: 70vw;
+  }
+}
+@media screen and (max-width: 769px) {
+  .data_container {
+    width: 80vw;
+  }
 }

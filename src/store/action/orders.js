@@ -276,15 +276,12 @@ const getAllOrders = createAsyncThunk(
   }
 );
 
-const getPendingOrders = createAsyncThunk(
-  "orders/PendingOrders",
+const getChoosenOrders = createAsyncThunk(
+  "orders/getChoosenOrders",
   async (arg, thunkAPI) => {
     try {
       thunkAPI.dispatch(setLoadStete(true));
-      const q = query(
-        collection(db, "allOrders"),
-        where("status", "==", "Очікує")
-      );
+      const q = query(collection(db, "allOrders"), where("status", "==", arg));
       const querySnapshot = await getDocs(q);
       const result = [];
       querySnapshot.forEach((doc) => {
@@ -313,7 +310,27 @@ const getOrderById = createAsyncThunk(
       thunkAPI.dispatch(setLoadStete(true));
       const docRef = doc(db, "allOrders", arg);
       const docSnap = await getDoc(docRef);
-      thunkAPI.dispatch(setOrderById(docSnap.data()));
+      const result = docSnap.data();
+      result.id = arg;
+      thunkAPI.dispatch(setOrderById(result));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      thunkAPI.dispatch(setLoadStete(false));
+    }
+  }
+);
+
+const changeOrderStatusTo = createAsyncThunk(
+  "orders/changeOrderStatusTo",
+  async (arg, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(setLoadStete(true));
+      const docRef = doc(db, "allOrders", arg.id);
+      await updateDoc(docRef, {
+        status: arg.status,
+      });
+      thunkAPI.dispatch(getAllOrders());
     } catch (err) {
       console.log(err);
     } finally {
@@ -408,7 +425,8 @@ export {
   getOrderById,
   getUserOrder,
   getUserMostOrder,
-  getPendingOrders,
+  getChoosenOrders,
+  changeOrderStatusTo,
   // getCountOrder,
   // setCountOrder,
   getRestourantsAddress,

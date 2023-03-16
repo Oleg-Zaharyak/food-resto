@@ -90,7 +90,32 @@
   align-items: center;
 }
 
+.burger_menu{
+  display: none;
+  width: 40px;
+  height: 40px;
+  background-color: red;
+}
 
-
-
-
+@media screen and (max-width: 670px) {
+  .container {
+    height: max-content;
+    flex-direction: row;
+    border-radius: 0;
+    padding: 12px 24px;
+  }
+  .menu_button {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+  .exit_button{
+    width: 45px;
+    height: 45px;
+    margin: 0;
+  }
+  .burger_menu{
+    display: block;
+  }
+}

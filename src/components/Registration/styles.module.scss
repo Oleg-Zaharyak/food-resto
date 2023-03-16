@@ -11,12 +11,12 @@
 }
 .signUp_container {
   padding: 24px;
-  width: 50vw;
+  width: 60vw;
   background-color: $base-color;
   border-radius: 8px;
   display: grid;
   gap: 24px 16px;
-  grid-template-columns: 1fr 1fr 1px 1fr  1fr;
+  grid-template-columns: 1fr 1fr 1px 1fr 1fr;
   grid-template-rows: max-content 1px 1fr 1fr 1fr 1fr 48px;
   grid-template-areas:
     "signUp_text          signUp_text         .           exit                exit              "
@@ -111,4 +111,26 @@ input:focus-visible {
 }
 .signUp_buttons {
   grid-area: signUp_button;
+}
+
+@media screen and (max-width: 991px) {
+  .signUp_container {
+    width: 70vw;
+  }
+}
+@media screen and (max-width: 835px) {
+  .signUp_container {
+    width: 75vw;
+  }
+}
+@media screen and (max-width: 775px) {
+  .signUp_container {
+    width: 85vw;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .signUp_container {
+    width: 90vw;
+  }
 }
