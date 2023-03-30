@@ -20,7 +20,7 @@ export const Promotion = () => {
         ) : null}
       </div>
       <div className={style.promotion_container}>
-        <PromotionCard />
+        {/* <PromotionCard /> */}
       </div>
       <div className={style.no_promotion}>
         <div className={style.no_promotion_text}>На даний момент акцій немає</div>
