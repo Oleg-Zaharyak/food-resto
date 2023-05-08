@@ -67,7 +67,7 @@ export const Menu = () => {
           </div>
           <div className={style.hover_container}>
             <NavLink
-              to={"/information"}
+              to={"/information/information_about_us"}
               className={({ isActive }) =>
                 isActive && window.location.pathname === "/information"
                   ? style.active

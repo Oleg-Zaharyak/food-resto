@@ -34,6 +34,25 @@
   border-radius: 8px;
 }
 
+.menu_button{
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  color: $white-color;
+  width: 100%;
+  padding: 20px 8px ;
+  background-color: $base-color;
+  margin-bottom: 10px;
+  // border-radius: 8px;
+  border-bottom: 1px solid $third-color;
+  text-decoration: none;
+}
+.menu_button:hover{
+  background-color: $third-color;
+  border-radius: 8px;
+
+}
+
 .content_container_wrap {
   width: calc(100% - 274px);
   height: 100%;
