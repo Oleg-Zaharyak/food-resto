@@ -7,6 +7,9 @@ import { InformationAboutUsPage } from "../../components/InformationAboutUsPage"
 import { useDispatch } from "react-redux";
 import { getDeliveryInfo } from "../../store/action/information";
 import { InformationVacanciesPage } from "../../components/InformationVacanciesPage";
+import { InformationContactPage } from "../../components/InformationContactPage";
+import { InformationNewsPage } from "../../components/InformationNewsPage";
+import { PageNotFound } from "../NotFoundPage";
 
 export const Information = () => {
   const dispatch = useDispatch();
@@ -30,13 +33,13 @@ export const Information = () => {
             <NavLink to={"information_payment"} className={style.menu_button}>
               Оплата
             </NavLink>
-            <NavLink to={"#"} className={style.menu_button}>
+            <NavLink to={"news"} className={style.menu_button}>
               Новини
             </NavLink>
             <NavLink to={"vacancies"} className={style.menu_button}>
               Вакасії
             </NavLink>
-            <NavLink to={"#"} className={style.menu_button}>
+            <NavLink to={"contacts"} className={style.menu_button}>
               Контакти
             </NavLink>
           </div>
@@ -45,21 +48,24 @@ export const Information = () => {
           <div className={style.content_container}>
             <Routes>
               <Route
-                path={`/information_about_us`}
+                path="/information_about_us"
                 element={<InformationAboutUsPage />}
               />
               <Route
-                path={`/information_delivery`}
+                path="/information_delivery"
                 element={<InformationDeliveryPage />}
               />
               <Route
-                path={`/information_payment`}
+                path="/information_payment"
                 element={<InformationPaymentPage />}
               />
               <Route
-                path={`/vacancies`}
+                path="/vacancies/*"
                 element={<InformationVacanciesPage />}
               />
+              <Route path="/contacts" element={<InformationContactPage />} />
+              <Route path="/news" element={<InformationNewsPage />} />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
         </div>
