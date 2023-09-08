@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/food-resto/static/css/main.4761f1c3.css",
-    "main.js": "/food-resto/static/js/main.707b9a29.js",
+    "main.js": "/food-resto/static/js/main.52a9c575.js",
     "static/js/787.28cb0dcd.chunk.js": "/food-resto/static/js/787.28cb0dcd.chunk.js",
     "static/media/Comfortaa-SemiBold.ttf": "/food-resto/static/media/Comfortaa-SemiBold.47b7aa559e6731360445.ttf",
     "static/media/Comfortaa-Medium.ttf": "/food-resto/static/media/Comfortaa-Medium.db5c74bd40268b35dc93.ttf",
@@ -24,11 +24,11 @@
     "static/media/Dolar.svg": "/food-resto/static/media/Dolar.9274b183e3728e400d7e.svg",
     "index.html": "/food-resto/index.html",
     "main.4761f1c3.css.map": "/food-resto/static/css/main.4761f1c3.css.map",
-    "main.707b9a29.js.map": "/food-resto/static/js/main.707b9a29.js.map",
+    "main.52a9c575.js.map": "/food-resto/static/js/main.52a9c575.js.map",
     "787.28cb0dcd.chunk.js.map": "/food-resto/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4761f1c3.css",
-    "static/js/main.707b9a29.js"
+    "static/js/main.52a9c575.js"
   ]
 }
